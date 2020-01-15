@@ -61,8 +61,10 @@ function convertJSON()
 
     document.getElementById("resultText").innerHTML = questheader + "\n" + questbody + "\n" + missions;
 
+    var characters;
     $.getJSON("characters.json", function(json) {
-        console.log(json); // this will show the info it in firebug console
+        characters = json;
+        console.log(characters.getAttribute("1001"));
     });
     
     <!--https://magireco.fandom.com/api.php?action=expandtemplates&format=json&text=%7B%7BTemplate%3ADrops%7CStanding%20Ear%20Wrapper%7D%7D-->

@@ -87,7 +87,7 @@ function convertJSON()
 				{
 					enemyJson = jsonObj.waveList[waveIndex].enemyList[enemyIndex];
 					enemy = {"name": translateCharId(enemyJson.charId), "align": translateAlign(enemyJson.align), "hp": enemyJson.hp, "quantity": 1, "attack": enemyJson.attack, "defense": enemyJson.defence};
-					if (!findDuplicateAndIncrement(enemy, enemies))
+					if (!findDuplicateAndIncrementQuantity(enemy, enemies))
 						enemies.push(enemy);
 				}
 				

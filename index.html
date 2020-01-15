@@ -69,7 +69,11 @@
 		
 		document.getElementById("resultText").innerHTML = questheader + "\n" + questbody + "\n" + missions;
 		
-		var apiEndpoint = "https://magireco.fandom.com/api.php";
+		$.getJSON("characters.json", function(json) {
+    		console.log(json); // this will show the info it in firebug console
+		});
+		
+		/*var apiEndpoint = "https://magireco.fandom.com/api.php";
 		var params = "action=parse&format=json&text=" + document.getElementById("resultText").innerHTML;
 
 		fetch(apiEndpoint + "?" + params + "&origin=*")
@@ -78,7 +82,7 @@
 				console.log(response.parse.text["*"]);
 				document.getElementById("resultRender").innerHTML = response.parse.text["*"];
 			})
-			.catch(function(error){console.log(error);});
+			.catch(function(error){console.log(error);});*/
 	}
 </script>
 

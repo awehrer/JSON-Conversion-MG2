@@ -19,6 +19,27 @@ function translateItemCode(itemCode, itemJson)
         return itemCode;
 }
 
+function translateAlign(align)
+{
+	var attrMap = {"LIGHT": "Light", "DARK": "Dark", "WATER": "Aqua", "FIRE": "Flame", "TIMBER": "Forest"};
+	return (attrMap[align] != undefined ? attrMap[align] : align);
+}
+
+function translateCharId(id)
+{
+	return id;
+}
+
+function isSameEnemy(enemy1, enemy1)
+{
+	
+}
+
+function findDuplicateAndIncrementQuantity(enemy, enemies)
+{
+	return false;
+}
+
 function convertJSON()
 {
     var jsonObj = JSON.parse(document.getElementById("jsonText").innerHTML);
@@ -52,8 +73,36 @@ function convertJSON()
             |21={{Enemy|Shin|Dark|1400000|1|b||11000|15000|{{Hitspot|2=y|5=y|7=y|9=y}}}}
             }}
             */
-            var questbody = "{{Questbody"
-                        + "\n}}";
+			var questbody = "{{Questbody";
+			
+			var enemies;
+			var uniqueEnemyCount;
+			var enemyJson;
+			var enemy;
+			for (var waveIndex = 0; waveIndex < Object.keys(jsonObj.waveList).length; waveIndex++)
+			{
+				enemies = [];
+				
+				for (var enemyIndex = 0; enemyIndex < Object.keys(jsonObj.waveList[waveIndex].enemyList).length; enemyIndex++)
+				{
+					enemyJson = jsonObj.waveList[waveIndex].enemyList[enemyIndex];
+					enemy = {"name": translateCharId(enemyJson.charId), "align": translateAlign(enemyJson.align), "hp": enemyJson.hp, "quantity": 1, "attack": enemyJson.attack, "defense": enemyJson.defence};
+					if (!findDuplicateAndIncrement(enemy, enemies))
+						enemies.push(enemy);
+				}
+				
+				for (var enemyIndex = 0; enemyIndex < enemies.length; enemyIndex++)
+				{
+					questbody += "\n|" + (waveIndex + 1) + "" + (enemyIndex + 1) + "={{Enemy|" 
+								+ enemies[enemyIndex].name + "|" + enemies[enemyIndex].align
+								+ "|" + enemies[enemyIndex].hp + "|" + enemies[enemyIndex].quantity
+								+ "|" + (waveIndex > 0 && enemyIndex == 0 ? "b" : "")
+								+ "||" + enemies[enemyIndex].attack + "|" + enemies[enemyIndex].defense
+								+ "}}";
+				}
+			}
+			
+            questbody += "\n}}";
 
             /* Example:
             {{Missions

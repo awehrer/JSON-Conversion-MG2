@@ -2,7 +2,7 @@
 <html>
 <head>
 	<title>Convert</title>
-	<script src="JSON-Conversion-MG/jquery-3.4.1.min.js"></script>
+	<script src="jquery-3.4.1.min.js"></script>
 </head>
 <body>
 <script>
@@ -70,7 +70,7 @@
 		
 		document.getElementById("resultText").innerHTML = questheader + "\n" + questbody + "\n" + missions;
 		
-		$.getJSON("JSON-Conversion-MG/characters.json", function(json) {
+		$.getJSON("characters.json", function(json) {
     		console.log(json); // this will show the info it in firebug console
 		});
 		

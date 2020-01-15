@@ -64,8 +64,9 @@ function convertJSON()
     var characters;
     $.getJSON("characters.json", function(json) {
         characters = json;
-        console.log(characters.getAttribute("1001"));
+        console.log(characters['1001']);
     });
+    console.log(characters['1001']);
     
     <!--https://magireco.fandom.com/api.php?action=expandtemplates&format=json&text=%7B%7BTemplate%3ADrops%7CStanding%20Ear%20Wrapper%7D%7D-->
     /*var apiEndpoint = "https://magireco.fandom.com/api.php";

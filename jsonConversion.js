@@ -25,9 +25,12 @@ function translateAlign(align)
 	return (attrMap[align] != undefined ? attrMap[align] : align);
 }
 
-function translateCharId(id)
+function translateCharId(id, characterJson)
 {
-	return id;
+	if (characterJson[id] != undefined)
+        return characterJson[id];
+    else
+        return id;
 }
 
 function isSameEnemy(enemy1, enemy2)
@@ -100,9 +103,7 @@ function convertJSON()
 				for (var enemyIndex = 0; enemyIndex < Object.keys(jsonObj.waveList[waveIndex].enemyList).length; enemyIndex++)
 				{
 					enemyJson = jsonObj.waveList[waveIndex].enemyList[enemyIndex];
-					enemy = {"name": translateCharId(enemyJson.charId), "align": translateAlign(enemyJson.align), "hp": enemyJson.hp, "quantity": 1, "attack": enemyJson.attack, "defense": enemyJson.defence};
-					
-					
+					enemy = {"name": translateCharId(enemyJson.charId, characterJson), "align": translateAlign(enemyJson.align), "hp": enemyJson.hp, "quantity": 1, "attack": enemyJson.attack, "defense": enemyJson.defence};
 					
 					if (enemyJson.posBody != undefined) // indication of body parts of boss
 					{

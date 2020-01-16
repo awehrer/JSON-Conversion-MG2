@@ -51,7 +51,7 @@ function findDuplicateAndIncrementQuantity(enemy, enemies)
 
 function convertJSON()
 {
-    var jsonObj = JSON.parse(document.getElementById("jsonText").innerHTML);
+    var jsonObj = JSON.parse(document.getElementById("jsonText").value);
     
     $.getJSON("characters.json", convertJSONWithCharacterJSON);
     

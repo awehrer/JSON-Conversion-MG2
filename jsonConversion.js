@@ -102,8 +102,7 @@ function convertJSON()
 					enemyJson = jsonObj.waveList[waveIndex].enemyList[enemyIndex];
 					enemy = {"name": translateCharId(enemyJson.charId), "align": translateAlign(enemyJson.align), "hp": enemyJson.hp, "quantity": 1, "attack": enemyJson.attack, "defense": enemyJson.defence};
 					
-					if (enemyJson.bossType > 0)
-						bossIndex = enemyIndex;
+					
 					
 					if (enemyJson.posBody != undefined) // indication of body parts of boss
 					{
@@ -117,7 +116,10 @@ function convertJSON()
 					}
 					else if (!findDuplicateAndIncrementQuantity(enemy, enemies))
 					{
-						enemies.push(enemy);
+						var newArrayLength = enemies.push(enemy);
+						
+						if (enemyJson.bossType > 0)
+							bossIndex = newArrayLength - 1;
 					}
 				}
 				

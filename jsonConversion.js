@@ -30,13 +30,22 @@ function translateCharId(id)
 	return id;
 }
 
-function isSameEnemy(enemy1, enemy1)
+function isSameEnemy(enemy1, enemy2)
 {
-	
+	return (enemy1.name == enemy2.name && enemy1.align == enemy2.align && enemy1.hp == enemy2.hp && enemy1.attack == enemy2.attack && enemy1.defense == enemy2.defense);
 }
 
 function findDuplicateAndIncrementQuantity(enemy, enemies)
 {
+	for (var i = 0; i < enemies.length; i++)
+	{
+		if (isSameEnemy(enemy, enemies[i]));
+		{
+			enemies[i].quantity++;
+			return true;
+		}
+	}
+	
 	return false;
 }
 
@@ -79,16 +88,37 @@ function convertJSON()
 			var uniqueEnemyCount;
 			var enemyJson;
 			var enemy;
+			var bodyPos;
+			var hitspots;
+			var bossIndex;
 			for (var waveIndex = 0; waveIndex < Object.keys(jsonObj.waveList).length; waveIndex++)
 			{
 				enemies = [];
+				hitspots = null;
+				bossIndex = -1;
 				
 				for (var enemyIndex = 0; enemyIndex < Object.keys(jsonObj.waveList[waveIndex].enemyList).length; enemyIndex++)
 				{
 					enemyJson = jsonObj.waveList[waveIndex].enemyList[enemyIndex];
 					enemy = {"name": translateCharId(enemyJson.charId), "align": translateAlign(enemyJson.align), "hp": enemyJson.hp, "quantity": 1, "attack": enemyJson.attack, "defense": enemyJson.defence};
-					if (!findDuplicateAndIncrementQuantity(enemy, enemies))
+					
+					if (enemyJson.bossType > 0)
+						bossIndex = enemyIndex;
+					
+					if (enemyJson.posBody != undefined) // indication of body parts of boss
+					{
+						if (hitspots == null)
+						{
+							hitspots = [];
+							hitspots.push(posBody); // position of main body
+						}
+						
+						hitspots.push(pos); // position of body part
+					}
+					else if (!findDuplicateAndIncrementQuantity(enemy, enemies))
+					{
 						enemies.push(enemy);
+					}
 				}
 				
 				for (var enemyIndex = 0; enemyIndex < enemies.length; enemyIndex++)
@@ -97,8 +127,19 @@ function convertJSON()
 								+ enemies[enemyIndex].name + "|" + enemies[enemyIndex].align
 								+ "|" + enemies[enemyIndex].hp + "|" + enemies[enemyIndex].quantity
 								+ "|" + (waveIndex > 0 && enemyIndex == 0 ? "b" : "")
-								+ "||" + enemies[enemyIndex].attack + "|" + enemies[enemyIndex].defense
-								+ "}}";
+								+ "||" + enemies[enemyIndex].attack + "|" + enemies[enemyIndex].defense;
+								
+					if (hitspots != null && enemyIndex == bossIndex)
+					{
+						questbody += "|{{Hitspot";
+						
+						for (var i = 0; i < hitspots.length; i++)
+							questbody += "|" + hitspots[i] + "=y";
+						
+						questbody += "}}";
+					}
+					
+					questbody += "}}";
 				}
 			}
 			

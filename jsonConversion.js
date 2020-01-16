@@ -110,7 +110,7 @@ function convertJSON()
 						if (hitspots == null)
 						{
 							hitspots = [];
-							hitspots.push(posBody); // position of main body
+							hitspots.push(enemyJson.posBody); // position of main body
 						}
 						
 						hitspots.push(pos); // position of body part

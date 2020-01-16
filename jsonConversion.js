@@ -165,19 +165,19 @@ function convertJSON()
                                     + "\n|Mission Reward = " + translateItemCode(missionRewardCode.substr(0, index), itemJson)
                                     + "\n}}";
 
-            document.getElementById("resultText").innerHTML = questheader + "\n" + questbody + "\n" + missions;
+            document.getElementById("resultText").value = questheader + "\n" + questbody + "\n" + missions;
         }
     }
     
     <!--https://magireco.fandom.com/api.php?action=expandtemplates&format=json&text=%7B%7BTemplate%3ADrops%7CStanding%20Ear%20Wrapper%7D%7D-->
     /*var apiEndpoint = "https://magireco.fandom.com/api.php";
-    var params = "action=parse&format=json&text=" + document.getElementById("resultText").innerHTML;
+    var params = "action=parse&format=json&text=" + document.getElementById("resultText").value;
 
     fetch(apiEndpoint + "?" + params + "&origin=*")
         .then(function(response){return response.json();})
         .then(function(response) {
             console.log(response.parse.text["*"]);
-            document.getElementById("resultRender").innerHTML = response.parse.text["*"];
+            document.getElementById("resultRender").value = response.parse.text["*"];
         })
         .catch(function(error){console.log(error);});*/
 }

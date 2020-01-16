@@ -113,7 +113,7 @@ function convertJSON()
 							hitspots.push(enemyJson.posBody); // position of main body
 						}
 						
-						hitspots.push(pos); // position of body part
+						hitspots.push(enemyJson.pos); // position of body part
 					}
 					else if (!findDuplicateAndIncrementQuantity(enemy, enemies))
 					{

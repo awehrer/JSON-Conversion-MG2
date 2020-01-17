@@ -1,23 +1,29 @@
 function translateMissionCode(missionCode)
 {
     var parts = missionCode.split("_");
-    if (parts[0] == "ACTION")
+    if (parts[0] == "ACTION") // ACTION_#
         return "Clear within " + parts[1] + " turns";
-    else if (parts[0] == "HP")
+    else if (parts[0] == "HP") // HP_#
         return "Clear when total remaining HP is " + parts[1] + "% or more";
-    else if (missionCode == "NOT_CONTINUE")
+    else if (missionCode == "NOT_CONTINUE") // NOT_CONTINUE
         return "Clear without Continue";
-	else if (missionCode == "NOT_DEAD")
+	else if (missionCode == "NOT_DEAD") // NOT_DEAD
 		return "Clear without losing any Magical Girls";
-	else if (missionCode == "ONLY_DAMAGE_ATTRIBUTE_FIRE")
+	else if (missionCode == "CLEAR") // CLEAR
+		return "Clear";
+	else if (parts[0] == "ONLY" && parts[1] == "MEMBER" && parts[2] == "COUNT") // ONLY_MEMBER_COUNT_#
+		return "Clear with " + parts[3] + " Magical Girls or less";
+	else if (parts[0] == "WAVE") // WAVE_#
+		return "Clear within " + parts[1] + " Wave(s)";
+	else if (missionCode == "ONLY_DAMAGE_ATTRIBUTE_FIRE") // ONLY_DAMAGE_ATTRIBUTE_FIRE
 		return "Clear using only Flame DMG";
-	else if (missionCode == "ONLY_DAMAGE_ATTRIBUTE_WATER")
+	else if (missionCode == "ONLY_DAMAGE_ATTRIBUTE_WATER") // ONLY_DAMAGE_ATTRIBUTE_WATER
 		return "Clear using only Aqua DMG";
-	else if (missionCode == "ONLY_DAMAGE_ATTRIBUTE_TIMBER")
+	else if (missionCode == "ONLY_DAMAGE_ATTRIBUTE_TIMBER") // ONLY_DAMAGE_ATTRIBUTE_TIMBER
 		return "Clear using only Timber DMG";
-	else if (missionCode == "ONLY_DAMAGE_ATTRIBUTE_LIGHT")
+	else if (missionCode == "ONLY_DAMAGE_ATTRIBUTE_LIGHT") // ONLY_DAMAGE_ATTRIBUTE_LIGHT
 		return "Clear using only Light DMG";
-	else if (missionCode == "ONLY_DAMAGE_ATTRIBUTE_DARK")
+	else if (missionCode == "ONLY_DAMAGE_ATTRIBUTE_DARK") // ONLY_DAMAGE_ATTRIBUTE_DARK
 		return "Clear using only DARK DMG";
     else
         return missionCode;

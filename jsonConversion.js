@@ -174,6 +174,7 @@ function convertJSON()
 			var itemCode;
 			var itemQuantity;
 			var rewardNum;
+			var dropItemNum = 1;
 			var itemCount = 0;
 			var fcItemCount = 0;
 			var drops = "{{Drops";
@@ -194,6 +195,40 @@ function convertJSON()
 					rewardNum++;
 				}
 			}
+			
+			while (jsonObj.webData.userQuestBattleResultList[0].questBattle["dropItem" + dropItemNum] != undefined)
+			{
+				rewardNum = 1;
+				var dropItem = jsonObj.webData.userQuestBattleResultList[0].questBattle["dropItem" + dropItemNum];
+				while (dropItem["rewardCode" + rewardNum] != undefined)
+				{
+					itemCount++;
+					var dropRewardCode = dropItem["rewardCode" + rewardNum];
+					index = dropRewardCode.lastIndexOf("_");
+					itemCode = dropRewardCode.substr(0, index);
+					itemQuantity = dropRewardCode.substr(index + 1);
+					drops += "|" + translateItemCode(itemCode, itemJson);
+					if (itemQuantity > 1)
+						drops += "|" + itemCount + "Q=" + itemQuantity;
+					rewardNum++;
+				}
+				
+				dropItemNum++;
+			}
+			
+			var fcItemCodes = jsonObj.webData.userQuestBattleResultList[0].questBattle.firstClearRewardCodes.split(",");
+			
+			for (var i = 0; i < fcItemCodes.length; i++)
+			{
+				index = fcItemCodes[i].lastIndexOf("_");
+				itemCode = fcItemCodes[i].substr(0, index);
+				itemQuantity = fcItemCodes[i].substr(index + 1);
+				drops += "|" + translateItemCode(itemCode, itemJson);
+				if (itemQuantity > 1)
+					drops += "|FC" + (i != 0 ? (i + 1) : "") + "Q=" + itemQuantity;
+			}
+			
+			drops += "}}";
 			
 			
 			/* Example:

@@ -1,6 +1,7 @@
 {
   "RICHE": "CC",
   "ITEM_PRESENTED_MONEY": "Magia Stone",
+  "ITEM_COMPOSE_ITEM_ALL_PP": "Master Gem ++",
   "GIFT_112": "Flame Orb +",
   "GIFT_113": "Flame Orb ++",
   "GIFT_122": "Aqua Orb +",
@@ -26,9 +27,16 @@
   "GIFT_251": "Dark Book",
   "GIFT_252": "Dark Book +",
   "GIFT_253": "Dark Book ++",
+  "GIFT_302": "Mirror Invitation Letter",
+  "GIFT_303": "Standing Ear Wrapper",
+  "GIFT_304": "Blowing Horn",
+  "GIFT_305": "Rooftop Key",
   "GIFT_307": "Nanny's Pedestal",
+  "GIFT_402": "Chain of Padlock
   "GIFT_403": "Ema's Mizuhiki",
+  "GIFT_502": "Monument of the Stairs",
   "GIFT_503": "Machibito Horse's Wheel",
+  "GIFT_554": "Rooftop Balloons",
   "GIFT_556": "Nanny's Grip",
   "ITEM_EVENT_DAILYTOWER_1046_EXCHANGE_1": "Lucky Rake",
   "ITEM_EVENT_DAILYTOWER_1046_EXCHANGE_2": "Feast Ticket"

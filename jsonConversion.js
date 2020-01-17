@@ -223,7 +223,7 @@ function convertJSON()
 				index = fcItemCodes[i].lastIndexOf("_");
 				itemCode = fcItemCodes[i].substr(0, index);
 				itemQuantity = fcItemCodes[i].substr(index + 1);
-				drops += "|" + translateItemCode(itemCode, itemJson);
+				drops += "|FC" + (i != 0 ? (i + 1) : "") + "=" + translateItemCode(itemCode, itemJson);
 				if (itemQuantity > 1)
 					drops += "|FC" + (i != 0 ? (i + 1) : "") + "Q=" + itemQuantity;
 			}

@@ -42,7 +42,7 @@ function findDuplicateAndIncrementQuantity(enemy, enemies)
 {
 	for (var i = 0; i < enemies.length; i++)
 	{
-		if (isSameEnemy(enemy, enemies[i]));
+		if (isSameEnemy(enemy, enemies[i]))
 		{
 			enemies[i].quantity++;
 			return true;

@@ -21,7 +21,7 @@ function translateItemCode(itemCode, itemJson)
 
 function translateAlign(align)
 {
-	var attrMap = {"LIGHT": "Light", "DARK": "Dark", "WATER": "Aqua", "FIRE": "Flame", "TIMBER": "Forest"};
+	var attrMap = {"LIGHT": "Light", "DARK": "Dark", "WATER": "Aqua", "FIRE": "Flame", "TIMBER": "Forest", "VOID": "Void"};
 	return (attrMap[align] != undefined ? attrMap[align] : align);
 }
 

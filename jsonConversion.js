@@ -20,11 +20,11 @@ function translateMissionCode(missionCode)
 	else if (missionCode == "ONLY_DAMAGE_ATTRIBUTE_WATER") // ONLY_DAMAGE_ATTRIBUTE_WATER
 		return "Clear using only Aqua DMG";
 	else if (missionCode == "ONLY_DAMAGE_ATTRIBUTE_TIMBER") // ONLY_DAMAGE_ATTRIBUTE_TIMBER
-		return "Clear using only Timber DMG";
+		return "Clear using only Forest DMG";
 	else if (missionCode == "ONLY_DAMAGE_ATTRIBUTE_LIGHT") // ONLY_DAMAGE_ATTRIBUTE_LIGHT
 		return "Clear using only Light DMG";
 	else if (missionCode == "ONLY_DAMAGE_ATTRIBUTE_DARK") // ONLY_DAMAGE_ATTRIBUTE_DARK
-		return "Clear using only DARK DMG";
+		return "Clear using only Dark DMG";
     else
         return missionCode;
 }

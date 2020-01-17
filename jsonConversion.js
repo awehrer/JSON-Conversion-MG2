@@ -5,8 +5,20 @@ function translateMissionCode(missionCode)
         return "Clear within " + parts[1] + " turns";
     else if (parts[0] == "HP")
         return "Clear when total remaining HP is " + parts[1] + "% or more";
-    else if (parts[0] == "NOT" && parts[1] == "CONTINUE")
+    else if (missionCode == "NOT_CONTINUE")
         return "Clear without Continue";
+	else if (missionCode == "NOT_DEAD")
+		return "Clear without losing any Magical Girls";
+	else if (missionCode == "ONLY_DAMAGE_ATTRIBUTE_FIRE")
+		return "Clear using only Flame DMG";
+	else if (missionCode == "ONLY_DAMAGE_ATTRIBUTE_WATER")
+		return "Clear using only Aqua DMG";
+	else if (missionCode == "ONLY_DAMAGE_ATTRIBUTE_TIMBER")
+		return "Clear using only Timber DMG";
+	else if (missionCode == "ONLY_DAMAGE_ATTRIBUTE_LIGHT")
+		return "Clear using only Light DMG";
+	else if (missionCode == "ONLY_DAMAGE_ATTRIBUTE_DARK")
+		return "Clear using only DARK DMG";
     else
         return missionCode;
 }

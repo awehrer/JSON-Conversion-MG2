@@ -53,7 +53,7 @@ function translateCharId(id, characterJson)
 
 function isSameEnemy(enemy1, enemy2)
 {
-	return (enemy1.name == enemy2.name && enemy1.align == enemy2.align && enemy1.hp == enemy2.hp && enemy1.attack == enemy2.attack && enemy1.defense == enemy2.defense);
+	return (enemy1.name == enemy2.name && enemy1.align == enemy2.align && enemy1.hp == enemy2.hp && enemy1.attack == enemy2.attack && enemy1.defense == enemy2.defense && enemy1.displayName == enemy2.displayName);
 }
 
 function findDuplicateAndIncrementQuantity(enemy, enemies)
@@ -405,7 +405,7 @@ function convertJSON()
 					for (var enemyIndex = 0; enemyIndex < Object.keys(jsonObj.waveList[waveIndex].enemyList).length; enemyIndex++)
 					{
 						enemyJson = jsonObj.waveList[waveIndex].enemyList[enemyIndex];
-						enemy = {"name": translateCharId(enemyJson.charId, characterJson), "align": translateAlign(enemyJson.align), "hp": enemyJson.hp, "quantity": 1, "attack": enemyJson.attack, "defense": enemyJson.defence};
+						enemy = {"name": translateCharId(enemyJson.charId, characterJson), "align": translateAlign(enemyJson.align), "hp": enemyJson.hp, "quantity": 1, "attack": enemyJson.attack, "defense": enemyJson.defence, "species": enemyJson.enemyKindType, "displayName": enemyJson.name};
 						
 						if (enemyJson.posBody != undefined) // indication of body parts of boss
 						{
@@ -432,7 +432,8 @@ function convertJSON()
 									+ enemies[enemyIndex].name + "|" + enemies[enemyIndex].align
 									+ "|" + enemies[enemyIndex].hp + "|" + enemies[enemyIndex].quantity
 									+ "|" + (waveIndex > 0 && enemyIndex == 0 ? "b" : "")
-									+ "||" + enemies[enemyIndex].attack + "|" + enemies[enemyIndex].defense;
+									+ "|" + (enemies[enemyIndex].species == "HUMAN" && (enemies[enemyIndex].displayName.endsWith(" Mirror") || enemies[enemyIndex].displayName.endsWith("/ミラー")) ? enemies[enemyIndex].name " / Mirror" : "")
+									+ "|" + enemies[enemyIndex].attack + "|" + enemies[enemyIndex].defense;
 									
 						if (hitspots != null && enemyIndex == bossIndex)
 						{
@@ -464,7 +465,7 @@ function convertJSON()
 					for (var enemyIndex = 0; enemyIndex < jsonObj.waveList[waveIndex].enemyList.length; enemyIndex++)
 					{
 						enemyJson = jsonObj.waveList[waveIndex].enemyList[enemyIndex];
-						enemy = {"name": translateCharId(enemyJson.charId, characterJson), "type": translateAlign(enemyJson.align), "memoriaList": enemyJson.memoriaList, "renderType": false};
+						enemy = {"name": translateCharId(enemyJson.charId, characterJson), "type": translateAlign(enemyJson.align), "memoriaList": enemyJson.memoriaList, "renderType": false, "species": enemyJson.enemyKindType, "displayName": enemyJson.name};
 						recordSkills(enemy, enemies);
 					}
 				}
@@ -476,7 +477,9 @@ function convertJSON()
 				
 				for (var i = 0; i < enemies.length; i++)
 				{
-					enemySkills += "\n|{{Skills|" + enemies[i].name + (enemies[i].renderType ? "|Type=" + enemies[i].type : "");
+					enemySkills += "\n|{{Skills|" + enemies[i].name
+								+ (enemies[enemyIndex].species == "HUMAN" && (enemies[enemyIndex].displayName.endsWith(" Mirror") || enemies[enemyIndex].displayName.endsWith("/ミラー")) ? "|" + enemies[enemyIndex].name " / Mirror" : "")
+								+ (enemies[i].renderType ? "|Type=" + enemies[i].type : "");
 					numPassives = 0;
 					numSkills = 0;
 					

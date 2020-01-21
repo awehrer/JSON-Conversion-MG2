@@ -432,7 +432,7 @@ function convertJSON()
 									+ enemies[enemyIndex].name + "|" + enemies[enemyIndex].align
 									+ "|" + enemies[enemyIndex].hp + "|" + enemies[enemyIndex].quantity
 									+ "|" + (waveIndex > 0 && enemyIndex == 0 ? "b" : "")
-									+ "|" + (enemies[enemyIndex].species == "HUMAN" && (enemies[enemyIndex].displayName.endsWith(" Mirror") || enemies[enemyIndex].displayName.endsWith("/ミラー")) ? enemies[enemyIndex].name " / Mirror" : "")
+									+ "|" + (enemies[enemyIndex].species == "HUMAN" && (enemies[enemyIndex].displayName.endsWith(" Mirror") || enemies[enemyIndex].displayName.endsWith("/ミラー")) ? enemies[enemyIndex].name + " / Mirror" : "")
 									+ "|" + enemies[enemyIndex].attack + "|" + enemies[enemyIndex].defense;
 									
 						if (hitspots != null && enemyIndex == bossIndex)

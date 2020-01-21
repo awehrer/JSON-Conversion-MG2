@@ -482,7 +482,7 @@ function convertJSON()
 					
 					for (memoriaIndex = 0; memoriaIndex < enemies[i].memoriaList.length; memoriaIndex++)
 					{
-						memoria = getMemoriaById(enemies[i].memoriaList[memoriaIndex]);
+						memoria = getMemoriaById(enemies[i].memoriaList[memoriaIndex], jsonObj);
 						memoriaDesc = interpretMemoria(memoria, jsonObj, effectJson);
 						
 						if (memoria.type == "ABILITY")

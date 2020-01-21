@@ -166,7 +166,7 @@ function interpretArt(art, jsonObj, effectJson)
 	{
 		case "CONDITION_GOOD":
 			if (art.rate < 1000)
-				effectName = "Chance to";
+				effectName = "Chance to ";
 			else
 				effectName = "";
 			
@@ -177,7 +177,7 @@ function interpretArt(art, jsonObj, effectJson)
 			break;
 		case "CONDITION_BAD":
 			if (art.rate < 1000)
-				effectName = "Chance to";
+				effectName = "Chance to ";
 			else
 				effectName = "";
 			
@@ -191,7 +191,7 @@ function interpretArt(art, jsonObj, effectJson)
 			break;
 		case "IGNORE":
 			if (art.rate < 1000)
-				effectName = "Chance to";
+				effectName = "Chance to ";
 			else
 				effectName = "";
 			
@@ -211,7 +211,7 @@ function interpretArt(art, jsonObj, effectJson)
 			break;
 		case "ENCHANT":
 		if (art.rate < 1000)
-				effectName = "Chance to";
+				effectName = "Chance to ";
 			else
 				effectName = "";
 			

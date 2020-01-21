@@ -171,7 +171,7 @@ function interpretArt(art, jsonObj, effectJson)
 				effectName = "";
 			
 			if (art.sub == "AUTO_HEAL")
-				effectName += "Regenerate " + art.genericValue + " [" + art.effect + "%]";
+				effectName += "Regenerate " + art.genericValue + " [" + (art.effect / 10) + "%]";
 			else
 				effectName += effectJson[art.sub] + " [" + (art.rate / 10) + "%]";
 			break;
@@ -199,11 +199,11 @@ function interpretArt(art, jsonObj, effectJson)
 			break;
 		case "HEAL":
 			if (art.sub == "MP")
-				effectName = "MP Restore [" + (art.effect / 10) + "]";
+				effectName = "MP Restore [" + (art.effect / 10) + " MP]";
 			else if (art.sub == "HP")
-				effectName = "HP Restore [" + (art.effect / 10) + "]";
+				effectName = "HP Restore [" + (art.effect / 10) + "%]";
 			else if (art.sub == "MP_DAMAGE")
-				
+				effectName = "MP Damage [" + (art.effect / 10) + " MP]";
 			break;
 		case "INITIAL":
 			if (art.sub == "MP")
@@ -471,12 +471,14 @@ function convertJSON()
 				
 				var memoria;
 				var memoriaDesc;
-				var numPassives = 0;
-				var numSkills = 0;
+				var numPassives;
+				var numSkills;
 				
 				for (var i = 0; i < enemies.length; i++)
 				{
 					enemySkills += "\n|{{Skills|" + enemies[i].name + (enemies[i].renderType ? "|Type=" + enemies[i].type : "");
+					numPassives = 0;
+					numSkills = 0;
 					
 					for (memoriaIndex = 0; memoriaIndex < enemies[i].memoriaList.length; memoriaIndex++)
 					{

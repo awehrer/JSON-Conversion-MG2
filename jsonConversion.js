@@ -184,10 +184,10 @@ function interpretArt(art, jsonObj, effectJson)
 			effectName += effectJson[art.sub] + " [" + (art.rate / 10) + "%]";
 			break;
 		case "BUFF":
-			effectName = effectJson[art.sub] + " Up [" + (art.rate / 10) + "%]";
+			effectName = effectJson[art.sub] + " Up [" + (art.effect / 10) + "%]";
 			break;
 		case "DEBUFF":
-			effectName = effectJson[art.sub] + " Down [" + (art.rate / 10) + "%]";
+			effectName = effectJson[art.sub] + " Down [" + (art.effect / 10) + "%]";
 			break;
 		case "IGNORE":
 			if (art.rate < 1000)
@@ -235,10 +235,10 @@ function interpretArt(art, jsonObj, effectJson)
 			}
 			break;
 		case "BUFF_DYING":
-			effectName = effectJson[art.sub] + " Up When At Critical Health [" + (art.rate / 10) + "%]";
+			effectName = effectJson[art.sub] + " Up When At Critical Health [" + (art.effect / 10) + "%]";
 			break;
 		case "BUFF_HPMAX":
-			effectName = effectJson[art.sub] + " Up While At Max Health [" + (art.rate / 10) + "%]";
+			effectName = effectJson[art.sub] + " Up While At Max Health [" + (art.effect / 10) + "%]";
 			break;
 	}
 	

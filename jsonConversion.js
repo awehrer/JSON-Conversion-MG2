@@ -463,7 +463,7 @@ function convertJSON()
 				
 				for (var waveIndex = 0; waveIndex < jsonObj.waveList.length; waveIndex++)
 				{
-					for (var enemyIndex = 0; enemyIndex < waveList[waveIndex].enemyList.length; enemyIndex++)
+					for (var enemyIndex = 0; enemyIndex < jsonObj.waveList[waveIndex].enemyList.length; enemyIndex++)
 					{
 						enemyJson = jsonObj.waveList[waveIndex].enemyList[enemyIndex];
 						enemy = {"name": translateCharId(enemyJson.charId, characterJson), "type": translateAlign(enemyJson.align), "memoriaList": enemyJson.memoriaList, "renderType": false};

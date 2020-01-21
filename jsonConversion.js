@@ -478,7 +478,7 @@ function convertJSON()
 				for (var i = 0; i < enemies.length; i++)
 				{
 					enemySkills += "\n|{{Skills|" + enemies[i].name
-								+ (enemies[enemyIndex].species == "HUMAN" && (enemies[enemyIndex].displayName.endsWith(" Mirror") || enemies[enemyIndex].displayName.endsWith("/ミラー")) ? "|" + enemies[enemyIndex].name + " / Mirror" : "")
+								+ (enemies[i].species == "HUMAN" && (enemies[i].displayName.endsWith(" Mirror") || enemies[i].displayName.endsWith("/ミラー")) ? "|" + enemies[i].name + " / Mirror" : "")
 								+ (enemies[i].renderType ? "|Type=" + enemies[i].type : "");
 					numPassives = 0;
 					numSkills = 0;

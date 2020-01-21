@@ -54,6 +54,10 @@
   "GIFT_304": "Blowing Horn",
   "GIFT_305": "Rooftop Key",
   "GIFT_307": "Nanny's Pedestal",
+  "GIFT_308": "Ikigami's Hairball",
+  "GIFT_309": "Rubber Swim Ring",
+  "GIFT_310": "Nomadistic Stake",
+  "GIFT_401": "Sandbox Shell",
   "GIFT_402": "Chain of Padlock",
   "GIFT_403": "Ema's Mizuhiki",
   "GIFT_502": "Monument of the Stairs",
@@ -62,6 +66,7 @@
   "GIFT_555": "Pendulum Bob",
   "GIFT_556": "Nanny's Grip",
   "ITEM_EVENT_TRAINING_1026": "Potion",
+  "ITEM_EVENT_TRAINING_1084": "Potion",
   "ITEM_EVENT_DAILYTOWER_1046_EXCHANGE_1": "Lucky Rake",
   "ITEM_EVENT_DAILYTOWER_1046_EXCHANGE_2": "Feast Ticket"
 }

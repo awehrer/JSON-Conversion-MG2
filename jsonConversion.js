@@ -268,8 +268,6 @@ function interpretArt(art, jsonObj, effectJson)
 			break;
 	}
 	
-	target = art.target;
-	
 	return {"effect": effectName, "turn": turn, "target": target};
 }
 
@@ -329,7 +327,7 @@ function interpretMemoria(memoria, jsonObj, effectJson)
 					memoriaDesc += " & ";
 			}
 			
-			memoriaDesc += " (" + target + (effects[effectIndex].turn > 0 ? " / " + effects[effectIndex].turn + (effects[effectIndex].turn == 1 ? " Turn)" : " Turns)") : ")");
+			memoriaDesc += " (" + target + (turn > 0 ? " / " + turn + (turn == 1 ? " Turn)" : " Turns)") : ")");
 		}
 		else
 		{

@@ -1,7 +1,7 @@
 {
   "RICHE": "CC",
   "ITEM_PRESENTED_MONEY": "Magia Stone",
-  "ITEM_PRISM": "Magia Chip"
+  "ITEM_PRISM": "Magia Chip",
   "ITEM_COMPOSE_ITEM_ALL": "Master Gem",
   "ITEM_COMPOSE_ITEM_ALL_P": "Master Gem +",
   "ITEM_COMPOSE_ITEM_ALL_PP": "Master Gem ++",
@@ -69,5 +69,6 @@
   "ITEM_EVENT_TRAINING_1026": "Potion",
   "ITEM_EVENT_TRAINING_1084": "Potion",
   "ITEM_EVENT_DAILYTOWER_1046_EXCHANGE_1": "Lucky Rake",
-  "ITEM_EVENT_DAILYTOWER_1046_EXCHANGE_2": "Feast Ticket"
+  "ITEM_EVENT_DAILYTOWER_1046_EXCHANGE_2": "Feast Ticket",
+  "ITEM_EVENT_DAILYTOWER_1025_EXCHANGE_1": "Ghost License"
 }

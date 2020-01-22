@@ -317,7 +317,7 @@ function interpretMemoria(memoria, jsonObj, effectJson)
 		
 		if (sameTurnTarget)
 		{
-			effects.sort(function(a, b) { return a.effect.localCompare(b.effect); });
+			effects.sort(function(a, b) { return a.effect.localeCompare(b.effect); });
 			memoriaDesc = "";
 			for (var effectIndex = 0; effectIndex < effects.length; effectIndex++)
 			{

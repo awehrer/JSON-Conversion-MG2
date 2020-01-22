@@ -339,7 +339,7 @@ function interpretMemoria(memoria, jsonObj, effectJson)
 			memoriaDesc = "";
 			for (var effectIndex = 0; effectIndex < effects.length; effectIndex++)
 			{
-				memoriaDesc += effects[effectIndex].effect + " (" + target + (effects[effectIndex].turn > 0 ? " / " + effects[effectIndex].turn + (effects[effectIndex].turn == 1 ? " Turn)" : " Turns)") : ")");
+				memoriaDesc += effects[effectIndex].effect + " (" + effects[effectIndex].target + (effects[effectIndex].turn > 0 ? " / " + effects[effectIndex].turn + (effects[effectIndex].turn == 1 ? " Turn)" : " Turns)") : ")");
 				
 				if (effectIndex < effects.length - 1)
 					memoriaDesc += " & ";

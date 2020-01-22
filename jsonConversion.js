@@ -465,8 +465,12 @@ function convertJSON()
 					for (var enemyIndex = 0; enemyIndex < jsonObj.waveList[waveIndex].enemyList.length; enemyIndex++)
 					{
 						enemyJson = jsonObj.waveList[waveIndex].enemyList[enemyIndex];
-						enemy = {"name": translateCharId(enemyJson.charId, characterJson), "type": translateAlign(enemyJson.align), "memoriaList": enemyJson.memoriaList, "renderType": false, "species": enemyJson.enemyKindType, "displayName": enemyJson.name};
-						recordSkills(enemy, enemies);
+						
+						if (enemyJson.posBody == undefined)
+						{
+							enemy = {"name": translateCharId(enemyJson.charId, characterJson), "type": translateAlign(enemyJson.align), "memoriaList": enemyJson.memoriaList, "renderType": false, "species": enemyJson.enemyKindType, "displayName": enemyJson.name};
+							recordSkills(enemy, enemies);
+						}
 					}
 				}
 				

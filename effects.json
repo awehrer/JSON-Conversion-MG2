@@ -18,6 +18,7 @@
     "CURSE": "Curse",
     "DAMAGE_DOWN": "Damage Cut",
 	"DAMAGE_DOWN_ACCEL": "Accele Damage Cut",
+	"DAMAGE_DOWN_BLAST": "Blast Damage Cut",
     "DAMAGE_DOWN_NODISK": "Magia Damage Cut",
 	"DAMAGE_UP": "Damage Up",
     "DAMAGE_UP_BAD": "Damage Up Versus Enemies Affected With Status Ailments",

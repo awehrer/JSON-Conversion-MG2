@@ -172,7 +172,9 @@ function interpretArt(art, jsonObj, effectJson)
 			
 			if (art.sub == "AUTO_HEAL")
 				effectName += "Regenerate " + art.genericValue + " [" + (art.effect / 10) + "%]";
-			else if (art.sub == "AVOID" || art.sub == "PURSUE" || art.sub == "DEFENSE_IGNORED" || art.sub == "COUNTER" || art.sub == "PROVOKE" || art.sub == "PROTECT" || art.sub == "CRITICAL")
+			else if (art.sub == "PROTECT")
+				effectName += effectJson[art.sub] + (art.target == "DYING" ? " on Allies with Critical Health" : "") + " [" + (art.rate / 10) + "%]";
+			else if (art.sub == "AVOID" || art.sub == "PURSUE" || art.sub == "DEFENSE_IGNORED" || art.sub == "COUNTER" || art.sub == "PROVOKE" || art.sub == "CRITICAL")
 				effectName += effectJson[art.sub] + " [" + (art.rate / 10) + "%]";
 			else
 				effectName += effectJson[art.sub] + " [" + (art.effect / 10) + "%]";
@@ -255,6 +257,7 @@ function interpretArt(art, jsonObj, effectJson)
 		case "SELF":
 			target = "Self";
 			break;
+		case "DYING":
 		case "TARGET":
 		case "ONE":
 			target = "One";

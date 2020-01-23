@@ -379,8 +379,8 @@ function convertJSON()
 				}}
 				*/
 				var questheader = "{{Questheader"
-								+ "\n|Difficulty = " + (jsonObj.webData.userQuestBattleResultList[0].questBattle.difficulty != "undefined" ? jsonObj.webData.userQuestBattleResultList[0].questBattle.difficulty : jsonObj.scenario.difficulty)
-								+ " |AP = " + (jsonObj.webData.userQuestBattleResultList[0].questBattle.ap != "undefined" ? jsonObj.webData.userQuestBattleResultList[0].questBattle.ap : jsonObj.scenario.cost)
+								+ "\n|Difficulty = " + (jsonObj.webData.userQuestBattleResultList[0].questBattle.difficulty != undefined ? jsonObj.webData.userQuestBattleResultList[0].questBattle.difficulty : jsonObj.scenario.difficulty)
+								+ " |AP = " + (jsonObj.webData.userQuestBattleResultList[0].questBattle.ap != undefined ? jsonObj.webData.userQuestBattleResultList[0].questBattle.ap : jsonObj.scenario.cost)
 								+ " |CC = " + jsonObj.webData.userQuestBattleResultList[0].questBattle.riche
 								+ " |Master EXP = " + jsonObj.webData.userQuestBattleResultList[0].questBattle.exp
 								+ " |Magical girl EXP = " + jsonObj.webData.userQuestBattleResultList[0].questBattle.cardExp

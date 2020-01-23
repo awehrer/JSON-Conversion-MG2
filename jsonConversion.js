@@ -11,6 +11,8 @@ function translateMissionCode(missionCode)
 		return "Clear without losing any Magical Girls";
 	else if (missionCode == "CLEAR") // CLEAR
 		return "Clear";
+	else if (parts[0] == "COUNT" && parts[1] == "CONNECT") // COUNT_CONNECT_#
+		return "Connect " + parts[3] + (parts[3] == 1 ? " time" : " times");
 	else if (parts[0] == "ONLY" && parts[1] == "MEMBER" && parts[2] == "COUNT") // ONLY_MEMBER_COUNT_#
 		return "Clear with " + parts[3] + " Magical Girls or less";
 	else if (parts[0] == "WAVE") // WAVE_#
@@ -377,8 +379,8 @@ function convertJSON()
 				}}
 				*/
 				var questheader = "{{Questheader"
-								+ "\n|Difficulty = " + jsonObj.webData.userQuestBattleResultList[0].questBattle.difficulty
-								+ " |AP = " + jsonObj.webData.userQuestBattleResultList[0].questBattle.ap
+								+ "\n|Difficulty = " + (jsonObj.webData.userQuestBattleResultList[0].questBattle.difficulty != "undefined" ? jsonObj.webData.userQuestBattleResultList[0].questBattle.difficulty : jsonObj.scenario.difficulty)
+								+ " |AP = " + (jsonObj.webData.userQuestBattleResultList[0].questBattle.ap != "undefined" ? jsonObj.webData.userQuestBattleResultList[0].questBattle.ap : jsonObj.scenario.cost)
 								+ " |CC = " + jsonObj.webData.userQuestBattleResultList[0].questBattle.riche
 								+ " |Master EXP = " + jsonObj.webData.userQuestBattleResultList[0].questBattle.exp
 								+ " |Magical girl EXP = " + jsonObj.webData.userQuestBattleResultList[0].questBattle.cardExp

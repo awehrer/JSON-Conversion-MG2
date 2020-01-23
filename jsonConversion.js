@@ -12,7 +12,7 @@ function translateMissionCode(missionCode)
 	else if (missionCode == "CLEAR") // CLEAR
 		return "Clear";
 	else if (parts[0] == "COUNT" && parts[1] == "CONNECT") // COUNT_CONNECT_#
-		return "Connect " + parts[3] + (parts[3] == 1 ? " time" : " times");
+		return "Connect " + parts[2] + (parts[2] == 1 ? " time" : " times");
 	else if (parts[0] == "ONLY" && parts[1] == "MEMBER" && parts[2] == "COUNT") // ONLY_MEMBER_COUNT_#
 		return "Clear with " + parts[3] + " Magical Girls or less";
 	else if (parts[0] == "WAVE") // WAVE_#

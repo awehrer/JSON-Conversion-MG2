@@ -254,6 +254,12 @@ function interpretArt(art, jsonObj, effectJson)
 		case "BUFF_HPMAX":
 			effectName = effectJson[art.sub] + " Up While At Max Health [" + (art.effect / 10) + "%]";
 			break;
+		case "BUFF_PARTY_DIE":
+			effectName = effectJson[art.sub] + " Up When Ally Dies [" + (art.effect / 10) + "%]";
+			break;
+		case "RESURRECT":
+			effectName = "Revive Ally [" + (art.effect / 10) + "% HP]";
+			break;
 	}
 	
 	if (effectName == null)

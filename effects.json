@@ -16,6 +16,7 @@
     "COUNTER": "Counter",
     "CRITICAL": "Critical Hit",
     "CURSE": "Curse",
+	"DAMAGE": "Damage",
     "DAMAGE_DOWN": "Damage Cut",
 	"DAMAGE_DOWN_ACCEL": "Accele Damage Cut",
 	"DAMAGE_DOWN_BLAST": "Blast Damage Cut",

@@ -204,7 +204,12 @@ function interpretArt(art, jsonObj, effectJson)
 			else
 				effectName = "";
 			
-			effectName += "Anti-" + effectJson[art.sub] + " [" + (art.rate / 10) + "%]";
+			if (art.sub == "DAMAGE_DOWN")
+				effectName += "Ignore ";
+			else
+				effectName += "Anti-";
+			
+			effectName += effectJson[art.sub] + " [" + (art.rate / 10) + "%]";
 			break;
 		case "HEAL":
 			if (art.sub == "MP")

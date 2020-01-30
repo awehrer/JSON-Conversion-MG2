@@ -187,7 +187,7 @@ function interpretArt(art, jsonObj, effectJson)
 			else
 				effectName = "";
 			
-			if (art.sub == "POISON" && art.effect == 300)
+			if ((art.sub == "POISON" || art.sub == "CURSE") && art.effect == 300)
 				effectName += "Strengthened ";
 			
 			effectName += effectJson[art.sub] + " [" + (art.rate / 10) + "%]";

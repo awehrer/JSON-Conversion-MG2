@@ -207,7 +207,7 @@ function interpretArt(art, jsonObj, effectJson)
 			if (art.sub == "DAMAGE_DOWN")
 				effectName += "Ignore ";
 			else
-				effectName += "Anti-";
+				effectName += "Anti-"; // special case(?): { "artId": 610319100, "code": "IGNORE", "target": "ALL", "sub": "DEBUFF", "turn": 1, "rate": 1000, "growPoint": 0, "genericValue": "NONE" }
 			
 			effectName += effectJson[art.sub] + " [" + (art.rate / 10) + "%]";
 			break;

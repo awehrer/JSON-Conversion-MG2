@@ -179,7 +179,7 @@ function interpretArt(art, jsonObj, effectJson)
 			else if (art.sub == "AVOID" || art.sub == "PURSUE" || art.sub == "DEFENSE_IGNORED" || art.sub == "COUNTER" || art.sub == "PROVOKE" || art.sub == "CRITICAL" || art.sub == "GUTS")
 				effectName += effectJson[art.sub] + " [" + (art.rate / 10) + "%]";
 			else
-				effectName += effectJson[art.sub] + " [" + (art.effect / 10) + "%]";
+				effectName += effectJson[art.sub] + " [" + (art.rate != 1000 ? "" + (art.rate / 10) + "% chance / " : "") + (art.effect / 10) + "%]";
 			break;
 		case "CONDITION_BAD":
 			if (art.rate < 1000)

@@ -34,6 +34,7 @@
     "MP": "MP Increase",
     "MP_DAMAGE": "MP Damage",
     "MP_GAIN": "MP Gain",
+	"MP_PLUS_WEAKED": "MP Up When Attacked By Weak Element",
     "POISON": "Poison",
     "PROTECT": "Guardian",
     "PROVOKE": "Provoke",

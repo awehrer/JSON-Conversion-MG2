@@ -4,7 +4,7 @@ function translateMissionCode(missionCode)
     if (parts[0] == "ACTION") // ACTION_#
         return "Clear within " + parts[1] + " turns";
     else if (parts[0] == "HP") // HP_#
-        return "Clear when total remaining HP is " + parts[1] + "% or more";f
+        return "Clear when total remaining HP is " + parts[1] + "% or more";
     else if (missionCode == "NOT_CONTINUE") // NOT_CONTINUE
         return "Clear without Continue";
 	else if (missionCode == "NOT_DEAD") // NOT_DEAD

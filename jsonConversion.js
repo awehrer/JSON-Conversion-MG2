@@ -4,7 +4,7 @@ function translateMissionCode(missionCode)
     if (parts[0] == "ACTION") // ACTION_#
         return "Clear within " + parts[1] + " turns";
     else if (parts[0] == "HP") // HP_#
-        return "Clear when total remaining HP is " + parts[1] + "% or more";
+        return "Clear when total remaining HP is " + parts[1] + "% or more";f
     else if (missionCode == "NOT_CONTINUE") // NOT_CONTINUE
         return "Clear without Continue";
 	else if (missionCode == "NOT_DEAD") // NOT_DEAD
@@ -394,7 +394,7 @@ function convertJSON()
 				*/
 				var questheader = "{{Questheader"
 								+ "\n|Difficulty = " + (jsonObj.webData.userQuestBattleResultList[0].questBattle.difficulty != undefined ? jsonObj.webData.userQuestBattleResultList[0].questBattle.difficulty : jsonObj.scenario.difficulty)
-								+ " |AP = " + (jsonObj.webData.userQuestBattleResultList[0].questBattle.ap != undefined ? jsonObj.webData.userQuestBattleResultList[0].questBattle.ap : (jsonObj.scenario.cost > 0 ? jsonObj.scenario.cost : (jsonObj.webData.userQuestBattleResultList[0].questBattle.needItemNum != undefined ? "{{Inum|" + itemJson[jsonObj.webData.userQuestBattleResultList[0].questBattle.useItemId] + "|" + jsonObj.webData.userQuestBattleResultList[0].questBattle.needItemNum + "|40px}}" : 0)))
+								+ " |AP = " + (jsonObj.webData.userQuestBattleResultList[0].questBattle.ap != undefined ? jsonObj.webData.userQuestBattleResultList[0].questBattle.ap : (jsonObj.scenario.cost > 0 ? jsonObj.scenario.cost : (jsonObj.webData.userQuestBattleResultList[0].questBattle.needItemNum != undefined ? "{{Inum|" + (itemJson[jsonObj.webData.userQuestBattleResultList[0].questBattle.useItemId] != undefined ? itemJson[jsonObj.webData.userQuestBattleResultList[0].questBattle.useItemId] : jsonObj.webData.userQuestBattleResultList[0].questBattle.useItemId) + "|" + jsonObj.webData.userQuestBattleResultList[0].questBattle.needItemNum + "|40px}}" : 0)))
 								+ " |CC = " + jsonObj.webData.userQuestBattleResultList[0].questBattle.riche
 								+ " |Master EXP = " + jsonObj.webData.userQuestBattleResultList[0].questBattle.exp
 								+ " |Magical girl EXP = " + jsonObj.webData.userQuestBattleResultList[0].questBattle.cardExp
@@ -599,16 +599,19 @@ function convertJSON()
 					dropItemNum++;
 				}
 				
-				var fcItemCodes = jsonObj.webData.userQuestBattleResultList[0].questBattle.firstClearRewardCodes.split(",");
-				
-				for (var i = 0; i < fcItemCodes.length; i++)
+				if (jsonObj.webData.userQuestBattleResultList[0].questBattle.firstClearRewardCodes != undefined)
 				{
-					index = fcItemCodes[i].lastIndexOf("_");
-					itemCode = fcItemCodes[i].substr(0, index);
-					itemQuantity = fcItemCodes[i].substr(index + 1);
-					drops += "|FC" + (i != 0 ? (i + 1) : "") + "=" + translateItemCode(itemCode, itemJson);
-					if (itemQuantity > 1)
-						drops += "|FC" + (i != 0 ? (i + 1) : "") + "Q=" + itemQuantity;
+					var fcItemCodes = jsonObj.webData.userQuestBattleResultList[0].questBattle.firstClearRewardCodes.split(",");
+
+					for (var i = 0; i < fcItemCodes.length; i++)
+					{
+						index = fcItemCodes[i].lastIndexOf("_");
+						itemCode = fcItemCodes[i].substr(0, index);
+						itemQuantity = fcItemCodes[i].substr(index + 1);
+						drops += "|FC" + (i != 0 ? (i + 1) : "") + "=" + translateItemCode(itemCode, itemJson);
+						if (itemQuantity > 1)
+							drops += "|FC" + (i != 0 ? (i + 1) : "") + "Q=" + itemQuantity;
+					}
 				}
 				
 				drops += "}}";

@@ -30,6 +30,7 @@
     "DOPPEL": "Doppel Damage",
     "FOG": "Fog",
     "GUTS": "Endure",
+	"INVALID_HEAL_HP": "HP Restore Seal",
     "MAGIA": "Magia Damage",
     "MP": "MP Increase",
     "MP_DAMAGE": "MP Damage",

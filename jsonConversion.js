@@ -235,16 +235,16 @@ function interpretArt(art, jsonObj, effectJson)
 			switch (art.sub)
 			{
 				case "BAD":
-					effectName = "Remove '''Status Ailments'''";
+					effectName = "Remove Status Ailments";
 					break;
 				case "GOOD":
-					effectName = "Remove '''Granted Effects'''";
+					effectName = "Remove Granted Effects";
 					break;
 				case "BUFF":
-					effectName = "Remove '''Buffs'''";
+					effectName = "Remove Buffs";
 					break;
 				case "DEBUFF":
-					effectName = "Remove '''Debuffs'''";
+					effectName = "Remove Debuffs";
 					break;
 			}
 			break;

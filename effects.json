@@ -31,6 +31,7 @@
     "FOG": "Fog",
     "GUTS": "Endure",
 	"INVALID_HEAL_HP": "HP Restore Seal",
+	"INVALID_HEAL_MP": "MP Restore Seal",
     "MAGIA": "Magia Damage",
     "MP": "MP Increase",
     "MP_DAMAGE": "MP Damage",

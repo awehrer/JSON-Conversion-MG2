@@ -86,6 +86,7 @@
   "ITEM_EVENT_TRAINING_1084": "Potion",
   "EVENT_DAILYTOWER_1014_KEY": "Choco Bars",
   "EVENT_DAILYTOWER_1028_KEY": "Parfait of Purchased Love",
+  "EVENT_DAILYTOWER_1040_KEY": "Train Ticket",
   "EVENT_DAILYTOWER_1087_KEY": "Best Recipe in the Universe",
   "ITEM_EVENT_ACCOMPLISH_1027_EXCHANGE_1": "Fragment of the Truth",
   "ITEM_EVENT_DAILYTOWER_1014_EXCHANGE_1": "Magical Chocolate",
@@ -93,6 +94,7 @@
   "ITEM_EVENT_DAILYTOWER_1028_EXCHANGE_1": "Nagi-tan's Stamp",
   "ITEM_EVENT_DAILYTOWER_1033_EXCHANGE_1": "1st Anniversary Medal",
   "ITEM_EVENT_DAILYTOWER_1033_EXCHANGE_2": "1st Anniversary Exchange Ticket",
+  "ITEM_EVENT_DAILYTOWER_1040_EXCHANGE_1": "Get-Well Cheese",
   "ITEM_EVENT_DAILYTOWER_1046_EXCHANGE_1": "Lucky Rake",
   "ITEM_EVENT_DAILYTOWER_1046_EXCHANGE_2": "Feast Ticket",
   "ITEM_EVENT_DAILYTOWER_1087_EXCHANGE_1": "Pink Medal Chocolate"

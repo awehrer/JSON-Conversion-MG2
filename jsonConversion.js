@@ -541,15 +541,19 @@ function convertJSON()
 				}}
 				*/
 				var missionRewardCode = jsonObj.webData.userQuestBattleResultList[0].questBattle.missionRewardCode;
-				console.log(missionRewardCode);
-				var index = missionRewardCode.lastIndexOf("_");
-				var missionRewardQuantity = missionRewardCode.substr(index + 1);
-				var missions = "{{Missions\n|Mission1 = " + translateMissionCode(jsonObj.webData.userQuestBattleResultList[0].questBattle.mission1)
-										+ "\n|Mission2 = " + translateMissionCode(jsonObj.webData.userQuestBattleResultList[0].questBattle.mission2)
-										+ "\n|Mission3 = " + translateMissionCode(jsonObj.webData.userQuestBattleResultList[0].questBattle.mission3)
-										+ "\n|Mission Reward Quantity = " + missionRewardQuantity
-										+ "\n|Mission Reward = " + translateItemCode(missionRewardCode.substr(0, index), itemJson)
-										+ "\n}}";
+				var missions = "";
+				if (missionRewardCode != undefined)
+				{
+					console.log(missionRewardCode);
+					var index = missionRewardCode.lastIndexOf("_");
+					var missionRewardQuantity = missionRewardCode.substr(index + 1);
+					missions = "{{Missions\n|Mission1 = " + translateMissionCode(jsonObj.webData.userQuestBattleResultList[0].questBattle.mission1)
+											+ "\n|Mission2 = " + translateMissionCode(jsonObj.webData.userQuestBattleResultList[0].questBattle.mission2)
+											+ "\n|Mission3 = " + translateMissionCode(jsonObj.webData.userQuestBattleResultList[0].questBattle.mission3)
+											+ "\n|Mission Reward Quantity = " + missionRewardQuantity
+											+ "\n|Mission Reward = " + translateItemCode(missionRewardCode.substr(0, index), itemJson)
+											+ "\n}}";
+				}}
 							
 				/* Example:
 				{{Drops|CC|1Q=300|Nanny's Grip|Nanny's Pedestal|FC=Nanny's Grip|FCQ=2|FC2=Nanny's Pedestal|FC2Q=4|FC3=Forest Book ++|FC3Q=2|FC4=Dark Book +|FC4Q=3|FC5=Forest Book +|FC5Q=3|FC6=CC|FC6Q=100000}}
@@ -616,7 +620,7 @@ function convertJSON()
 				
 				drops += "}}";
 				
-				document.getElementById("resultText").value = questheader + "\n" + questbody + (enemySkills != "{{EnemySkills\n}}" ? "\n" + enemySkills : "") + "\n" + missions + "\n" + drops;
+				document.getElementById("resultText").value = questheader + "\n" + questbody + (enemySkills != "{{EnemySkills\n}}" ? "\n" + enemySkills : "")  + (missions != "" ? "\n" + missions : "") + "\n" + drops;
 			}
         }
     }

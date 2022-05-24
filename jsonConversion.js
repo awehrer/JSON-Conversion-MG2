@@ -372,10 +372,13 @@ function interpretMemoria(memoria, jsonObj, effectJson)
 			}
 		}
 		
-		if (memoria.cost == 1)
-			memoriaDesc += "|Every turn";
-		else
-			memoriaDesc += "|Every " + memoria.cost + " turns";
+		if (memoria.type == "SKILL")
+		{
+			if (memoria.cost == 1)
+				memoriaDesc += "|Every turn";
+			else
+				memoriaDesc += "|Every " + memoria.cost + " turns";
+		}
 	}
 	
 	return memoriaDesc;

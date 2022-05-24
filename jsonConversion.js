@@ -309,13 +309,20 @@ function interpretMemoria(memoria, jsonObj, effectJson)
 	
 	if (memoria.type == "ABILITY")
 	{
-		// can ignore target
+		// can ignore target (unless Attack/Defense Up Upon Death type buff)
 		// put turns at end of each where applicable
 		memoriaDesc = "";
 		
 		for (var effectIndex = 0; effectIndex < effects.length; effectIndex++)
 		{
-			memoriaDesc += effects[effectIndex].effect + (effects[effectIndex].turn > 0 ? " (" + effects[effectIndex].turn + (effects[effectIndex].turn == 1 ? " Turn)" : " Turns)") : "");
+			if (effects[effectIndex].effect.includes("Upon Death"))
+			{
+				memoriaDesc += effects[effectIndex].effect + " (" + effects[effectIndex].target + (effects[effectIndex].turn > 0 ? " / " + effects[effectIndex].turn + (effects[effectIndex].turn == 1 ? " Turn)" : " Turns)") : ")");
+			}
+			else
+			{
+				memoriaDesc += effects[effectIndex].effect + (effects[effectIndex].turn > 0 ? " (" + effects[effectIndex].turn + (effects[effectIndex].turn == 1 ? " Turn)" : " Turns)") : "");
+			}
 			
 			if (effectIndex < effects.length - 1)
 				memoriaDesc += " & ";

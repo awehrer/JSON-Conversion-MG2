@@ -553,7 +553,7 @@ function convertJSON()
 											+ "\n|Mission Reward Quantity = " + missionRewardQuantity
 											+ "\n|Mission Reward = " + translateItemCode(missionRewardCode.substr(0, index), itemJson)
 											+ "\n}}";
-				}}
+				}
 							
 				/* Example:
 				{{Drops|CC|1Q=300|Nanny's Grip|Nanny's Pedestal|FC=Nanny's Grip|FCQ=2|FC2=Nanny's Pedestal|FC2Q=4|FC3=Forest Book ++|FC3Q=2|FC4=Dark Book +|FC4Q=3|FC5=Forest Book +|FC5Q=3|FC6=CC|FC6Q=100000}}

@@ -328,7 +328,7 @@ function interpretMemoria(memoria, jsonObj, effectJson)
 				memoriaDesc += " & ";
 		}
 	}
-	else if (memoria.type == "SKILL")
+	else if (memoria.type == "SKILL" || memoria.type == "STARTUP")
 	{
 		// if same target and turns for all, sort them and put the target and turns at the end of the string
 		// else put target and turns at the end of each
@@ -358,14 +358,14 @@ function interpretMemoria(memoria, jsonObj, effectJson)
 					memoriaDesc += " & ";
 			}
 			
-			memoriaDesc += " (" + target + (turn > 0 ? " / " + turn + (turn == 1 ? " Turn)" : " Turns)") : ")");
+			memoriaDesc += " (" + target + (turn > 0 ? " / " + turn + (turn == 1 ? " Turn" : " Turns") + (memoria.type == "STARTUP" ? " on Battle Start" : "") : "") + ")";
 		}
 		else
 		{
 			memoriaDesc = "";
 			for (var effectIndex = 0; effectIndex < effects.length; effectIndex++)
 			{
-				memoriaDesc += effects[effectIndex].effect + " (" + effects[effectIndex].target + (effects[effectIndex].turn > 0 ? " / " + effects[effectIndex].turn + (effects[effectIndex].turn == 1 ? " Turn)" : " Turns)") : ")");
+				memoriaDesc += effects[effectIndex].effect + " (" + effects[effectIndex].target + (effects[effectIndex].turn > 0 ? " / " + effects[effectIndex].turn + (effects[effectIndex].turn == 1 ? " Turn" : " Turns") + (memoria.type == "STARTUP" ? " on Battle Start" : "") : "") + ")";
 				
 				if (effectIndex < effects.length - 1)
 					memoriaDesc += " & ";
@@ -523,7 +523,7 @@ function convertJSON()
 						memoria = getMemoriaById(enemies[i].memoriaList[memoriaIndex], jsonObj);
 						memoriaDesc = interpretMemoria(memoria, jsonObj, effectJson);
 						
-						if (memoria.type == "ABILITY")
+						if (memoria.type == "ABILITY" || memoria.type == "STARTUP")
 						{
 							numPassives++;
 							enemySkills += "|P" + numPassives + "=" + memoriaDesc;

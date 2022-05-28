@@ -178,6 +178,8 @@ function interpretArt(art, jsonObj, effectJson)
 				effectName += effectJson[art.sub] + (art.target == "DYING" ? " on Allies with Critical Health" : "") + " [" + (art.rate / 10) + "%]";
 			else if (art.sub == "AVOID" || art.sub == "PURSUE" || art.sub == "DEFENSE_IGNORED" || art.sub == "COUNTER" || art.sub == "PROVOKE" || art.sub == "CRITICAL" || art.sub == "GUTS" || art.sub == "SKILL_QUICK")
 				effectName += effectJson[art.sub] + " [" + (art.rate / 10) + "%]";
+			else if (art.sub == "BARRIER")
+				effectName += effectJson[art.sub] + " [" + art.effect + "]";
 			else
 				effectName += effectJson[art.sub] + " [" + (art.rate != 1000 ? "" + (art.rate / 10) + "% chance / " : "") + (art.effect / 10) + "%]";
 			break;

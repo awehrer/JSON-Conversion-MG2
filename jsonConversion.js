@@ -253,6 +253,8 @@ function interpretArt(art, jsonObj, effectJson)
 			
 			if (art.sub == "DAMAGE_DOWN")
 				effectName += "Ignore ";
+			else if (art.sub == "CONDITION_BAD")
+				effectName += "Negate "
 			else
 				effectName += "Anti-"; // special case(?): { "artId": 610319100, "code": "IGNORE", "target": "ALL", "sub": "DEBUFF", "turn": 1, "rate": 1000, "growPoint": 0, "genericValue": "NONE" }
 			
@@ -346,7 +348,7 @@ function interpretArt(art, jsonObj, effectJson)
 		target = undefined;
 	}
 	
-	return {"effect": effectName, "turn": turn, "target": target};
+	return {"effect": effectName, "turn": turn, "target": target, "times": 1};
 }
 
 function interpretMemoria(memoria, jsonObj, effectJson)
@@ -450,11 +452,42 @@ function interpretMagia(magia, jsonObj, effectJson)
 	for (var artIndex = 0; artIndex < magia.artList.length; artIndex++)
 	{
 		artDesc = interpretArt(getArtById(magia.artList[artIndex], jsonObj), jsonObj, effectJson);
-		effects.push(artDesc);
+		if (artDesc.effect.startsWith("Anti-Debuff") || artDesc.effect.startsWith("Negate Status Ailments") || artDesc.effect.startsWith("Skill Quicken"))
+		{
+			var found = false;
+			for (var i = 0; effectIndex < effects.length; i++)
+			{
+				if (effects[i].effect == artDesc.effect && effects[i].target == artDesc[i].target && effects[i].turn == artDesc.turn)
+				{
+					found = true;
+					effects[i].times++;
+					break;
+				}
+			}
+			
+			if (!found)
+			{
+				effects.push(artDesc);
+			}
+		}
+		else
+		{
+			effects.push(artDesc);
+		}
 	}
 	
 	for (var effectIndex = 0; effectIndex < effects.length; effectIndex++)
 	{
+		if (effects[effectIndex].effect.startsWith("Anti-Debuff") || effects[effectIndex].effect.startsWith("Negate Status Ailments") || (effects[effectIndex].startsWith("Skill Quicken") && effects[effectIndex].times > 1))
+		{
+			if (effects[effectIndex].effect.endsWith("[100%]"))
+				effects[effectIndex].effect = effects[effectIndex].effect.split("100%]")[0];
+			else
+				effects[effectIndex].effect = effects[effectIndex].effect.split("]")[0] + " / ";
+			
+			effects[effectIndex].effect += effects[effectIndex].times + (effects[effectIndex].times > 1 ? " Times" : " Time");
+		}
+		
 		if (effects[effectIndex].target != undefined)
 		{
 			magiaDesc += effects[effectIndex].effect + " (" + effects[effectIndex].target + (effects[effectIndex].turn > 0 ? " / " + effects[effectIndex].turn + (effects[effectIndex].turn == 1 ? " Turn" : " Turns") : "") + ")";

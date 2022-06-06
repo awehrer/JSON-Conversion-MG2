@@ -441,6 +441,9 @@ function interpretMagia(magia, jsonObj, effectJson)
 	var artDesc;
 	var magiaDesc = "";
 	
+	if (magia.level > 1)
+		magiaDesc += "[WARNING: Magia level > 1]"; // assuming all enemies are magia level 1 unless this is triggered
+	
 	for (var artIndex = 0; artIndex < magia.artList.length; artIndex++)
 	{
 		artDesc = interpretArt(getArtById(magia.artList[artIndex], jsonObj), jsonObj, effectJson);

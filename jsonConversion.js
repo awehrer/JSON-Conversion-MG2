@@ -196,7 +196,7 @@ function interpretArt(art, jsonObj, effectJson)
 			else
 				effectName = "Damage";
 			
-			if (art.target == "ONE")
+			if (art.target == "TARGET")
 				effectName += " One Enemy";
 			else if (art.target == "ALL")
 				effectName += " All Enemies";

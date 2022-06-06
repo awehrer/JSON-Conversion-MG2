@@ -145,6 +145,28 @@ function getMemoriaById(id, jsonObj)
 	return null;
 }
 
+function getMagiaById(id, jsonObj)
+{
+	for (var i = 0; i < jsonObj.magiaList.length; i++)
+	{
+		if (jsonObj.magiaList[i].magiaId == id)
+			return jsonObj.magiaList[i];
+	}
+	
+	return null;
+}
+
+function getDoppelById(id, jsonObj)
+{
+	for (var i = 0; i < jsonObj.doppelList.length; i++)
+	{
+		if (jsonObj.doppelList[i].doppelId == id)
+			return jsonObj.doppelList[i];
+	}
+	
+	return null;
+}
+
 // art is not literally art; bad english for effects or perhaps "magical arts"
 function getArtById(id, jsonObj)
 {
@@ -163,9 +185,29 @@ function interpretArt(art, jsonObj, effectJson)
 	var effectName = null;
 	var turn = -1;
 	var target = null;
+	var damageEffect = false;
 	
 	switch (art.code)
 	{
+		case "ATTACK":
+			damageEffect = true;
+			if (art.effectCode == "ALIGNMENT")
+				effectName = "Attribute Strengthened Damage";
+			else
+				effectName = "Damage";
+			
+			if (art.target == "ONE")
+				effectName += " One Enemy";
+			else if (art.target == "ALL")
+				effectName += " All Enemies";
+			else if (art.target == "RANDOM5")
+				effectName += " Random 5 Enemies";
+			else if (art.target == "RANDOM4")
+				effectName += " Random 4 Enemies";
+			else if (art.target == "RANDOM3")
+				effectName += " Random 3 Enemies";
+			else
+				effectName += " " + art.target;
 		case "CONDITION_GOOD":
 			if (art.rate < 1000)
 				effectName = "Chance to ";
@@ -273,25 +315,32 @@ function interpretArt(art, jsonObj, effectJson)
 	if (art.turn != undefined)
 		turn = art.turn;
 	
-	switch (art.target)
+	if (!damageEffect)
 	{
-		case "SELF":
-			target = "Self";
-			break;
-		case "DYING":
-		case "TARGET":
-		case "ONE":
-			target = "One";
-			break;
-		case "ALL":
-			if ((art.code == "HEAL" && art.sub != "MP_DAMAGE") || (art.code == "CONDITION_GOOD") || (art.code == "BUFF") || (art.code == "BUFF_DIE"))
-				target = "Allies";
-			else
-				target = "All";
-			break;
-		default:
-			target = art.target;
-			break;
+		switch (art.target)
+		{
+			case "SELF":
+				target = "Self";
+				break;
+			case "DYING":
+			case "TARGET":
+			case "ONE":
+				target = "One";
+				break;
+			case "ALL":
+				if ((art.code == "HEAL" && art.sub != "MP_DAMAGE") || (art.code == "CONDITION_GOOD") || (art.code == "BUFF") || (art.code == "BUFF_DIE"))
+					target = "Allies";
+				else
+					target = "All";
+				break;
+			default:
+				target = art.target;
+				break;
+		}
+	}
+	else
+	{
+		target = undefined;
 	}
 	
 	return {"effect": effectName, "turn": turn, "target": target};
@@ -384,6 +433,36 @@ function interpretMemoria(memoria, jsonObj, effectJson)
 	}
 	
 	return memoriaDesc;
+}
+
+function interpretMagia(magia, jsonObj, effectJson)
+{
+	var effects = [];
+	var artDesc;
+	var magiaDesc = "";
+	
+	for (var artIndex = 0; artIndex < magia.artList.length; artIndex++)
+	{
+		artDesc = interpretArt(getArtById(magia.artList[artIndex], jsonObj), jsonObj, effectJson);
+		effects.push(artDesc);
+	}
+	
+	for (var effectIndex = 0; effectIndex < effects.length; effectIndex++)
+	{
+		if (effects[effectIndex].target != undefined)
+		{
+			magiaDesc += effects[effectIndex].effect + " (" + effects[effectIndex].target + (effects[effectIndex].turn > 0 ? " / " + effects[effectIndex].turn + (effects[effectIndex].turn == 1 ? " Turn" : " Turns") : "") + ")";
+		}
+		else
+		{
+			magiaDesc += effects[effectIndex].effect;
+		}
+
+		if (effectIndex < effects.length - 1)
+			magiaDesc += " & ";
+	}
+	
+	return magiaDesc;
 }
 
 function convertJSON()
@@ -512,6 +591,10 @@ function convertJSON()
 				
 				var memoria;
 				var memoriaDesc;
+				var magia;
+				var magiaDesc;
+				//var doppel;
+				//var doppelDesc;
 				var numPassives;
 				var numSkills;
 				
@@ -539,6 +622,22 @@ function convertJSON()
 							var descParts = memoriaDesc.split("|");
 							enemySkills += "|A" + numSkills + "=" + descParts[0] + "|A" + numSkills + "f=" + descParts[1];
 						}
+					}
+					
+					if (enemies[i].magiaId != undefined)
+					{
+						magia = interpretMagiaById(enemies[i].magiaId, jsonObj);
+						magiaDesc = interpretMagia(magia, jsonObj, effectJson);
+						enemySkills += "|Magia=" + magiaDesc;
+					}
+					
+					// Not sure if used for enemies
+					if (enemies[i].doppelId != undefined)
+					{
+						//doppel = interpretDoppelById(enemies[i].doppelId, jsonObj);
+						//doppelDesc = interpretDoppel(doppel, jsonObj, effectJson);
+						//enemySkills += "|Doppel=" + doppelDesc;
+						enemySkills += "|Doppel=" + enemies[i].doppelId;
 					}
 					
 					enemySkills += "}}";

@@ -191,7 +191,7 @@ function interpretArt(art, jsonObj, effectJson)
 	{
 		case "ATTACK":
 			damageEffect = true;
-			if (art.effectCode == "ALIGNMENT")
+			if (art.sub == "ALIGNMENT")
 				effectName = "Attribute Strengthened Damage";
 			else
 				effectName = "Damage";

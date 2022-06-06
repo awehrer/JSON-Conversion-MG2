@@ -457,7 +457,7 @@ function interpretMagia(magia, jsonObj, effectJson)
 			var found = false;
 			for (var i = 0; effectIndex < effects.length; i++)
 			{
-				if (effects[i].effect == artDesc.effect && effects[i].target == artDesc[i].target && effects[i].turn == artDesc.turn)
+				if (effects[i].effect == artDesc.effect && effects[i].target == artDesc.target && effects[i].turn == artDesc.turn)
 				{
 					found = true;
 					effects[i].times++;
@@ -485,7 +485,7 @@ function interpretMagia(magia, jsonObj, effectJson)
 			else
 				effects[effectIndex].effect = effects[effectIndex].effect.split("]")[0] + " / ";
 			
-			effects[effectIndex].effect += effects[effectIndex].times + (effects[effectIndex].times > 1 ? " Times" : " Time");
+			effects[effectIndex].effect += effects[effectIndex].times + (effects[effectIndex].times > 1 ? " Times" : " Time") + "]";
 		}
 		
 		if (effects[effectIndex].target != undefined)

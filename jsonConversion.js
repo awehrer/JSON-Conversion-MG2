@@ -583,7 +583,7 @@ function convertJSON()
 						
 						if (enemyJson.posBody == undefined)
 						{
-							enemy = {"name": translateCharId(enemyJson.charId, characterJson), "type": translateAlign(enemyJson.align), "memoriaList": enemyJson.memoriaList, "renderType": false, "species": enemyJson.enemyKindType, "displayName": enemyJson.name};
+							enemy = {"name": translateCharId(enemyJson.charId, characterJson), "type": translateAlign(enemyJson.align), "magiaId": enemyJson.magiaId, "doppelId": enemyJson.doppelId, "memoriaList": enemyJson.memoriaList, "renderType": false, "species": enemyJson.enemyKindType, "displayName": enemyJson.name};
 							recordSkills(enemy, enemies);
 						}
 					}

@@ -360,7 +360,28 @@ function interpretMemoria(memoria, jsonObj, effectJson)
 	for (var artIndex = 0; artIndex < memoria.artList.length; artIndex++)
 	{
 		artDesc = interpretArt(getArtById(memoria.artList[artIndex], jsonObj), jsonObj, effectJson);
-		effects.push(artDesc);
+		if (artDesc.effect.startsWith("Anti-Debuff") || artDesc.effect.startsWith("Negate Status Ailments") || artDesc.effect.startsWith("Skill Quicken"))
+		{
+			var found = false;
+			for (var i = 0; i < effects.length; i++)
+			{
+				if (effects[i].effect == artDesc.effect && effects[i].target == artDesc.target && effects[i].turn == artDesc.turn)
+				{
+					found = true;
+					effects[i].times++;
+					break;
+				}
+			}
+			
+			if (!found)
+			{
+				effects.push(artDesc);
+			}
+		}
+		else
+		{
+			effects.push(artDesc);
+		}
 	}
 	
 	if (memoria.type == "ABILITY")
@@ -371,6 +392,16 @@ function interpretMemoria(memoria, jsonObj, effectJson)
 		
 		for (var effectIndex = 0; effectIndex < effects.length; effectIndex++)
 		{
+			if (effects[effectIndex].effect.startsWith("Anti-Debuff") || effects[effectIndex].effect.startsWith("Negate Status Ailments") || (effects[effectIndex].effect.startsWith("Skill Quicken") && effects[effectIndex].times > 1))
+			{
+				if (effects[effectIndex].effect.endsWith("[100%]"))
+					effects[effectIndex].effect = effects[effectIndex].effect.split("100%]")[0];
+				else
+					effects[effectIndex].effect = effects[effectIndex].effect.split("]")[0] + " / ";
+
+				effects[effectIndex].effect += effects[effectIndex].times + (effects[effectIndex].times > 1 ? " Times" : " Time") + "]";
+			}
+			
 			if (effects[effectIndex].effect.includes("Upon Death"))
 			{
 				memoriaDesc += effects[effectIndex].effect + " (" + effects[effectIndex].target + (effects[effectIndex].turn > 0 ? " / " + effects[effectIndex].turn + (effects[effectIndex].turn == 1 ? " Turn)" : " Turns)") : ")");
@@ -408,6 +439,16 @@ function interpretMemoria(memoria, jsonObj, effectJson)
 			memoriaDesc = "";
 			for (var effectIndex = 0; effectIndex < effects.length; effectIndex++)
 			{
+				if (effects[effectIndex].effect.startsWith("Anti-Debuff") || effects[effectIndex].effect.startsWith("Negate Status Ailments") || (effects[effectIndex].effect.startsWith("Skill Quicken") && effects[effectIndex].times > 1))
+				{
+					if (effects[effectIndex].effect.endsWith("[100%]"))
+						effects[effectIndex].effect = effects[effectIndex].effect.split("100%]")[0];
+					else
+						effects[effectIndex].effect = effects[effectIndex].effect.split("]")[0] + " / ";
+
+					effects[effectIndex].effect += effects[effectIndex].times + (effects[effectIndex].times > 1 ? " Times" : " Time") + "]";
+				}
+				
 				memoriaDesc += effects[effectIndex].effect;
 				
 				if (effectIndex < effects.length - 1)
@@ -421,6 +462,16 @@ function interpretMemoria(memoria, jsonObj, effectJson)
 			memoriaDesc = "";
 			for (var effectIndex = 0; effectIndex < effects.length; effectIndex++)
 			{
+				if (effects[effectIndex].effect.startsWith("Anti-Debuff") || effects[effectIndex].effect.startsWith("Negate Status Ailments") || (effects[effectIndex].effect.startsWith("Skill Quicken") && effects[effectIndex].times > 1))
+				{
+					if (effects[effectIndex].effect.endsWith("[100%]"))
+						effects[effectIndex].effect = effects[effectIndex].effect.split("100%]")[0];
+					else
+						effects[effectIndex].effect = effects[effectIndex].effect.split("]")[0] + " / ";
+
+					effects[effectIndex].effect += effects[effectIndex].times + (effects[effectIndex].times > 1 ? " Times" : " Time") + "]";
+				}
+				
 				memoriaDesc += effects[effectIndex].effect + " (" + effects[effectIndex].target + (effects[effectIndex].turn > 0 ? " / " + effects[effectIndex].turn + (effects[effectIndex].turn == 1 ? " Turn" : " Turns") + (memoria.type == "STARTUP" ? " on Battle Start" : "") : "") + ")";
 				
 				if (effectIndex < effects.length - 1)

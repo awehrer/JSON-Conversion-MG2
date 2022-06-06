@@ -455,7 +455,7 @@ function interpretMagia(magia, jsonObj, effectJson)
 		if (artDesc.effect.startsWith("Anti-Debuff") || artDesc.effect.startsWith("Negate Status Ailments") || artDesc.effect.startsWith("Skill Quicken"))
 		{
 			var found = false;
-			for (var i = 0; effectIndex < effects.length; i++)
+			for (var i = 0; i < effects.length; i++)
 			{
 				if (effects[i].effect == artDesc.effect && effects[i].target == artDesc.target && effects[i].turn == artDesc.turn)
 				{

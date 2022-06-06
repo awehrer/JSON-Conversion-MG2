@@ -208,6 +208,8 @@ function interpretArt(art, jsonObj, effectJson)
 				effectName += " Random 3 Enemies";
 			else
 				effectName += " " + art.target;
+			
+			effectName += " [" + (art.effect / 10) + "%]";
 			break;
 		case "CONDITION_GOOD":
 			if (art.rate < 1000)

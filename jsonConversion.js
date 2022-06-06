@@ -629,7 +629,7 @@ function convertJSON()
 					
 					if (enemies[i].magiaId != undefined)
 					{
-						magia = interpretMagiaById(enemies[i].magiaId, jsonObj);
+						magia = getMagiaById(enemies[i].magiaId, jsonObj);
 						magiaDesc = interpretMagia(magia, jsonObj, effectJson);
 						enemySkills += "|Magia=" + magiaDesc;
 					}
@@ -637,7 +637,7 @@ function convertJSON()
 					// Not sure if used for enemies
 					if (enemies[i].doppelId != undefined)
 					{
-						//doppel = interpretDoppelById(enemies[i].doppelId, jsonObj);
+						//doppel = getDoppelById(enemies[i].doppelId, jsonObj);
 						//doppelDesc = interpretDoppel(doppel, jsonObj, effectJson);
 						//enemySkills += "|Doppel=" + doppelDesc;
 						enemySkills += "|Doppel=" + enemies[i].doppelId;

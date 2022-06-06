@@ -478,7 +478,7 @@ function interpretMagia(magia, jsonObj, effectJson)
 	
 	for (var effectIndex = 0; effectIndex < effects.length; effectIndex++)
 	{
-		if (effects[effectIndex].effect.startsWith("Anti-Debuff") || effects[effectIndex].effect.startsWith("Negate Status Ailments") || (effects[effectIndex].startsWith("Skill Quicken") && effects[effectIndex].times > 1))
+		if (effects[effectIndex].effect.startsWith("Anti-Debuff") || effects[effectIndex].effect.startsWith("Negate Status Ailments") || (effects[effectIndex].effect.startsWith("Skill Quicken") && effects[effectIndex].times > 1))
 		{
 			if (effects[effectIndex].effect.endsWith("[100%]"))
 				effects[effectIndex].effect = effects[effectIndex].effect.split("100%]")[0];

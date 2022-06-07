@@ -53,5 +53,7 @@
     "RESTRAINT": "Bind",
     "SKILL_QUICK": "Skill Quicken",
     "STUN": "Stun",
-	"SURVIVE": "Survive"
+	"SURVIVE": "Survive",
+	"WEAK_BLAST": "Blast Disc Damage Received Up",
+	"WEAK_CHARGE_DONE": "Charged Attack Damage Received Up"
 }

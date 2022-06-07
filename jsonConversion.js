@@ -243,7 +243,10 @@ function interpretArt(art, jsonObj, effectJson)
 			effectName = effectJson[art.sub] + " Up [" + (art.effect / 10) + "%]";
 			break;
 		case "DEBUFF":
-			effectName = effectJson[art.sub] + " Down [" + (art.effect / 10) + "%]";
+			if (art.sub == "WEAK_CHARGE_DONE" || art.sub == "WEAK_BLAST)
+			    effectName = effectJson[art.sub] + " [" + (art.effect / 10) + "%]";
+			else
+				effectName = effectJson[art.sub] + " Down [" + (art.effect / 10) + "%]";
 			break;
 		case "IGNORE":
 			if (art.rate < 1000)

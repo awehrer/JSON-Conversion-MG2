@@ -206,6 +206,8 @@ function interpretArt(art, jsonObj, effectJson)
 				effectName += " Random 4 Enemies";
 			else if (art.target == "RANDOM3")
 				effectName += " Random 3 Enemies";
+			else if (art.target == "RANDOM2")
+				effectName += " Random 2 Enemies";
 			else if (art.target == "VERTICAL")
 				effectName += " A Vertical Line";
 			else if (art.target == "HORIZONTAL")

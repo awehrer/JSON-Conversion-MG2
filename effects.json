@@ -61,5 +61,10 @@
     "STUN": "Stun",
 	"SURVIVE": "Survive",
 	"WEAK_BLAST": "Blast Disc Received Damage Up",
-	"WEAK_CHARGE_DONE": "Charged Attack Received Damage Up"
+	"WEAK_CHARGE_DONE": "Charged Attack Received Damage Up",
+	"WEAK_WATER": "Aqua Attribute Resistance",
+	"WEAK_FIRE": "Flame Attribute Resistance",
+	"WEAK_TIMBER": "Forest Attribute Resistance",
+	"WEAK_LIGHT": "Light Attribute Resistance",
+	"WEAK_DARK": "Dark Attribute Resistance"
 }

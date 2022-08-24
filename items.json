@@ -22,6 +22,7 @@
   "ITEM_COMPOSE_ITEM_DARK_P": "Dark Gem +",
   "ITEM_COMPOSE_ITEM_DARK_PP": "Dark Gem ++",
   "ITEM_CURE_AP": "AP Potion",
+  "ITEM_CURE_AP_50": "AP Potion 50",
   "ITEM_DAILY_COIN": "Daily Coin",
   "GIFT_111": "Flame Orb",
   "GIFT_112": "Flame Orb +",
@@ -140,4 +141,6 @@
   "ITEM_EVENT_DAILYTOWER_1165_EXCHANGE_1": "Bat",
   "ITEM_EVENT_DAILYTOWER_1167_EXCHANGE_1": "Petit Usa",
   "ITEM_EVENT_DAILYTOWER_1164_EXCHANGE_1": "Memories Message"
+  "ITEM_EVENT_DAILYTOWER_1171_EXCHANGE_1": "5th Anniversary Medal",
+  "ITEM_EVENT_DAILYTOWER_1171_EXCHANGE_2": "5th Anniversary Exchange Ticket"
 }

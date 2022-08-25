@@ -42,6 +42,7 @@
     "DOPPEL": "Doppel Damage",
     "FOG": "Fog",
     "GUTS": "Endure",
+	"IMITATE_ATTRIBUTE": "Variable",
 	"INVALID_HEAL_HP": "HP Restore Seal",
 	"INVALID_HEAL_MP": "MP Restore Seal",
     "MAGIA": "Magia Damage",

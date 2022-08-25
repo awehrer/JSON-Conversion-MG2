@@ -227,7 +227,7 @@ function interpretArt(art, jsonObj, effectJson)
 				effectName += "Regenerate " + (art.genericValue != undefined ? art.genericValue : "HP") + " [" + (art.effect / 10) + "%]";
 			else if (art.sub == "PROTECT")
 				effectName += effectJson[art.sub] + (art.target == "DYING" ? " on Allies with Critical Health" : "") + " [" + (art.rate / 10) + "%]";
-			else if (art.sub == "AVOID" || art.sub == "PURSUE" || art.sub == "DEFENSE_IGNORED" || art.sub == "COUNTER" || art.sub == "PROVOKE" || art.sub == "CRITICAL" || art.sub == "GUTS" || art.sub == "SKILL_QUICK")
+			else if (art.sub == "AVOID" || art.sub == "PURSUE" || art.sub == "DEFENSE_IGNORED" || art.sub == "COUNTER" || art.sub == "PROVOKE" || art.sub == "CRITICAL" || art.sub == "GUTS" || art.sub == "SKILL_QUICK" || art.sub == "IMITATE_ATTRIBUTE")
 				effectName += effectJson[art.sub] + " [" + (art.rate / 10) + "%]";
 			else if (art.sub == "BARRIER")
 				effectName += effectJson[art.sub] + " [" + (art.effect / 10) + "]";

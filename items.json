@@ -123,6 +123,7 @@
   "EVENT_DAILYTOWER_1087_KEY": "Best Recipe in the Universe",
   "EVENT_DAILYTOWER_1165_KEY": "Black Leather Notebook",
   "EVENT_DAILYTOWER_1167_KEY": "Matchmaking Photos",
+  "EVENT_DAILYTOWER_1172_KEY": "Touka's Evaluation",
   "ITEM_EVENT_ACCOMPLISH_1027_EXCHANGE_1": "Fragment of the Truth",
   "ITEM_EVENT_BRANCH_1170_CHARA_9999": "Colorful Sticky Notes",
   "ITEM_EVENT_BRANCH_1170_PART_1": "SUP Paddle Board",
@@ -142,5 +143,6 @@
   "ITEM_EVENT_DAILYTOWER_1167_EXCHANGE_1": "Petit Usa",
   "ITEM_EVENT_DAILYTOWER_1164_EXCHANGE_1": "Memories Message",
   "ITEM_EVENT_DAILYTOWER_1171_EXCHANGE_1": "5th Anniversary Medal",
-  "ITEM_EVENT_DAILYTOWER_1171_EXCHANGE_2": "5th Anniversary Exchange Ticket"
+  "ITEM_EVENT_DAILYTOWER_1171_EXCHANGE_2": "5th Anniversary Exchange Ticket",
+  "ITEM_EVENT_DAILYTOWER_1172_EXCHANGE_1": "Key to Memory"
 }

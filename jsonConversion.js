@@ -231,6 +231,8 @@ function interpretArt(art, jsonObj, effectJson)
 				effectName += effectJson[art.sub] + " [" + (art.rate / 10) + "%]";
 			else if (art.sub == "BARRIER")
 				effectName += effectJson[art.sub] + " [" + (art.effect / 10) + "]";
+			else if (art.sub == "REFLECT_DEBUFF")
+				effectName += effectJson[art.sub] + " [" + (art.effect) + " Times]";
 			else
 				effectName += effectJson[art.sub] + " [" + (art.rate != 1000 ? "" + (art.rate / 10) + "% chance / " : "") + (art.effect / 10) + "%]";
 			break;

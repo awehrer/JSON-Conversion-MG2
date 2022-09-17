@@ -35,6 +35,7 @@
 	"DAMAGE_DOWN_DARK": "Dark Attribute Damage Cut",
 	"DAMAGE_UP": "Damage Up",
     "DAMAGE_UP_BAD": "Damage Up Versus Enemies Affected With Status Ailments",
+	"DAMAGE_UP_BAD_NUM": "Frailty",
     "DARKNESS": "Darkness",
 	"DEBUFF": "Debuff",
     "DEFENSE": "Defense",

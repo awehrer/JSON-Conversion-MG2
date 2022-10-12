@@ -804,7 +804,6 @@ function convertJSON()
 					var dropItem = jsonObj.webData.userQuestBattleResultList[0].questBattle.addDropItemId;
 					itemCount++;
 					drops += "|" + translateItemCode(dropItem, itemJson);
-					dropItemNum++;
 				}
 				
 				while (jsonObj.webData.userQuestBattleResultList[0].questBattle["dropItem" + dropItemNum] != undefined)

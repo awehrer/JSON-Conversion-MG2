@@ -594,7 +594,7 @@ function convertJSON()
 								+ " |Master EXP = " + jsonObj.webData.userQuestBattleResultList[0].questBattle.exp
 								+ " |Magical girl EXP = " + jsonObj.webData.userQuestBattleResultList[0].questBattle.cardExp
 								+ " |Bond EXP = " + jsonObj.webData.userQuestBattleResultList[0].questBattle.baseBondsPt
-								+ (jsonObj.webData.userQuestBattleResultList[0].questBattle.limitTurn != undefined ? " |Maximum turn = " + jsonObj.webData.userQuestBattleResultList[0].questBattle.limitTurn : "")
+								+ (jsonObj.webData.userQuestBattleResultList[0].questBattle.limitTurn != undefined ? " |Maximum turns = " + jsonObj.webData.userQuestBattleResultList[0].questBattle.limitTurn : "")
 								+ "\n}}";
 
 				/* Example:

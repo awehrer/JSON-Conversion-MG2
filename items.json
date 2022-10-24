@@ -124,6 +124,7 @@
   "EVENT_DAILYTOWER_1165_KEY": "Black Leather Notebook",
   "EVENT_DAILYTOWER_1167_KEY": "Matchmaking Photos",
   "EVENT_DAILYTOWER_1172_KEY": "Touka's Evaluation",
+  "EVENT_DAILYTOWER_1176_KEY": "Mask",
   "EVENT_SINGLERAID_1175_EXCHANGE_1": "King Pumpkin Candy",
   "ITEM_EVENT_SINGLERAID_1175_EXCHANGE_1": "King Pumpkin Candy",
   "ITEM_EVENT_ACCOMPLISH_1027_EXCHANGE_1": "Fragment of the Truth",
@@ -147,5 +148,6 @@
   "ITEM_EVENT_DAILYTOWER_1171_EXCHANGE_1": "5th Anniversary Medal",
   "ITEM_EVENT_DAILYTOWER_1171_EXCHANGE_2": "5th Anniversary Exchange Ticket",
   "ITEM_EVENT_DAILYTOWER_1172_EXCHANGE_1": "Key to Memory",
-  "ITEM_EVENT_DAILYTOWER_1173_EXCHANGE_1": "Duo's Youth"
+  "ITEM_EVENT_DAILYTOWER_1173_EXCHANGE_1": "Duo's Youth",
+  "ITEM_EVENT_DAILYTOWER_1176_EXCHANGE_1": "Threads That Connect People"
 }

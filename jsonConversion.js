@@ -582,20 +582,25 @@ function convertJSON()
 			
 			function convertJSONWithEffectJSON(effectJson)
 			{
-				/* Example:
-				{{Questheader
-				|Difficulty = 20 |AP = 5 |CC = 400 |Master EXP = 64 |Magical girl EXP = 24 |Bond EXP = 40
-				}}
-				*/
-				var questheader = "{{Questheader"
-								+ "\n|Difficulty = " + (jsonObj.webData.userQuestBattleResultList[0].questBattle.difficulty != undefined ? jsonObj.webData.userQuestBattleResultList[0].questBattle.difficulty : jsonObj.scenario.difficulty)
-								+ " |AP = " + (jsonObj.webData.userQuestBattleResultList[0].questBattle.ap != undefined ? jsonObj.webData.userQuestBattleResultList[0].questBattle.ap : (jsonObj.scenario.cost > 0 ? jsonObj.scenario.cost : (jsonObj.webData.userQuestBattleResultList[0].questBattle.needItemNum != undefined ? "{{Inum|" + (itemJson[jsonObj.webData.userQuestBattleResultList[0].questBattle.useItemId] != undefined ? itemJson[jsonObj.webData.userQuestBattleResultList[0].questBattle.useItemId] : jsonObj.webData.userQuestBattleResultList[0].questBattle.useItemId) + "|" + jsonObj.webData.userQuestBattleResultList[0].questBattle.needItemNum + "|40px}}" : 0)))
-								+ " |CC = " + jsonObj.webData.userQuestBattleResultList[0].questBattle.riche
-								+ " |Master EXP = " + jsonObj.webData.userQuestBattleResultList[0].questBattle.exp
-								+ " |Magical girl EXP = " + jsonObj.webData.userQuestBattleResultList[0].questBattle.cardExp
-								+ " |Bond EXP = " + jsonObj.webData.userQuestBattleResultList[0].questBattle.baseBondsPt
-								+ (jsonObj.webData.userQuestBattleResultList[0].questBattle.limitTurn != undefined ? " |Maximum turns = " + jsonObj.webData.userQuestBattleResultList[0].questBattle.limitTurn : "")
-								+ "\n}}";
+				var questheader;
+				
+				if (jsonObj.battleType != "ARENA")
+				{
+					/* Example:
+					{{Questheader
+					|Difficulty = 20 |AP = 5 |CC = 400 |Master EXP = 64 |Magical girl EXP = 24 |Bond EXP = 40
+					}}
+					*/
+					var questheader = "{{Questheader"
+									+ "\n|Difficulty = " + (jsonObj.webData.userQuestBattleResultList[0].questBattle.difficulty != undefined ? jsonObj.webData.userQuestBattleResultList[0].questBattle.difficulty : jsonObj.scenario.difficulty)
+									+ " |AP = " + (jsonObj.webData.userQuestBattleResultList[0].questBattle.ap != undefined ? jsonObj.webData.userQuestBattleResultList[0].questBattle.ap : (jsonObj.scenario.cost > 0 ? jsonObj.scenario.cost : (jsonObj.webData.userQuestBattleResultList[0].questBattle.needItemNum != undefined ? "{{Inum|" + (itemJson[jsonObj.webData.userQuestBattleResultList[0].questBattle.useItemId] != undefined ? itemJson[jsonObj.webData.userQuestBattleResultList[0].questBattle.useItemId] : jsonObj.webData.userQuestBattleResultList[0].questBattle.useItemId) + "|" + jsonObj.webData.userQuestBattleResultList[0].questBattle.needItemNum + "|40px}}" : 0)))
+									+ " |CC = " + jsonObj.webData.userQuestBattleResultList[0].questBattle.riche
+									+ " |Master EXP = " + jsonObj.webData.userQuestBattleResultList[0].questBattle.exp
+									+ " |Magical girl EXP = " + jsonObj.webData.userQuestBattleResultList[0].questBattle.cardExp
+									+ " |Bond EXP = " + jsonObj.webData.userQuestBattleResultList[0].questBattle.baseBondsPt
+									+ (jsonObj.webData.userQuestBattleResultList[0].questBattle.limitTurn != undefined ? " |Maximum turns = " + jsonObj.webData.userQuestBattleResultList[0].questBattle.limitTurn : "")
+									+ "\n}}";
+				}
 
 				/* Example:
 				{{Questbody
@@ -747,103 +752,110 @@ function convertJSON()
 				
 				enemySkills += "\n}}";
 
-				/* Example:
-				{{Missions
-				|Mission1 = Clear when total remaining HP is 30% or more
-				|Mission2 = Clear within 25 turns
-				|Mission3 = Clear without Continue
-				|Mission Reward Quantity = 2
-				|Mission Reward = Lucky Rake
-				}}
-				*/
-				var missionRewardCode = jsonObj.webData.userQuestBattleResultList[0].questBattle.missionRewardCode;
-				var missions = "";
-				if (missionRewardCode != undefined)
+				if (jsonObj.battleType != "ARENA")
 				{
-					console.log(missionRewardCode);
-					var index = missionRewardCode.lastIndexOf("_");
-					var missionRewardQuantity = missionRewardCode.substr(index + 1);
-					missions = "{{Missions\n|Mission1 = " + translateMissionCode(jsonObj.webData.userQuestBattleResultList[0].questBattle.mission1)
-											+ "\n|Mission2 = " + translateMissionCode(jsonObj.webData.userQuestBattleResultList[0].questBattle.mission2)
-											+ "\n|Mission3 = " + translateMissionCode(jsonObj.webData.userQuestBattleResultList[0].questBattle.mission3)
-											+ "\n|Mission Reward Quantity = " + missionRewardQuantity
-											+ "\n|Mission Reward = " + translateItemCode(missionRewardCode.substr(0, index), itemJson)
-											+ "\n}}";
-				}
-							
-				/* Example:
-				{{Drops|CC|1Q=300|Nanny's Grip|Nanny's Pedestal|FC=Nanny's Grip|FCQ=2|FC2=Nanny's Pedestal|FC2Q=4|FC3=Forest Book ++|FC3Q=2|FC4=Dark Book +|FC4Q=3|FC5=Forest Book +|FC5Q=3|FC6=CC|FC6Q=100000}}
-				*/
-				var itemCode;
-				var itemQuantity;
-				var rewardNum;
-				var dropItemNum = 1;
-				var itemCount = 0;
-				var fcItemCount = 0;
-				var drops = "{{Drops";
-				
-				rewardNum = 1;
-				if (jsonObj.webData.userQuestBattleResultList[0].questBattle.defaultDropItem != undefined)
-				{
-					while (jsonObj.webData.userQuestBattleResultList[0].questBattle.defaultDropItem["rewardCode" + rewardNum] != undefined)
+					/* Example:
+					{{Missions
+					|Mission1 = Clear when total remaining HP is 30% or more
+					|Mission2 = Clear within 25 turns
+					|Mission3 = Clear without Continue
+					|Mission Reward Quantity = 2
+					|Mission Reward = Lucky Rake
+					}}
+					*/
+					var missionRewardCode = jsonObj.webData.userQuestBattleResultList[0].questBattle.missionRewardCode;
+					var missions = "";
+					if (missionRewardCode != undefined)
 					{
-						itemCount++;
-						var dropRewardCode = jsonObj.webData.userQuestBattleResultList[0].questBattle.defaultDropItem["rewardCode" + rewardNum];
-						index = dropRewardCode.lastIndexOf("_");
-						itemCode = dropRewardCode.substr(0, index);
-						itemQuantity = dropRewardCode.substr(index + 1);
-						drops += "|" + translateItemCode(itemCode, itemJson);
-						if (itemQuantity > 1)
-							drops += "|" + itemCount + "Q=" + itemQuantity;
-						rewardNum++;
+						console.log(missionRewardCode);
+						var index = missionRewardCode.lastIndexOf("_");
+						var missionRewardQuantity = missionRewardCode.substr(index + 1);
+						missions = "{{Missions\n|Mission1 = " + translateMissionCode(jsonObj.webData.userQuestBattleResultList[0].questBattle.mission1)
+												+ "\n|Mission2 = " + translateMissionCode(jsonObj.webData.userQuestBattleResultList[0].questBattle.mission2)
+												+ "\n|Mission3 = " + translateMissionCode(jsonObj.webData.userQuestBattleResultList[0].questBattle.mission3)
+												+ "\n|Mission Reward Quantity = " + missionRewardQuantity
+												+ "\n|Mission Reward = " + translateItemCode(missionRewardCode.substr(0, index), itemJson)
+												+ "\n}}";
 					}
-				}
-				
-				if (jsonObj.webData.userQuestBattleResultList[0].questBattle.addDropItemId != undefined)
-				{
-					var dropItem = jsonObj.webData.userQuestBattleResultList[0].questBattle.addDropItemId;
-					itemCount++;
-					drops += "|" + translateItemCode(dropItem, itemJson);
-				}
-				
-				while (jsonObj.webData.userQuestBattleResultList[0].questBattle["dropItem" + dropItemNum] != undefined)
-				{
-					rewardNum = 1;
-					var dropItem = jsonObj.webData.userQuestBattleResultList[0].questBattle["dropItem" + dropItemNum];
-					while (dropItem["rewardCode" + rewardNum] != undefined)
-					{
-						itemCount++;
-						var dropRewardCode = dropItem["rewardCode" + rewardNum];
-						index = dropRewardCode.lastIndexOf("_");
-						itemCode = dropRewardCode.substr(0, index);
-						itemQuantity = dropRewardCode.substr(index + 1);
-						drops += "|" + translateItemCode(itemCode, itemJson);
-						if (itemQuantity > 1)
-							drops += "|" + itemCount + "Q=" + itemQuantity;
-						rewardNum++;
-					}
-					
-					dropItemNum++;
-				}
-				
-				if (jsonObj.webData.userQuestBattleResultList[0].questBattle.firstClearRewardCodes != undefined)
-				{
-					var fcItemCodes = jsonObj.webData.userQuestBattleResultList[0].questBattle.firstClearRewardCodes.split(",");
 
-					for (var i = 0; i < fcItemCodes.length; i++)
+					/* Example:
+					{{Drops|CC|1Q=300|Nanny's Grip|Nanny's Pedestal|FC=Nanny's Grip|FCQ=2|FC2=Nanny's Pedestal|FC2Q=4|FC3=Forest Book ++|FC3Q=2|FC4=Dark Book +|FC4Q=3|FC5=Forest Book +|FC5Q=3|FC6=CC|FC6Q=100000}}
+					*/
+					var itemCode;
+					var itemQuantity;
+					var rewardNum;
+					var dropItemNum = 1;
+					var itemCount = 0;
+					var fcItemCount = 0;
+					var drops = "{{Drops";
+
+					rewardNum = 1;
+					if (jsonObj.webData.userQuestBattleResultList[0].questBattle.defaultDropItem != undefined)
 					{
-						index = fcItemCodes[i].lastIndexOf("_");
-						itemCode = fcItemCodes[i].substr(0, index);
-						itemQuantity = fcItemCodes[i].substr(index + 1);
-						drops += "|FC" + (i != 0 ? (i + 1) : "") + "=" + translateItemCode(itemCode, itemJson);
-						if (itemQuantity > 1)
-							drops += "|FC" + (i != 0 ? (i + 1) : "") + "Q=" + itemQuantity;
+						while (jsonObj.webData.userQuestBattleResultList[0].questBattle.defaultDropItem["rewardCode" + rewardNum] != undefined)
+						{
+							itemCount++;
+							var dropRewardCode = jsonObj.webData.userQuestBattleResultList[0].questBattle.defaultDropItem["rewardCode" + rewardNum];
+							index = dropRewardCode.lastIndexOf("_");
+							itemCode = dropRewardCode.substr(0, index);
+							itemQuantity = dropRewardCode.substr(index + 1);
+							drops += "|" + translateItemCode(itemCode, itemJson);
+							if (itemQuantity > 1)
+								drops += "|" + itemCount + "Q=" + itemQuantity;
+							rewardNum++;
+						}
 					}
+
+					if (jsonObj.webData.userQuestBattleResultList[0].questBattle.addDropItemId != undefined)
+					{
+						var dropItem = jsonObj.webData.userQuestBattleResultList[0].questBattle.addDropItemId;
+						itemCount++;
+						drops += "|" + translateItemCode(dropItem, itemJson);
+					}
+
+					while (jsonObj.webData.userQuestBattleResultList[0].questBattle["dropItem" + dropItemNum] != undefined)
+					{
+						rewardNum = 1;
+						var dropItem = jsonObj.webData.userQuestBattleResultList[0].questBattle["dropItem" + dropItemNum];
+						while (dropItem["rewardCode" + rewardNum] != undefined)
+						{
+							itemCount++;
+							var dropRewardCode = dropItem["rewardCode" + rewardNum];
+							index = dropRewardCode.lastIndexOf("_");
+							itemCode = dropRewardCode.substr(0, index);
+							itemQuantity = dropRewardCode.substr(index + 1);
+							drops += "|" + translateItemCode(itemCode, itemJson);
+							if (itemQuantity > 1)
+								drops += "|" + itemCount + "Q=" + itemQuantity;
+							rewardNum++;
+						}
+
+						dropItemNum++;
+					}
+
+					if (jsonObj.webData.userQuestBattleResultList[0].questBattle.firstClearRewardCodes != undefined)
+					{
+						var fcItemCodes = jsonObj.webData.userQuestBattleResultList[0].questBattle.firstClearRewardCodes.split(",");
+
+						for (var i = 0; i < fcItemCodes.length; i++)
+						{
+							index = fcItemCodes[i].lastIndexOf("_");
+							itemCode = fcItemCodes[i].substr(0, index);
+							itemQuantity = fcItemCodes[i].substr(index + 1);
+							drops += "|FC" + (i != 0 ? (i + 1) : "") + "=" + translateItemCode(itemCode, itemJson);
+							if (itemQuantity > 1)
+								drops += "|FC" + (i != 0 ? (i + 1) : "") + "Q=" + itemQuantity;
+						}
+					}
+
+					drops += "}}";
+
+					document.getElementById("resultText").value = questheader + "\n" + questbody + (enemySkills != "{{EnemySkills\n}}" ? "\n" + enemySkills : "")  + (missions != "" ? "\n" + missions : "") + "\n" + drops;
 				}
-				
-				drops += "}}";
-				
-				document.getElementById("resultText").value = questheader + "\n" + questbody + (enemySkills != "{{EnemySkills\n}}" ? "\n" + enemySkills : "")  + (missions != "" ? "\n" + missions : "") + "\n" + drops;
+				else
+				{
+					document.getElementById("resultText").value = questbody + (enemySkills != "{{EnemySkills\n}}" ? "\n" + enemySkills : "");
+				}
 			}
         }
     }

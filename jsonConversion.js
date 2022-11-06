@@ -326,7 +326,7 @@ function interpretArt(art, jsonObj, effectJson)
 	}
 	
 	if (effectName == null)
-		effectName = art;
+		effectName = "Error: + art.code + " " + art.sub;
 	
 	if (art.turn != undefined)
 		turn = art.turn;

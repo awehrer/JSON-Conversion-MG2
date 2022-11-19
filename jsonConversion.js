@@ -223,6 +223,9 @@ function interpretArt(art, jsonObj, effectJson)
 			else
 				effectName = "";
 			
+			if (art.sub == "COUNTER" && art.effect == 1200)
+				effectName += "Strengthened ";
+			
 			if (art.sub == "AUTO_HEAL")
 				effectName += "Regenerate " + (art.genericValue != undefined ? art.genericValue : "HP") + " [" + (art.effect / 10) + "%]";
 			else if (art.sub == "PROTECT")
@@ -232,7 +235,7 @@ function interpretArt(art, jsonObj, effectJson)
 			else if (art.sub == "BARRIER")
 				effectName += effectJson[art.sub] + " [" + (art.effect / 10) + "]";
 			else if (art.sub == "REFLECT_DEBUFF")
-				effectName += effectJson[art.sub] + " [" + (art.effect) + " Times]";
+				effectName += effectJson[art.sub] + " [" + (art.effect) + " Debuffs]";
 			else
 				effectName += effectJson[art.sub] + " [" + (art.rate != 1000 ? "" + (art.rate / 10) + "% chance / " : "") + (art.effect / 10) + "%]";
 			break;
@@ -410,7 +413,7 @@ function interpretMemoria(memoria, jsonObj, effectJson)
 				else
 					effects[effectIndex].effect = effects[effectIndex].effect.split("]")[0] + " / ";
 
-				effects[effectIndex].effect += effects[effectIndex].times + (effects[effectIndex].times > 1 ? " Times" : " Time") + "]";
+				effects[effectIndex].effect += effects[effectIndex].times + (effects[effectIndex].effect.startsWith("Anti-Debuff") ? " Debuff" : (effects[effectIndex].effect.startsWith("Negate Status Ailments") ? " Status Ailment" : " Time")) + (effects[effectIndex].times > 1 ? "s" : " ") + "]";
 			}
 			
 			if (effects[effectIndex].effect.includes("Upon Death"))

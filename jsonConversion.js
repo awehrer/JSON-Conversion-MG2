@@ -516,28 +516,31 @@ function interpretMagia(magia, jsonObj, effectJson)
 	
 	for (var artIndex = 0; artIndex < magia.artList.length; artIndex++)
 	{
-		artDesc = interpretArt(getArtById(magia.artList[artIndex], jsonObj), jsonObj, effectJson);
-		if (artDesc.effect.startsWith("Anti-Debuff") || artDesc.effect.startsWith("Negate Status Ailments") || artDesc.effect.startsWith("Skill Quicken"))
+		if (magia.artList[artIndex].effectCode != "DUMMY")
 		{
-			var found = false;
-			for (var i = 0; i < effects.length; i++)
+			artDesc = interpretArt(getArtById(magia.artList[artIndex], jsonObj), jsonObj, effectJson);
+			if (artDesc.effect.startsWith("Anti-Debuff") || artDesc.effect.startsWith("Negate Status Ailments") || artDesc.effect.startsWith("Skill Quicken"))
 			{
-				if (effects[i].effect == artDesc.effect && effects[i].target == artDesc.target && effects[i].turn == artDesc.turn)
+				var found = false;
+				for (var i = 0; i < effects.length; i++)
 				{
-					found = true;
-					effects[i].times++;
-					break;
+					if (effects[i].effect == artDesc.effect && effects[i].target == artDesc.target && effects[i].turn == artDesc.turn)
+					{
+						found = true;
+						effects[i].times++;
+						break;
+					}
+				}
+
+				if (!found)
+				{
+					effects.push(artDesc);
 				}
 			}
-			
-			if (!found)
+			else
 			{
 				effects.push(artDesc);
 			}
-		}
-		else
-		{
-			effects.push(artDesc);
 		}
 	}
 	

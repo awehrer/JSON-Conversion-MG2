@@ -510,15 +510,18 @@ function interpretMagia(magia, jsonObj, effectJson)
 	var effects = [];
 	var artDesc;
 	var magiaDesc = "";
+	var artJsonObj;
 	
 	if (magia.level > 1)
 		magiaDesc += "[WARNING: Magia level > 1]"; // assuming all enemies are magia level 1 unless this is triggered
 	
 	for (var artIndex = 0; artIndex < magia.artList.length; artIndex++)
 	{
-		if (magia.artList[artIndex].sub != "DUMMY")
+		artJsonObj = getArtById(magia.artList[artIndex], jsonObj)
+		
+		if (artJsonObj.sub != "DUMMY")
 		{
-			artDesc = interpretArt(getArtById(magia.artList[artIndex], jsonObj), jsonObj, effectJson);
+			artDesc = interpretArt(artJsonObj, jsonObj, effectJson);
 			if (artDesc.effect.startsWith("Anti-Debuff") || artDesc.effect.startsWith("Negate Status Ailments") || artDesc.effect.startsWith("Skill Quicken"))
 			{
 				var found = false;

@@ -516,7 +516,7 @@ function interpretMagia(magia, jsonObj, effectJson)
 	
 	for (var artIndex = 0; artIndex < magia.artList.length; artIndex++)
 	{
-		if (magia.artList[artIndex].effectCode != "DUMMY")
+		if (magia.artList[artIndex].sub != "DUMMY")
 		{
 			artDesc = interpretArt(getArtById(magia.artList[artIndex], jsonObj), jsonObj, effectJson);
 			if (artDesc.effect.startsWith("Anti-Debuff") || artDesc.effect.startsWith("Negate Status Ailments") || artDesc.effect.startsWith("Skill Quicken"))

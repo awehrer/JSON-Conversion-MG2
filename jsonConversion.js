@@ -233,7 +233,7 @@ function interpretArt(art, jsonObj, effectJson)
 			else if (art.sub == "AVOID" || art.sub == "PURSUE" || art.sub == "DEFENSE_IGNORED" || art.sub == "COUNTER" || art.sub == "PROVOKE" || art.sub == "CRITICAL" || art.sub == "GUTS" || art.sub == "SKILL_QUICK" || art.sub == "IMITATE_ATTRIBUTE")
 				effectName += effectJson[art.sub] + " [" + (art.rate / 10) + "%]";
 			else if (art.sub == "BARRIER")
-				effectName += effectJson[art.sub] + " [" + (art.effect / 10) + "]";
+				effectName += effectJson[art.sub] + " [" + (art.effect) + "]";
 			else if (art.sub == "REFLECT_DEBUFF")
 				effectName += effectJson[art.sub] + " [" + (art.effect) + " Debuffs]";
 			else

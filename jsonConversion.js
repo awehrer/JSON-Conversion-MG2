@@ -240,10 +240,7 @@ function interpretArt(art, jsonObj, effectJson)
 				effectName += effectJson[art.sub] + " [" + (art.rate != 1000 ? "" + (art.rate / 10) + "% chance / " : "") + (art.effect / 10) + "%]";
 			break;
 		case "CONDITION_BAD":
-			if (art.rate < 1000)
-				effectName = "Chance to ";
-			else
-				effectName = "";
+			effectName = "Chance to ";
 			
 			if ((art.sub == "POISON" || art.sub == "CURSE") && art.effect == 300)
 				effectName += "Strengthened ";
@@ -272,7 +269,9 @@ function interpretArt(art, jsonObj, effectJson)
 			else
 				effectName += "Anti-"; // special case(?): { "artId": 610319100, "code": "IGNORE", "target": "ALL", "sub": "DEBUFF", "turn": 1, "rate": 1000, "growPoint": 0, "genericValue": "NONE" }
 			
-			effectName += effectJson[art.sub] + " [" + (art.rate / 10) + "%]";
+			effectName += effectJson[art.sub];
+			if (art.rate < 1000)
+				effectName += " [" + (art.rate / 10) + "%]";
 			break;
 		case "HEAL":
 			if (art.sub == "MP")
@@ -284,15 +283,10 @@ function interpretArt(art, jsonObj, effectJson)
 			break;
 		case "INITIAL":
 			if (art.sub == "MP")
-				effectName = "MP Gauge " + (art.effect / 10) + "% Full On Battle Start";
+				effectName = "MP Gauge Increased On Battle Start [" + (art.effect / 10) + "% full]";
 			break;
 		case "ENCHANT":
-		if (art.rate < 1000)
-				effectName = "Chance to ";
-			else
-				effectName = "";
-			
-			effectName += effectJson[art.sub] + " on Attack [" + (art.rate / 10) + "%]";
+			effectName = "Chance to " + effectJson[art.sub] + " on Attack [" + (art.rate / 10) + "%]";
 			break;
 		case "REVOKE":
 			switch (art.sub)
@@ -344,13 +338,13 @@ function interpretArt(art, jsonObj, effectJson)
 			case "DYING":
 			case "TARGET":
 			case "ONE":
-				target = "One";
+				target = "One Enemy";
 				break;
 			case "ALL":
 				if ((art.code == "HEAL" && art.sub != "MP_DAMAGE") || (art.code == "CONDITION_GOOD") || (art.code == "BUFF") || (art.code == "BUFF_DIE"))
 					target = "Allies";
 				else
-					target = "All";
+					target = "All Enemies";
 				break;
 			default:
 				target = art.target;

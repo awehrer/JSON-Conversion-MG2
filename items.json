@@ -127,6 +127,7 @@
   "EVENT_DAILYTOWER_1176_KEY": "Mask",
   "EVENT_DAILYTOWER_1178_KEY": "Aru-chan's Wanted Poster",
   "EVENT_DAILYTOWER_1180_KEY": "Companion Notebook",
+  "EVENT_DAILYTOWER_1191_KEY": "Epitaphs of Rakshasi",
   "EVENT_DAILYTOWER_1179_EXCHANGE_1": "Some Day's Time Capsule",
   "EVENT_SINGLERAID_1175_EXCHANGE_1": "King Pumpkin Candy",
   "ITEM_EVENT_SINGLERAID_1175_EXCHANGE_1": "King Pumpkin Candy",
@@ -155,5 +156,6 @@
   "ITEM_EVENT_DAILYTOWER_1176_EXCHANGE_1": "Thread That Connects People",
   "ITEM_EVENT_DAILYTOWER_1178_EXCHANGE_1": "Aru-chan's Leaf",
   "ITEM_EVENT_DAILYTOWER_1179_EXCHANGE_1": "Some Day's Time Capsule",
-  "ITEM_EVENT_DAILYTOWER_1180_EXCHANGE_1": "Everyone's Yell"
+  "ITEM_EVENT_DAILYTOWER_1180_EXCHANGE_1": "Everyone's Yell",
+  "ITEM_EVENT_DAILYTOWER_1180_EXCHANGE_1": "Butter Tea"
 }

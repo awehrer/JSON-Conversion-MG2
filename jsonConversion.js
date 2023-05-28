@@ -1,4 +1,4 @@
-var $ = require( "jquery" );
+var $ = require("./jquery-3.4.1.min.js");
 
 function translateMissionCode(missionCode)
 {

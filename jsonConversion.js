@@ -1,3 +1,5 @@
+import $ from './jquery-3.4.1.min.js';
+
 function translateMissionCode(missionCode)
 {
     var parts = missionCode.split("_");

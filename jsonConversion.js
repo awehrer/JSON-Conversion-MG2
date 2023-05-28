@@ -571,10 +571,10 @@ function interpretMagia(magia, jsonObj, effectJson)
 
 function convertJSON()
 {
-	convertJSON(document.getElementById("jsonText").value);
+	convertJSONString(document.getElementById("jsonText").value);
 }
 
-function convertJSON(jsonString)
+function convertJSONString(jsonString)
 {
     var jsonObj = JSON.parse(jsonString);
     

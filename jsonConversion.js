@@ -571,7 +571,12 @@ function interpretMagia(magia, jsonObj, effectJson)
 
 function convertJSON()
 {
-    var jsonObj = JSON.parse(document.getElementById("jsonText").value);
+	convertJSON(document.getElementById("jsonText").value);
+}
+
+function convertJSON(jsonString)
+{
+    var jsonObj = JSON.parse(jsonString);
     
     $.getJSON("characters.json", convertJSONWithCharacterJSON);
     

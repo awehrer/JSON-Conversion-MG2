@@ -404,10 +404,8 @@ function interpretMemoria(memoria, jsonObj, effectJson)
 			{
 				if (effects[effectIndex].effect.endsWith("[100%]"))
 					effects[effectIndex].effect = effects[effectIndex].effect.split("100%]")[0];
-				else if (effects[effectIndex].effect.endsWith("]"))
-					effects[effectIndex].effect = effects[effectIndex].effect.split("]")[0] + " / ";
 				else
-					effects[effectIndex].effect = effects[effectIndex].effect.split + "[";
+					effects[effectIndex].effect = effects[effectIndex].effect.split("]")[0] + " / ";
 
 				effects[effectIndex].effect += effects[effectIndex].times + (effects[effectIndex].effect.startsWith("Anti-Debuff") ? " Debuff" : (effects[effectIndex].effect.startsWith("Negate Status Ailments") ? " Status Ailment" : " Time")) + (effects[effectIndex].times > 1 ? "s" : " ") + "]";
 			}
@@ -453,8 +451,10 @@ function interpretMemoria(memoria, jsonObj, effectJson)
 				{
 					if (effects[effectIndex].effect.endsWith("[100%]"))
 						effects[effectIndex].effect = effects[effectIndex].effect.split("100%]")[0];
-					else
+					else if (effects[effectIndex].effect.endsWith("]"))
 						effects[effectIndex].effect = effects[effectIndex].effect.split("]")[0] + " / ";
+					else
+						effects[effectIndex].effect = effects[effectIndex].effect + " [";
 
 					effects[effectIndex].effect += effects[effectIndex].times + (effects[effectIndex].times > 1 ? " Times" : " Time") + "]";
 				}

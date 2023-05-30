@@ -341,7 +341,7 @@ function interpretArt(art, jsonObj, effectJson)
 				target = "One Enemy";
 				break;
 			case "ALL":
-				if ((art.code == "HEAL" && art.sub != "MP_DAMAGE") || (art.code == "CONDITION_GOOD") || (art.code == "BUFF") || (art.code == "BUFF_DIE") || (art.code == "IGNORE") || (effectName == "Remove Status Ailments") || (effectName = "Remove Debuffs"))
+				if ((art.code == "HEAL" && art.sub != "MP_DAMAGE") || (art.code == "CONDITION_GOOD") || (art.code == "BUFF") || (art.code == "BUFF_DIE") || (art.code == "IGNORE") || (effectName == "Remove Status Ailments") || (effectName == "Remove Debuffs"))
 					target = "Allies";
 				else
 					target = "All Enemies";

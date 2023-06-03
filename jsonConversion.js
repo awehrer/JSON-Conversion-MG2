@@ -576,7 +576,7 @@ function convertJSON()
 	convertJSONString(document.getElementById("jsonText").value);
 }
 
-function convertJSONString(jsonString)
+function convertJSONString(jsonString, downloadFile="")
 {
     var jsonObj = JSON.parse(jsonString);
     
@@ -859,17 +859,29 @@ function convertJSONString(jsonString)
 					}
 
 					drops += "}}";
-
-					document.getElementById("resultText").value = questheader + "\n" + questbody + (enemySkills != "{{EnemySkills\n}}" ? "\n" + enemySkills : "")  + (missions != "" ? "\n" + missions : "") + "\n" + drops;
+					
+					if (downloadFile)
+					{
+						downloadFinalText((questheader + "\n" + questbody + (enemySkills != "{{EnemySkills\n}}" ? "\n" + enemySkills : "")  + (missions != "" ? "\n" + missions : "") + "\n" + drops), downloadFile);
+					}
+					else
+					{
+						document.getElementById("resultText").value = questheader + "\n" + questbody + (enemySkills != "{{EnemySkills\n}}" ? "\n" + enemySkills : "")  + (missions != "" ? "\n" + missions : "") + "\n" + drops;
+					}
 				}
 				else
-				{
-					document.getElementById("resultText").value = questbody + (enemySkills != "{{EnemySkills\n}}" ? "\n" + enemySkills : "");
-				}
+					if (downloadFile)
+					{
+						downloadFinalText((questbody + (enemySkills != "{{EnemySkills\n}}" ? "\n" + enemySkills : "")), downloadFile)
+					}
+					else
+					{
+						document.getElementById("resultText").value = questbody + (enemySkills != "{{EnemySkills\n}}" ? "\n" + enemySkills : "");
+					}
 			}
         }
     }
-    
+
     <!--https://magireco.fandom.com/api.php?action=expandtemplates&format=json&text=%7B%7BTemplate%3ADrops%7CStanding%20Ear%20Wrapper%7D%7D-->
     /*var apiEndpoint = "https://magireco.fandom.com/api.php";
     var params = "action=parse&format=json&text=" + document.getElementById("resultText").value;

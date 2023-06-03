@@ -4,6 +4,7 @@
 	<title>Convert</title>
 	<script src="jquery-3.4.1.min.js"></script>
 	<script src="jsonConversion.js"></script>
+	<script src="massConversion.js"></script>
 </head>
 <body>
 	<form style="display:flex;align-items:flex-start;flex-direction:column;">
@@ -15,5 +16,9 @@
 	<p><textarea id="resultText" rows="15" cols="100"></textarea></p>
 	<br />
 	<div id="resultRender"></div>
+	<br />
+	<label>Select files to mass convert</label>
+	<input type="file" id="fileItem" accept=".json, .txt" multiple/>
+	<input type="button" value="Convert" onclick="massConvert()" />
 </body>
 </html>

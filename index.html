@@ -19,6 +19,7 @@
 	<br />
 	<label>Select files to mass convert</label>
 	<input type="file" id="fileItem" accept=".json, .txt" multiple/>
-	<input type="button" value="Convert" onclick="massConvert()" />
+	<input type="button" value="Convert individually" onclick="massConvert(true)" />
+	<input type="button" value="Convert combined" onclick="massConvert(false)" />
 </body>
 </html>

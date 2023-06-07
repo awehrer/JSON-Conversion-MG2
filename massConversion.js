@@ -1,15 +1,16 @@
 const quests = {story: {}, challenge: {}, ex: {}, evils: {}};
 var completed = 0;
 var total = 0;
-function massConvert(downloadSingle=true) {
+function massConvert(downloadIndividually=null) {
+  completed = 0;
   const fileData = document.getElementById("fileItem").files;
   total = fileData.length
   for (let i = 0; i < fileData.length; i++) {
       let Reader = new FileReader;
       Reader.readAsText(fileData[i]);
       Reader.onload = function() {
-          convertJSONString(Reader.result, fileData[i].name, downloadSingle);
-        }
+          convertJSONString(Reader.result, fileData[i].name, downloadIndividually);
+      }
   }
 }
 
@@ -24,26 +25,106 @@ function downloadFinalText(finalText, fileName) {
   URL.revokeObjectURL(downloadURL);
 }
 
-function recordQuest(finalText, fileName) {
+function recordQuest(finalText, fileName, downloadIndividually) {
     var fileName = fileName.split(".")[0];
     var num = Number(fileName.split("_")[1]);
     quests[fileName.split("_")[0].toLowerCase()][num] = finalText;
     completed += 1;
     if (completed == total) {
-      tabberCombine();
+      tabberCombine(downloadIndividually);
     }
 }
 
-function tabberCombine() {
-  output = "<tabber>\nStory=\n{{#tag:tabber|\n"
-  for (let i = 1; i < 41; i++) {
-    if (!quests['story'][i]) break;
-    output += 'Battle ' + i + '=\n' + '<div style="display:none">\n' + "'''Story Battle " + i + "'''\n" + '</div>\n' + quests['story'][i] + "\n{{!}}-{{!}}\n";
+function storyCondense() {
+  var stories = [];
+  var curStart = 1;
+  var curEnd = 1;
+  var curHeader = (quests['story'][1].split('Questheader')[1]).split('\n}}')[0];
+  var curFooter = quests['story'][1].split('Missions')[1];
+
+  var curEnemies = arrangeEnemies((quests['story'][1].split('Questbody')[1]).split('\n}}')[0]);
+  for (let i = 2; i < 41; i++) {
+    if (!quests['story'][i]) {
+      if (curStart == curEnd) {
+        stories.push(String(i-1));
+      }
+      else {
+        stories.push(String(curStart) + "-" + String(i-1));
+      }
+      break;
+    }
+    var storyData = quests['story'][i];
+    const newHeader = (storyData.split('Questheader')[1]).split('\n}}')[0];
+    const newFooter = storyData.split('Missions')[1];
+    var newEnemies = arrangeEnemies((storyData.split('Questbody')[1]).split('\n}}')[0]);
+    if ((newHeader != curHeader) || (newFooter != curFooter) || (newEnemies!= curEnemies)) {
+      console.log(i)
+      console.log(newHeader, curHeader, newHeader != curHeader)
+      console.log(newFooter, curFooter, newFooter != curFooter)
+      console.log(newEnemies, curEnemies, newEnemies != curEnemies)
+      if (curStart == curEnd) {
+        stories.push(String(i));
+      }
+      else {
+        stories.push(String(curStart) + "-" + String(curEnd));
+        curStart = i;
+        curEnd = i;
+        curHeader = newHeader;
+        curFooter = newFooter;
+        curEnemies = newEnemies;
+      }
+    }
+    else {
+      curEnd += 1;
+    }
   }
-    output += '}}\n' + '{{{!}} class="article-table" style="width:100%; border: solid pink 2px"\n'
+  return stories;
+}
+
+function arrangeEnemies(enemies) {
+  enemies = enemies.replace('|b|', '||');
+  enemies = enemies.split('\n');
+  const wave1 = [];
+  const wave2 = [];
+  for (const line of enemies) {
+    if (line[1] == '1') {
+      wave1.push(line.slice(6));
+    }
+    else if (line) {
+      wave2.push(line.slice(6));
+    }
+  }
+  wave1.sort()
+  wave2.sort()
+  console.log([wave1, wave2])
+  return String(wave1) + String(wave2)
+}
+
+function tabberCombine(dl) {
+  if (document.getElementById("event_type").value == 'tower') {
+    tabberCombineTower(dl)
+  }
+}
+
+function tabberCombineTower(downloadIndividually) {
+  const stories = storyCondense()
+  console.log(stories)
+  output = "<tabber>\nStory=\n{{#tag:tabber|\n"
+
+  for (var story of stories) {
+    if (story.includes('-')) {
+      var battle = 'Battles ';
+    }
+    else {
+      var battle = 'Battle ';
+    }
+    output += battle + story + '=\n' + '<div style="display:none">\n' + "'''Story " + battle + story + "'''\n" + '</div>\n'
+    + quests['story'][Number(story.split('-')[0])] + "\n{{!}}-{{!}}\n";
+  }
+  output += '}}\n' + '{{{!}} class="article-table" style="width:100%; border: solid pink 2px"\n'
   + '! style="width:15%; text-align:center"{{!}}Section clear\n' + '{{!}}style="text-align:center" {{!}}{{MemoPic|EVENT CLEAR MEMO GOES HERE|50px}}\n' + '{{!}}}\n';
 
-    output += '|-|Challenge=\n{{#tag:tabber|\n';
+  output += '|-|Challenge=\n{{#tag:tabber|\n';
   for (let i = 1; i < 11; i++) {
     output += 'Battle ' + i + '=\n' + '<div style="display:none">\n' + "'''Challenge Battle " + i + "'''\n" + '</div>\n' + quests['challenge'][i] + "\n{{!}}-{{!}}\n";
   }
@@ -68,5 +149,10 @@ function tabberCombine() {
       + '! style="width:15%; text-align:center"{{!}}Section clear\n' + '{{!}}style="text-align:center" {{!}}{{Inum|Gacha Ticket|1}}\n'
     }
   output += '</tabber>'
-  downloadFinalText(output, "final_tabber.")
+  if (downloadIndividually === null) {
+    document.getElementById("resultText").value = output
+  }
+  else {
+    downloadFinalText(output, "final_tabber.")
+  }
 }

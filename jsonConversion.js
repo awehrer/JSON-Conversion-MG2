@@ -576,7 +576,7 @@ function convertJSON()
 	convertJSONString(document.getElementById("jsonText").value);
 }
 
-function convertJSONString(jsonString, fileName="", downloadSingle=false)
+function convertJSONString(jsonString, fileName="", downloadIndividually=null)
 {
     var jsonObj = JSON.parse(jsonString);
     
@@ -862,13 +862,13 @@ function convertJSONString(jsonString, fileName="", downloadSingle=false)
 					
 					if (fileName)
 					{
-						if (downloadSingle)
+						if (downloadIndividually)
 						{
 							downloadFinalText((questheader + "\n" + questbody + (enemySkills != "{{EnemySkills\n}}" ? "\n" + enemySkills : "")  + (missions != "" ? "\n" + missions : "") + "\n" + drops), fileName);
 						}
 						else
 						{
-							recordQuest((questheader + "\n" + questbody + (enemySkills != "{{EnemySkills\n}}" ? "\n" + enemySkills : "")  + (missions != "" ? "\n" + missions : "") + "\n" + drops), fileName)
+							recordQuest((questheader + "\n" + questbody + (enemySkills != "{{EnemySkills\n}}" ? "\n" + enemySkills : "")  + (missions != "" ? "\n" + missions : "") + "\n" + drops), fileName, downloadIndividually)
 						}
 					}
 					else
@@ -879,13 +879,13 @@ function convertJSONString(jsonString, fileName="", downloadSingle=false)
 				else
 					if (fileName)
 					{
-						if (downloadSingle)
+						if (downloadIndividually)
 						{
 							downloadFinalText((questbody + (enemySkills != "{{EnemySkills\n}}" ? "\n" + enemySkills : "")), fileName);
 						}
 						else
 						{
-							recordQuest((questbody + (enemySkills != "{{EnemySkills\n}}" ? "\n" + enemySkills : "")), fileName);
+							recordQuest((questbody + (enemySkills != "{{EnemySkills\n}}" ? "\n" + enemySkills : "")), fileName, downloadIndividually);
 						}
 						
 					}

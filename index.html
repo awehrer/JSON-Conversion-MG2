@@ -17,8 +17,16 @@
 	<br />
 	<div id="resultRender"></div>
 	<br />
-	<label>Select files to mass convert</label>
-	<input type="file" id="fileItem" accept=".json, .txt" multiple/>
+	<h2><label>Select files to mass convert:&nbsp;</label></body></h2>
+	<input type="file" id="fileItem" accept=".json, .txt" multiple style="width:200px"/>
+	<label>Event type:</label>
+	<select id="event_type">
+	<option value="tower">Tower</option>
+	</select>
+	<br /><br />
+	<label>Copy:&nbsp;</label>
+	<input type="button" value="Convert combined" onclick="massConvert()" />
+	<label>&nbsp;&nbsp;&nbsp;Download:&nbsp;</label>
 	<input type="button" value="Convert individually" onclick="massConvert(true)" />
 	<input type="button" value="Convert combined" onclick="massConvert(false)" />
 </body>

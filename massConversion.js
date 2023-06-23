@@ -3,6 +3,10 @@ var completed = 0;
 var total = 0;
 function massConvert(downloadIndividually=null) {
   completed = 0;
+  quests['story'] =  {};
+  quests['challenge']  = {};
+  quests['ex'] = {};
+  quests['evils'] = {};
   const fileData = document.getElementById("fileItem").files;
   total = fileData.length
   for (let i = 0; i < fileData.length; i++) {
@@ -58,10 +62,6 @@ function storyCondense() {
     const newFooter = storyData.split('Missions')[1];
     var newEnemies = arrangeEnemies((storyData.split('Questbody')[1]).split('\n}}')[0]);
     if ((newHeader != curHeader) || (newFooter != curFooter) || (newEnemies!= curEnemies)) {
-      console.log(i)
-      console.log(newHeader, curHeader, newHeader != curHeader)
-      console.log(newFooter, curFooter, newFooter != curFooter)
-      console.log(newEnemies, curEnemies, newEnemies != curEnemies)
       if (curStart == curEnd) {
         stories.push(String(i));
       }
@@ -96,7 +96,6 @@ function arrangeEnemies(enemies) {
   }
   wave1.sort()
   wave2.sort()
-  console.log([wave1, wave2])
   return String(wave1) + String(wave2)
 }
 
@@ -108,9 +107,14 @@ function tabberCombine(dl) {
 
 function tabberCombineTower(downloadIndividually) {
   const stories = storyCondense()
-  console.log(stories)
   output = "<tabber>\nStory=\n{{#tag:tabber|\n"
-
+  halfOfStories = stories[stories.length-1]
+  if (halfOfStories.includes('-')) {
+    halfOfStories = halfOfStories.split('-')[1]
+  }
+  if (quests['evils'][1]) {
+    halfOfStories = halfOfStories / 2
+  }
   for (var story of stories) {
     if (story.includes('-')) {
       var battle = 'Battles ';
@@ -121,8 +125,18 @@ function tabberCombineTower(downloadIndividually) {
     output += battle + story + '=\n' + '<div style="display:none">\n' + "'''Story " + battle + story + "'''\n" + '</div>\n'
     + quests['story'][Number(story.split('-')[0])] + "\n{{!}}-{{!}}\n";
   }
-  output += '}}\n' + '{{{!}} class="article-table" style="width:100%; border: solid pink 2px"\n'
-  + '! style="width:15%; text-align:center"{{!}}Section clear\n' + '{{!}}style="text-align:center" {{!}}{{MemoPic|EVENT CLEAR MEMO GOES HERE|50px}}\n' + '{{!}}}\n';
+  output += '}}\n'
+  if (quests['evils'][1]) {
+  output += '{{#tag:tabber|\nBattles 1-' + halfOfStories + '=\n<div style="display:none">\n' + "'''Battles 1-" + halfOfStories + "'''\n" + '</div>\n'
+  }
+  output += '{{{!}} class="article-table" style="width:100%; border: solid pink 2px"\n' + '! style="width:15%; text-align:center"{{!}}Section clear\n'
+  + '{{!}}style="text-align:center" {{!}}{{Inum|Magia Stone|10}}\n' + '{{!}}}\n';
+
+  if (quests['evils'][1]) {
+    output += '{{!}}-{{!}}Battles ' + Number(halfOfStories+1) + '-' + halfOfStories*2 + '=\n<div style="display:none">\n' + "'''Battles " + Number(halfOfStories+1) + "-"
+    + halfOfStories*2 + "'''\n" + '</div>\n' + '{{{!}} class="article-table" style="width:100%; border: solid pink 2px"\n'
+    + '! style="width:15%; text-align:center"{{!}}Section clear\n' + '{{!}}style="text-align:center" {{!}}{{MemoPic|EVENT CLEAR MEMO GOES HERE|50px}}\n' + '{{!}}}\n' + '}}\n';
+  }
 
   output += '|-|Challenge=\n{{#tag:tabber|\n';
   for (let i = 1; i < 11; i++) {
@@ -131,7 +145,7 @@ function tabberCombineTower(downloadIndividually) {
   output += '}}\n' + '{{{!}} class="article-table" style="width:100%; border: solid pink 2px"\n'
   + '! style="width:15%; text-align:center"{{!}}Section clear\n' + '{{!}}style="text-align:center" {{!}}{{Inum|Magia Stone|10}}\n' + '{{!}}}\n';
 
-  if (quests['ex']) {
+  if (quests['ex'][1]) {
       output += '|-|EX Challenge=\n{{#tag:tabber|\n';
       for (let i = 1; i < 6; i++) {
         output += 'Battle '+ i + '=\n' + '<div style="display:none">\n' + "'''EX Challenge Battle " + i + "'''\n" + '</div>\n' + quests['ex'][i] + "\n{{!}}-{{!}}\n";
@@ -140,7 +154,7 @@ function tabberCombineTower(downloadIndividually) {
     + '! style="width:15%; text-align:center"{{!}}Section clear\n' + '{{!}}style="text-align:center" {{!}}{{Inum|Magia Stone|10}}\n' + '{{!}}}\n';
     }
 
-  if (quests['evils']) {
+  if (quests['evils'][1]) {
       output += '|-|Hundred Evils Challenge=\n{{#tag:tabber|\n';
       for (let i = 1; i < 4; i++) {
         output += 'Challenge ' + i + '=\n' + '<div style="display:none">\n' + "'''Hundred Evils Challenge " + i + "'''\n" + '</div>\n' + quests['evils'][i] + '\n{{!}}-{{!}}\n';

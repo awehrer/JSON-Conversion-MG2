@@ -128,6 +128,7 @@
   "EVENT_DAILYTOWER_1178_KEY": "Aru-chan's Wanted Poster",
   "EVENT_DAILYTOWER_1180_KEY": "Companion Notebook",
   "EVENT_DAILYTOWER_1191_KEY": "Epitaphs of Rakshasi",
+  "EVENT_DAILYTOWER_1194_KEY": "Remnants of Summer",
   "EVENT_DAILYTOWER_1179_EXCHANGE_1": "Some Day's Time Capsule",
   "EVENT_SINGLERAID_1175_EXCHANGE_1": "King Pumpkin Candy",
   "ITEM_EVENT_SINGLERAID_1175_EXCHANGE_1": "King Pumpkin Candy",
@@ -159,5 +160,6 @@
   "ITEM_EVENT_DAILYTOWER_1180_EXCHANGE_1": "Everyone's Yell",
   "ITEM_EVENT_DAILYTOWER_1191_EXCHANGE_1": "Butter Tea",
   "ITEM_EVENT_DAILYTOWER_1193_EXCHANGE_1": "Bouquet of Happiness",
-  "EVENT_DAILYTOWER_1193_EXCHANGE_1": "Bouquet of Happiness"
+  "EVENT_DAILYTOWER_1193_EXCHANGE_1": "Bouquet of Happiness",
+  "ITEM_EVENT_DAILYTOWER_1194_EXCHANGE_1": "Delicious Bamboo Shoots"
 }

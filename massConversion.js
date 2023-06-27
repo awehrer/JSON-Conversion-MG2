@@ -42,14 +42,12 @@ function recordQuest(finalText, fileName, downloadIndividually) {
 function storyCondense() {
   var stories = [];
   var curStart = 1;
-  var curEnd = 1;
   var curHeader = (quests['story'][1].split('Questheader')[1]).split('\n}}')[0];
   var curFooter = quests['story'][1].split('Missions')[1];
-
   var curEnemies = arrangeEnemies((quests['story'][1].split('Questbody')[1]).split('\n}}')[0]);
   for (let i = 2; i < 41; i++) {
     if (!quests['story'][i]) {
-      if (curStart == curEnd) {
+      if (curStart == i-1) {
         stories.push(String(i-1));
       }
       else {
@@ -62,20 +60,16 @@ function storyCondense() {
     const newFooter = storyData.split('Missions')[1];
     var newEnemies = arrangeEnemies((storyData.split('Questbody')[1]).split('\n}}')[0]);
     if ((newHeader != curHeader) || (newFooter != curFooter) || (newEnemies!= curEnemies)) {
-      if (curStart == curEnd) {
-        stories.push(String(i));
+      if (curStart == i-1) {
+        stories.push(String(i-1));
       }
       else {
-        stories.push(String(curStart) + "-" + String(curEnd));
-        curStart = i;
-        curEnd = i;
-        curHeader = newHeader;
-        curFooter = newFooter;
-        curEnemies = newEnemies;
+        stories.push(String(curStart) + "-" + String(i-1));
       }
-    }
-    else {
-      curEnd += 1;
+      curStart = i;
+      curHeader = newHeader;
+      curFooter = newFooter;
+      curEnemies = newEnemies;
     }
   }
   return stories;

@@ -465,7 +465,7 @@ function interpretMemoria(memoria, jsonObj, effectJson)
 					memoriaDesc += " & ";
 			}
 			
-			memoriaDesc += " (" + target + " / " (turn > 0 ? + turn + (turn == 1 ? " Turn" : " Turns") : "∞ Turns") + (memoria.type == "STARTUP" ? " on Battle Start" : "") + ")";
+			memoriaDesc += " (" + target + " / " + (turn > 0 ? + turn + (turn == 1 ? " Turn" : " Turns") : "∞ Turns") + (memoria.type == "STARTUP" ? " on Battle Start" : "") + ")";
 		}
 		else
 		{

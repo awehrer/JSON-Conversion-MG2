@@ -464,15 +464,8 @@ function interpretMemoria(memoria, jsonObj, effectJson)
 				if (effectIndex < effects.length - 1)
 					memoriaDesc += " & ";
 			}
-
-			if (turn == undefined)
-			{
-				memoriaDesc += " (" + target + " / ∞ Turns" + (memoria.type == "STARTUP" ? " on Battle Start" : "") + ")";
-			}
-			else
-			{
-				memoriaDesc += " (" + target + (turn > 0 ? " / " + turn + (turn == 1 ? " Turn" : " Turns") + (memoria.type == "STARTUP" ? " on Battle Start" : "") : "") + ")";
-			}
+			
+			memoriaDesc += " (" + target + " / " (turn > 0 ? + turn + (turn == 1 ? " Turn" : " Turns") : "∞ Turns") + (memoria.type == "STARTUP" ? " on Battle Start" : "") + ")";
 		}
 		else
 		{
@@ -489,7 +482,7 @@ function interpretMemoria(memoria, jsonObj, effectJson)
 					effects[effectIndex].effect += effects[effectIndex].times + (effects[effectIndex].times > 1 ? " Times" : " Time") + "]";
 				}
 				
-				memoriaDesc += effects[effectIndex].effect + " (" + effects[effectIndex].target + (effects[effectIndex].turn == undefined ? " / ∞ Turns" : (effects[effectIndex].turn > 0 ? " / " + effects[effectIndex].turn + (effects[effectIndex].turn == 1 ? " Turn" : " Turns") : "")) + (memoria.type == "STARTUP" ? " on Battle Start" : "") + ")";
+				memoriaDesc += effects[effectIndex].effect + " (" + effects[effectIndex].target + " / " + (effects[effectIndex].turn > 0 ? effects[effectIndex].turn + (effects[effectIndex].turn == 1 ? " Turn" : " Turns") : "∞ Turns") + (memoria.type == "STARTUP" ? " on Battle Start" : "") + ")";
 				
 				if (effectIndex < effects.length - 1)
 					memoriaDesc += " & ";

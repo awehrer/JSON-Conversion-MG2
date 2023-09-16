@@ -130,6 +130,7 @@
   "EVENT_DAILYTOWER_1191_KEY": "Epitaphs of Rakshasi",
   "EVENT_DAILYTOWER_1194_KEY": "Remnants of Summer",
   "EVENT_DAILYTOWER_1196_KEY": "Record of Magical Girls",
+  "EVENT_DAILYTOWER_1200_KEY": "Shopping Street Raffle Ticket",
   "EVENT_DAILYTOWER_1197_EXCHANGE_1": "Dearest Ancient Wish",
   "EVENT_DAILYTOWER_1179_EXCHANGE_1": "Some Day's Time Capsule",
   "EVENT_SINGLERAID_1175_EXCHANGE_1": "King Pumpkin Candy",
@@ -168,5 +169,6 @@
   "ITEM_EVENT_DAILYTOWER_1195_EXCHANGE_1": "Magical Triple Cheese",
   "ITEM_EVENT_DAILYTOWER_1196_EXCHANGE_1": "Longed-for Game Board",
   "ITEM_EVENT_DAILYTOWER_1197_EXCHANGE_1": "Dearest Ancient Wish",
-  "ITEM_EVENT_DAILYTOWER_1199_EXCHANGE_1": "Feeling of Welcoming"
+  "ITEM_EVENT_DAILYTOWER_1199_EXCHANGE_1": "Feeling of Welcoming",
+  "ITEM_EVENT_DAILYTOWER_1200_EXCHANGE_1": "Shopping Receipt"
 }

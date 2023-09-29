@@ -565,9 +565,9 @@ function interpretMagia(magia, jsonObj, effectJson)
 			if (effects[effectIndex].effect.endsWith("[100%]"))
 				effects[effectIndex].effect = effects[effectIndex].effect.split("100%]")[0];
 			else
-				effects[effectIndex].effect = effects[effectIndex].effect.split("]")[0] + " / ";
+				effects[effectIndex].effect = effects[effectIndex].effect.split("]")[0];
 			
-			effects[effectIndex].effect += effects[effectIndex].times + (effects[effectIndex].times > 1 ? " Times" : " Time") + "]";
+			effects[effectIndex].effect += ' [' + effects[effectIndex].times + (effects[effectIndex].times > 1 ? " Times" : " Time") + "]";
 		}
 		
 		if (effects[effectIndex].target != undefined)

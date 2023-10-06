@@ -1,14 +1,15 @@
 const quests = {story: {}, challenge: {}, ex: {}, evils: {}};
 var completed = 0;
 var total = 0;
+var type = ''
 function massConvert(downloadIndividually=null) {
   completed = 0;
-  quests['story'] =  {};
-  quests['challenge']  = {};
-  quests['ex'] = {};
-  quests['evils'] = {};
+  type = document.getElementById("event_type").value
+  for (let name in quests) {
+    quests[name] =  {};
+  }
   const fileData = document.getElementById("fileItem").files;
-  total = fileData.length
+  total = fileData.length;
   for (let i = 0; i < fileData.length; i++) {
       let Reader = new FileReader;
       Reader.readAsText(fileData[i]);
@@ -32,10 +33,19 @@ function downloadFinalText(finalText, fileName) {
 function recordQuest(finalText, fileName, downloadIndividually) {
     var fileName = fileName.split(".")[0];
     var num = Number(fileName.split("_")[1]);
-    quests[fileName.split("_")[0].toLowerCase()][num] = finalText;
+    var fileName = fileName.split("_")[0]
+    console.log(type)
+    if (type == 'tower'){
+      fileName = fileName.toLowerCase()
+    }
+    else if (!quests[fileName]){
+      quests[fileName] = {};
+    }
+    quests[fileName][num] = finalText;
+
     completed += 1;
     if (completed == total) {
-      tabberCombine(downloadIndividually);
+      tabberCombine(downloadIndividually,fileName);
     }
 }
 
@@ -93,9 +103,16 @@ function arrangeEnemies(enemies) {
   return String(wave1) + String(wave2)
 }
 
-function tabberCombine(dl) {
-  if (document.getElementById("event_type").value == 'tower') {
+function tabberCombine(dl,name) {
+  if (type == 'tower') {
     tabberCombineTower(dl)
+  }
+  else if (type='personal_story') {
+    tabberCombinePersonal(dl,name)
+  }
+
+  else if (type == 'branch') {
+    tabberCombineBranch(dl)
   }
 }
 
@@ -156,6 +173,108 @@ function tabberCombineTower(downloadIndividually) {
       output += '}}\n' + '{{{!}} class="article-table" style="width:100%; border: solid pink 2px"\n'
       + '! style="width:15%; text-align:center"{{!}}Section clear\n' + '{{!}}style="text-align:center" {{!}}{{Inum|Gacha Ticket|1}}\n'
     }
+  output += '</tabber>'
+  if (downloadIndividually === null) {
+    document.getElementById("resultText").value = output
+  }
+  else {
+    downloadFinalText(output, "final_tabber.")
+  }
+}
+
+function tabberCombinePersonal(downloadIndividually, char) {
+  set = 1;
+  quest = 0;
+  output = '<tabber>\nEpisode 1=\n<div style="font-size:150%; text-align:center;">Episode 1</div>\n';
+  output += '<div style="text-align:center">' + "'''Note: [[" + char + "]] will earn 2x Bond EXP from these quests (3x if set as leader)'''</div>\n{{#tag:tabber|\n"
+
+  for (let i = 1; i < 13; i++) {
+    if (quests[char][i]) {
+      quest += 1
+      output +='Battle ' + quest + '=\n<div style="display:none">'
+      if (set == 4) {
+          output +="'''Doppel: Battle " + quest + "'''\n</div>\n"
+      }
+      else {
+        output +="\n'''Episode " + set + ": Battle " + quest + "'''\n</div>\n"
+      }
+      questText = quests[char][i]
+      let pos = questText.search("MEMBER")
+      questText = questText.slice(0, pos) + "Clear with [[" + char + "]] in your party" + questText.slice(pos + 17)
+      output += questText
+      if (quest==3) {
+        if (set == 1) {
+          output+='\n}}\n{{{!}} class="article-table" style="width:100%; border: solid pink 2px"\n! style="width:15%; text-align:center"{{!}}Section Clear\n'
+          output+='{{!}}style="text-align:center" {{!}}[[' + char + "]]’s School Uniform {{ItemPic|Costume Icon|50px|"
+          output+= char + "/Costumes#School_Uniform}}\n{{!}}}\n|-|\nEpisode 2=\n"
+          output+='<div style="font-size:150%; text-align:center">Episode 2</div>\n'
+          output+='<div style="text-align:center">' + "'''Note: [[" + char + "]] will earn 2x Bond EXP from these quests (3x if set as leader)'''</div>\n{{#tag:tabber|\n"
+        }
+        else if (set == 2) {
+        output+='\n}}\n{{{!}} class="article-table" style="width:100%; border: solid pink 2px"\n! style="width:15%; text-align:center" {{!}}Section Clear\n'
+        output+='{{!}} style="width:85%; text-align:center" {{!}}{{Inum|Magia Stone|5}}\n{{!}}}\n|-|\nEpisode 3=\n'
+        output+='<div style="font-size:150%; text-align:center">Episode 3</div>\n'
+        output+='<div style="text-align:center">' + "'''Note: [[" + char + "]] will earn 2x Bond EXP from these quests (3x if set as leader)'''</div>\n{{#tag:tabber|\n"
+        }
+        else if (set == 3) {
+          output+='\n}}\n{{{!}} class="article-table" style="width:100%; border: solid pink 2px"\n! style="width:15%; text-align:center" {{!}}Section Clear\n'
+          output+='{{!}} style="width:85%; text-align:center" {{!}}{{MemoPic|}}\n{{!}}}\n|-|\n'
+          output+='Doppel=\n<div style="font-size:150%; text-align:center">' + char.split(" ")[1] + "'s Doppel</div>\n{{#tag:tabber|\n"
+        }
+        else if (set == 4) {
+        output += '}}\n{{{!}} class="article-table" style="width:100%; border: solid pink 2px"\n! style="width:15%; text-align:center"{{!}}Section Clear\n'
+        output += '{{!}}style="text-align:center" {{!}}Doppel of  {{ItemPic|Doppel Icon|50px|' + char + '#Doppel}}\n{{!}}}\n'
+        }
+        set += 1
+        quest = 0
+      }
+      else {
+        output += "\n{{!}}-{{!}}\n"
+      }
+    }
+    else {
+      break
+    }
+  }
+  output += "</tabber>\n[[Category:Quests]]\n[[Category:Personal Quests]]"
+  if (downloadIndividually === null) {
+    document.getElementById("resultText").value = output
+  }
+  else {
+    downloadFinalText(output, "final_tabber.")
+  }
+}
+
+function tabberCombineBranch(downloadIndividually) {
+  output="<tabber>\n";
+  for (let name in quests) {
+    if (name == 'Challenge') {
+      battle = 'BATTLE '
+    }
+    else if (name == 'FREE') {
+      battle = 'FREE '
+    }
+    else {
+      battle ='Episode '
+    }
+    output += name + '=\n' + '{{#tag:tabber|\n'
+    for (let i = 1; i < 21; i++) {
+      if (quests[name][i]) {
+      output += battle + i + '=\n' + '<div style="display:none">\n' + "'''" + name + battle + i + "'''\n</div>\n" + quests[name][i] + '\n{{Unlocks|'
+        if (quests[name][i-1]) {
+          output += '[[#' + name + '#' + battle + i-1 + '|' + name + battle + i-1 + ']]|'
+        }
+        if (quests[name][i+1]) {
+          output += '[[#' + name + '#' + battle + i+1 + '|' + name + battle + i+1 + ']]'
+        }
+        else {
+          output += 'Need=[[##|]]'
+        }
+      output += '}}\n{{!}}-{{!}}\n';
+      }
+    output += '}}\n' + '|-|'
+    }
+  }
   output += '</tabber>'
   if (downloadIndividually === null) {
     document.getElementById("resultText").value = output

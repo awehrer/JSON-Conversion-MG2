@@ -218,8 +218,16 @@ function tabberCombinePersonal(downloadIndividually, char) {
         }
         else if (set == 3) {
           output+='\n}}\n{{{!}} class="article-table" style="width:100%; border: solid pink 2px"\n! style="width:15%; text-align:center" {{!}}Section Clear\n'
-          output+='{{!}} style="width:85%; text-align:center" {{!}}{{MemoPic|}}\n{{!}}}\n|-|\n'
-          output+='Doppel=\n<div style="font-size:150%; text-align:center">' + char.split(" ")[1] + "'s Doppel</div>\n{{#tag:tabber|\n"
+          output+='{{!}} style="width:85%; text-align:center" {{!}}{{MemoPic|}}\n{{!}}}\n'
+          if (quests[char][i+1]) {
+            if (char.includes(" ")) {
+              givenName = char.split(" ")[1]
+            }
+            else {
+              givenName = char
+            }
+          output+='|-|\nDoppel=\n<div style="font-size:150%; text-align:center">' + givenName + "'s Doppel</div>\n{{#tag:tabber|\n"
+          }
         }
         else if (set == 4) {
         output += '}}\n{{{!}} class="article-table" style="width:100%; border: solid pink 2px"\n! style="width:15%; text-align:center"{{!}}Section Clear\n'

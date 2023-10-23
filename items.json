@@ -135,6 +135,7 @@
   "EVENT_DAILYTOWER_1179_EXCHANGE_1": "Some Day's Time Capsule",
   "EVENT_SINGLERAID_1175_EXCHANGE_1": "King Pumpkin Candy",
   "EVENT_DAILYTOWER_1201_EXCHANGE_1": "Sweets & Cafe Lyco Reco Discount Ticket",
+  "EVENT_DAILYTOWER_1203_EXCHANGE_1": "Lantern Coin",
   "ITEM_EVENT_SINGLERAID_1175_EXCHANGE_1": "King Pumpkin Candy",
   "ITEM_EVENT_ACCOMPLISH_1027_EXCHANGE_1": "Fragment of the Truth",
   "ITEM_EVENT_BRANCH_1170_CHARA_9999": "Colorful Sticky Notes",
@@ -172,5 +173,6 @@
   "ITEM_EVENT_DAILYTOWER_1197_EXCHANGE_1": "Dearest Ancient Wish",
   "ITEM_EVENT_DAILYTOWER_1199_EXCHANGE_1": "Feeling of Welcoming",
   "ITEM_EVENT_DAILYTOWER_1200_EXCHANGE_1": "Shopping Receipt",
-  "ITEM_EVENT_DAILYTOWER_1201_EXCHANGE_1": "Sweets & Cafe Lyco Reco Discount Ticket"
+  "ITEM_EVENT_DAILYTOWER_1201_EXCHANGE_1": "Sweets & Cafe Lyco Reco Discount Ticket",
+  "ITEM_EVENT_DAILYTOWER_1203_EXCHANGE_1": "Lantern Coin"
 }

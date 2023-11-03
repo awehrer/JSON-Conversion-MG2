@@ -359,7 +359,7 @@ function interpretArt(art, jsonObj, effectJson)
 	return {"effect": effectName, "turn": turn, "target": target, "times": 1};
 }
 
-function interpretMemoria(memoria, jsonObj, effectJson)
+function interpretMemoria(memoria, jsonObj, effectJson, hpThreshold=null)
 {
 	var effects = [];
 	var artDesc;
@@ -512,8 +512,74 @@ function interpretMemoria(memoria, jsonObj, effectJson)
 				memoriaDesc += "|Every " + memoria.cost + " turns";
 		}
 	}
-	
+	if (hpThreshold)
+	{
+		if (hpThreshold[0] == 100)
+		{
+			if (hpThreshold[1] != 0)
+			{
+				memoriaDesc += " (Above " + hpThreshold[1] + "% HP)";
+			}
+		}
+		else
+		{
+			if (hpThreshold[1] == 0)
+			{
+				memoriaDesc += " (Below " + hpThreshold[0] + "% HP)";
+			}
+			else
+			{
+				memoriaDesc += " (" + hpThreshold[0] + "-" + hpThreshold[1] + "% HP)";
+			}
+		}
+	}
 	return memoriaDesc;
+}
+
+function separateHealthThreshold(hpThresholdList)
+{
+	var thresholdIndices = {};
+	var thresholds = [];
+
+	var hpVals = [0];
+	for (var i = 0; i < hpThresholdList.length; i++)
+	{
+		hpVals.push(hpThresholdList[i].hpRate);
+	}
+	for (var hpGroup = hpThresholdList.length - 1; hpGroup >= 0; hpGroup--)
+	{
+		var hp = hpVals[hpGroup+1];
+		var nextHp = hpVals[hpGroup];
+		for (let item of hpThresholdList[hpGroup].memoriaIdList)
+		{
+			if (thresholdIndices[item] >= 0 && thresholds[thresholdIndices[item]][2] == hp)
+				{
+				thresholds[thresholdIndices[item]][2] = nextHp;
+				}
+			else
+				{
+				thresholdIndices[item] = thresholds.length;
+				thresholds.push([item, hp, nextHp]);
+				}
+		}
+	}
+	return formatThresholds(thresholds);
+}
+
+function formatThresholds(thresholds)
+{	
+	thresholds.sort(function(a, b) {
+		if (a[1] == b[1]) {
+		  return a[2] - b[2];
+		}
+		return b[1] - a[1];
+	  });
+	  thresholdsFormatted = [];
+	  for (let item of thresholds)
+	  {
+		thresholdsFormatted.push(item[0] + " " + item[1] + " " + item[2]);
+	  }
+	return thresholdsFormatted;
 }
 
 function interpretMagia(magia, jsonObj, effectJson)
@@ -715,6 +781,10 @@ function convertJSONString(jsonString, fileName="", downloadIndividually=null)
 						
 						if (enemyJson.posBody == undefined)
 						{
+							if (enemyJson.hpRateGimmickList.length != 0)
+							{
+								enemyJson.memoriaList = separateHealthThreshold(enemyJson.hpRateGimmickList);
+							}
 							enemy = {"name": translateCharId(enemyJson.charId, characterJson), "type": translateAlign(enemyJson.align), "magiaId": enemyJson.magiaId, "doppelId": enemyJson.doppelId, "memoriaList": enemyJson.memoriaList, "renderType": false, "species": enemyJson.enemyKindType, "displayName": enemyJson.name};
 							recordSkills(enemy, enemies);
 						}
@@ -729,6 +799,7 @@ function convertJSONString(jsonString, fileName="", downloadIndividually=null)
 				//var doppelDesc;
 				var numPassives;
 				var numSkills;
+				var hpThreshold;
 				
 				for (var i = 0; i < enemies.length; i++)
 				{
@@ -740,8 +811,15 @@ function convertJSONString(jsonString, fileName="", downloadIndividually=null)
 					
 					for (memoriaIndex = 0; memoriaIndex < enemies[i].memoriaList.length; memoriaIndex++)
 					{
-						memoria = getMemoriaById(enemies[i].memoriaList[memoriaIndex], jsonObj);
-						memoriaDesc = interpretMemoria(memoria, jsonObj, effectJson);
+						if (enemies[i].memoriaList[memoriaIndex].length > 7) {
+							hpThreshold = (enemies[i].memoriaList[memoriaIndex].split(/\s/)).slice(1);
+							memoria = getMemoriaById(enemies[i].memoriaList[memoriaIndex].split(/\s/)[0], jsonObj);
+						}
+						else {
+							hpThreshold = null
+							memoria = getMemoriaById(enemies[i].memoriaList[memoriaIndex], jsonObj);
+							}
+						memoriaDesc = interpretMemoria(memoria, jsonObj, effectJson, hpThreshold);
 						
 						if (memoria.type == "ABILITY" || memoria.type == "STARTUP")
 						{

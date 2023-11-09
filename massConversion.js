@@ -20,7 +20,7 @@ function massConvert(downloadIndividually=null) {
 }
 
 function downloadFinalText(finalText, fileName) {
-  var fileName = fileName.split(".")[0] + "_wiki.txt"
+  var fileName = fileName.split('.')[0] + "_wiki.txt"
   let currentFile = new File([finalText], fileName);
   let downloadURL = window.URL.createObjectURL(currentFile);
   let downloader = document.createElement('a');
@@ -31,9 +31,14 @@ function downloadFinalText(finalText, fileName) {
 }
 
 function recordQuest(finalText, fileName, downloadIndividually) {
-    var fileName = fileName.split(".")[0];
-    var num = Number(fileName.split("_")[1]);
-    var fileName = fileName.split("_")[0]
+    if ((fileName.match(/\./g) || []).length > 1) {
+      var fileName = fileName.slice(0,fileName.lastIndexOf('.'));
+    }
+    else {
+      var fileName = fileName.split('.')[0];
+    }
+    var num = Number(fileName.split('_')[1]);
+    var fileName = fileName.split('_')[0]
     console.log(type)
     if (type == 'tower'){
       fileName = fileName.toLowerCase()

@@ -39,7 +39,6 @@ function recordQuest(finalText, fileName, downloadIndividually) {
     }
     var num = Number(fileName.split('_')[1]);
     var fileName = fileName.split('_')[0]
-    console.log(type)
     if (type == 'tower'){
       fileName = fileName.toLowerCase()
     }

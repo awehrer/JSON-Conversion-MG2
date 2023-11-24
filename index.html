@@ -9,7 +9,10 @@
 <body>
 	<form style="display:flex;align-items:flex-start;flex-direction:column;">
 		<textarea id="jsonText" rows="15" cols="100" placeholder="Paste JSON here..."></textarea>
-		<input type="button" value="Submit" onclick="convertJSON()" />
+		<div>
+			<input type="button" value="Submit" onclick="convertJSON()" />
+			<input type="button" value="Clear" onclick="clearJsonText()" /> <script>function clearJsonText() {document.getElementById('jsonText').value = ''}</script>
+		</div>
 	</form>
 	<br /><br />
 	<p><h2>Result:</h2></p>
@@ -27,6 +30,11 @@
 	<select id="event_type">
 	<option value="tower">Tower</option>
 	<option value="personal_story">Personal Story</option>
+	</select>
+	<label>Display Discs?</label>
+	<select id="discs">
+	<option value="yes">Yes</option>
+	<option value="">No</option>
 	</select>
 	<br /><br />
 	<label>Copy:&nbsp;</label>

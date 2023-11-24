@@ -702,6 +702,13 @@ function convertJSONString(jsonString, fileName="", downloadIndividually=null)
 				*/
 				var questbody = "{{Questbody";
 				
+				var showDiscs = document.getElementById("discs").value
+				if (showDiscs)
+				{
+					questbody += "|discs=Y"
+					var discNames = {MPUP: "Accele", CHARGE: "Charge", RANGE_H: "Blasth", RANGE_V: "Blastv", RANGE_B: "Blastb", RANGE_S: "Blasts"}
+				}
+
 				var enemies;
 				var uniqueEnemyCount;
 				var enemyJson;
@@ -718,7 +725,7 @@ function convertJSONString(jsonString, fileName="", downloadIndividually=null)
 					for (var enemyIndex = 0; enemyIndex < Object.keys(jsonObj.waveList[waveIndex].enemyList).length; enemyIndex++)
 					{
 						enemyJson = jsonObj.waveList[waveIndex].enemyList[enemyIndex];
-						enemy = {"name": translateCharId(enemyJson.charId, characterJson), "align": translateAlign(enemyJson.align), "hp": enemyJson.hp, "quantity": 1, "attack": enemyJson.attack, "defense": enemyJson.defence, "species": enemyJson.enemyKindType, "displayName": enemyJson.name};
+						enemy = {"name": translateCharId(enemyJson.charId, characterJson), "align": translateAlign(enemyJson.align), "hp": enemyJson.hp, "quantity": 1, "attack": enemyJson.attack, "defense": enemyJson.defence, "species": enemyJson.enemyKindType, "displayName": enemyJson.name, "actions": enemyJson.action, "discs": [enemyJson.discType1, enemyJson.discType2, enemyJson.discType3]};
 						
 						if (enemyJson.posBody != undefined) // indication of body parts of boss
 						{
@@ -758,6 +765,28 @@ function convertJSONString(jsonString, fileName="", downloadIndividually=null)
 							questbody += "}}";
 						}
 						
+						if (showDiscs)
+						{
+							var curDiscs = 1
+							questbody += "|disc_1=" + discNames[enemies[enemyIndex].discs[0]];
+							if (enemies[enemyIndex].actions > 1 || enemies[enemyIndex].discs[0] != enemies[enemyIndex].discs[1] || enemies[enemyIndex].discs[1] != enemies[enemyIndex].discs[2])
+							{
+								curDiscs += 1
+								if (enemies[enemyIndex].actions == 3 || enemies[enemyIndex].discs[0] != enemies[enemyIndex].discs[1] || enemies[enemyIndex].discs[1] != enemies[enemyIndex].discs[2])
+								{
+									questbody += "|disc_2="  + discNames[enemies[enemyIndex].discs[1]] + "|disc_3="  + discNames[enemies[enemyIndex].discs[2]];
+									curDiscs += 1
+								}
+								else
+								{
+									questbody += "|disc_2="  + discNames[enemies[enemyIndex].discs[1]];
+								}
+							}
+							if (curDiscs != enemies[enemyIndex].actions)
+							{
+								questbody += "|actions=" + enemies[enemyIndex].actions;
+							}
+						}
 						questbody += "}}";
 					}
 				}

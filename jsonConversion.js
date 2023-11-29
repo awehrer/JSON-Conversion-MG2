@@ -708,7 +708,7 @@ function convertJSONString(jsonString, fileName="", downloadIndividually=null)
 									+ " |Master EXP = " + jsonObj.webData.userQuestBattleResultList[0].questBattle.exp
 									+ " |Magical girl EXP = " + jsonObj.webData.userQuestBattleResultList[0].questBattle.cardExp
 									+ " |Bond EXP = " + jsonObj.webData.userQuestBattleResultList[0].questBattle.baseBondsPt
-									+ (jsonObj.webData.userQuestBattleResultList[0].questBattle.limitTurn != undefined ? " |Maximum turns = " + jsonObj.webData.userQuestBattleResultList[0].questBattle.limitTurn : "")
+									+ (jsonObj.scenario.limitTurn != undefined ? " |Maximum turns = " + jsonObj.scenario.limitTurn : "")
 									+ "\n}}";
 				}
 

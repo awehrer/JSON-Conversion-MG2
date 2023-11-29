@@ -536,6 +536,25 @@ function interpretMemoria(memoria, jsonObj, effectJson, hpThreshold=null)
 	return memoriaDesc;
 }
 
+function getStartupSkills(memoriaList, jsonObj)
+{
+	var startupSkills = []
+	var seen = []
+	for (index = 0; index < memoriaList.length; index++)
+	{
+		if (seen[memoriaList[index]])
+		{
+			break
+		}
+		seen[[memoriaList[index]]] = true
+		if (getMemoriaById(memoriaList[index], jsonObj).type == "STARTUP")
+		{
+			startupSkills.push(memoriaList[index] + " 100 0")
+		}
+	}
+	return startupSkills
+}
+
 function separateHealthThreshold(hpThresholdList)
 {
 	var thresholdIndices = {};
@@ -812,7 +831,8 @@ function convertJSONString(jsonString, fileName="", downloadIndividually=null)
 						{
 							if (enemyJson.hpRateGimmickList.length != 0)
 							{
-								enemyJson.memoriaList = separateHealthThreshold(enemyJson.hpRateGimmickList);
+								enemyJson.memoriaList = getStartupSkills(enemyJson.memoriaList, jsonObj);
+								enemyJson.memoriaList.push(...separateHealthThreshold(enemyJson.hpRateGimmickList));
 							}
 							enemy = {"name": translateCharId(enemyJson.charId, characterJson), "type": translateAlign(enemyJson.align), "magiaId": enemyJson.magiaId, "doppelId": enemyJson.doppelId, "memoriaList": enemyJson.memoriaList, "renderType": false, "species": enemyJson.enemyKindType, "displayName": enemyJson.name};
 							recordSkills(enemy, enemies);

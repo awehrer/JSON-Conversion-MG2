@@ -190,7 +190,7 @@ function tabberCombinePersonal(downloadIndividually, char) {
   set = 1;
   quest = 0;
   output = '<tabber>\nEpisode 1=\n<div style="font-size:150%; text-align:center;">Episode 1</div>\n';
-  output += '<div style="text-align:center">' + "'''Note: [[" + char + "]] will earn 2x Bond EXP from these quests (3x if set as leader)'''</div>\n{{#tag:tabber|\n"
+  output += '<div style="text-align:center">' + "'''Note: [[" + char + "]] will earn 2x Episode EXP from these quests (3x if set as leader)'''</div>\n{{#tag:tabber|\n"
 
   for (let i = 1; i < 13; i++) {
     if (quests[char][i]) {
@@ -212,13 +212,13 @@ function tabberCombinePersonal(downloadIndividually, char) {
           output+='{{!}}style="text-align:center" {{!}}[[' + char + "]]’s School Uniform {{ItemPic|Costume Icon|50px|"
           output+= char + "/Costumes#School_Uniform}}\n{{!}}}\n|-|\nEpisode 2=\n"
           output+='<div style="font-size:150%; text-align:center">Episode 2</div>\n'
-          output+='<div style="text-align:center">' + "'''Note: [[" + char + "]] will earn 2x Bond EXP from these quests (3x if set as leader)'''</div>\n{{#tag:tabber|\n"
+          output+='<div style="text-align:center">' + "'''Note: [[" + char + "]] will earn 2x Episode EXP from these quests (3x if set as leader)'''</div>\n{{#tag:tabber|\n"
         }
         else if (set == 2) {
         output+='\n}}\n{{{!}} class="article-table" style="width:100%; border: solid pink 2px"\n! style="width:15%; text-align:center" {{!}}Section Clear\n'
         output+='{{!}} style="width:85%; text-align:center" {{!}}{{Inum|Magia Stone|5}}\n{{!}}}\n|-|\nEpisode 3=\n'
         output+='<div style="font-size:150%; text-align:center">Episode 3</div>\n'
-        output+='<div style="text-align:center">' + "'''Note: [[" + char + "]] will earn 2x Bond EXP from these quests (3x if set as leader)'''</div>\n{{#tag:tabber|\n"
+        output+='<div style="text-align:center">' + "'''Note: [[" + char + "]] will earn 2x Episode EXP from these quests (3x if set as leader)'''</div>\n{{#tag:tabber|\n"
         }
         else if (set == 3) {
           output+='\n}}\n{{{!}} class="article-table" style="width:100%; border: solid pink 2px"\n! style="width:15%; text-align:center" {{!}}Section Clear\n'

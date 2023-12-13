@@ -150,7 +150,7 @@ function tabberCombineTower(downloadIndividually) {
   if (quests['evils'][1]) {
     output += '{{!}}-{{!}}Battles ' + Number(halfOfStories+1) + '-' + halfOfStories*2 + '=\n<div style="display:none">\n' + "'''Battles " + Number(halfOfStories+1) + "-"
     + halfOfStories*2 + "'''\n" + '</div>\n' + '{{{!}} class="article-table" style="width:100%; border: solid pink 2px"\n'
-    + '! style="width:15%; text-align:center"{{!}}Section clear\n' + '{{!}}style="text-align:center" {{!}}{{MemoPic|EVENT CLEAR MEMO GOES HERE|50px}}\n' + '{{!}}}\n' + '}}\n';
+    + '! style="width:15%; text-align:center"{{!}}Section clear\n' + '{{!}}style="text-align:center" {{!}}{{MemoPic|}}\n' + '{{!}}}\n' + '}}\n';
   }
 
   output += '|-|Challenge=\n{{#tag:tabber|\n';
@@ -174,8 +174,17 @@ function tabberCombineTower(downloadIndividually) {
       for (let i = 1; i < 4; i++) {
         output += 'Challenge ' + i + '=\n' + '<div style="display:none">\n' + "'''Hundred Evils Challenge " + i + "'''\n" + '</div>\n' + quests['evils'][i] + '\n{{!}}-{{!}}\n';
       }
-      output += '}}\n' + '{{{!}} class="article-table" style="width:100%; border: solid pink 2px"\n'
+      if (quests['evils'][4]) {
+        output += 'Special Edition=\n' + '<div style="display:none">\n' + "'''Hundred Evils Special Edition'''\n" + '</div>\n' + quests['evils'][4] + '\n';
+        output += '}}\n{{#tag:tabber|\nBattles 1-3=\n<div style="display:none">\n' + "'''Battles 1-3'''\n</div>\n"
+      }
+      output += (!(quests['evils'][4]) ? '}}\n' : "") + '{{{!}} class="article-table" style="width:100%; border: solid pink 2px"\n'
       + '! style="width:15%; text-align:center"{{!}}Section clear\n' + '{{!}}style="text-align:center" {{!}}{{Inum|Gacha Ticket|1}}\n'
+      if (quests['evils'][4]) {
+        output += '{{!}}}\n{{!}}-{{!}}Special Edition=\n<div style="display:none">\n' + "'''Special Edition'''\n</div>\n"
+        output += '{{{!}} class="article-table" style="width:100%; border: solid pink 2px"\n! style="width:15%; text-align:center"{{!}}Section clear\n'
+        output += '{{!}}style="text-align:center" {{!}}{{Inum|CC|1000}}\n{{!}}}\n}}\n'
+      }
     }
   output += '</tabber>'
   if (downloadIndividually === null) {

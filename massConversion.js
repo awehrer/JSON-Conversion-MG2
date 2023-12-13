@@ -187,49 +187,64 @@ function tabberCombineTower(downloadIndividually) {
 }
 
 function tabberCombinePersonal(downloadIndividually, char) {
-  set = 1;
-  quest = 0;
-  output = '<tabber>\nEpisode 1=\n<div style="font-size:150%; text-align:center;">Episode 1</div>\n';
+  var set = 1;
+  var quest = 0;
+  var output = '<tabber>\nEpisode 1=\n<div style="font-size:150%; text-align:center;">Episode 1</div>\n';
   output += '<div style="text-align:center">' + "'''Note: [[" + char + "]] will earn 2x Episode EXP from these quests (3x if set as leader)'''</div>\n{{#tag:tabber|\n"
 
   for (let i = 1; i < 13; i++) {
-    if (quests[char][i]) {
-      quest += 1
-      output +='Battle ' + quest + '=\n<div style="display:none">'
-      if (set == 4) {
-          output +="'''Doppel: Battle " + quest + "'''\n</div>\n"
+    if (quests[char][i])
+    {
+      quest++
+      var questText = quests[char][i]
+      if (questText == quests[char][i+1]) {
+        i++
+        quest++
+        output += 'Battles 1-2=\n<div style="display:none">'
+        if (set == 4) {
+          output += "'''Doppel: Battles 1-2'''\n</div>\n"
+        }
+        else {
+          output +="\n'''Episode " + set + ": Battles 1-2'''\n</div>\n"
+        }
       }
       else {
-        output +="\n'''Episode " + set + ": Battle " + quest + "'''\n</div>\n"
+        output +='Battle ' + quest + '=\n<div style="display:none">'
+        if (set == 4) {
+            output += "'''Doppel: Battle " + quest + "'''\n</div>\n"
+        }
+        else {
+          output += "\n'''Episode " + set + ": Battle " + quest + "'''\n</div>\n"
+        }
       }
-      questText = quests[char][i]
+
       let pos = questText.search("MEMBER")
       questText = questText.slice(0, pos) + "Clear with [[" + char + "]] in your party" + questText.slice(pos + 17)
       output += questText
       if (quest==3) {
         if (set == 1) {
-          output+='\n}}\n{{{!}} class="article-table" style="width:100%; border: solid pink 2px"\n! style="width:15%; text-align:center"{{!}}Section Clear\n'
+          output += '\n}}\n{{{!}} class="article-table" style="width:100%; border: solid pink 2px"\n! style="width:15%; text-align:center"{{!}}Section Clear\n'
           if (char.includes("ver.") || char.includes("&"))
           {
-            output+='{{!}} style="width:85%; text-align:center" {{!}}{{Inum|Magia Stone|5}}\n{{!}}}'
+            output += '{{!}} style="width:85%; text-align:center" {{!}}{{Inum|Magia Stone|5}}\n{{!}}}'
           }
           else
           {
-            output+='{{!}} style="text-align:center" {{!}}[[' + char + "]]’s School Uniform {{ItemPic|Costume Icon|50px|" + char + "/Costumes#School_Uniform}}\n{{!}}}"
+            output += '{{!}} style="text-align:center" {{!}}[[' + char + "]]’s School Uniform {{ItemPic|Costume Icon|50px|" + char + "/Costumes#School_Uniform}}\n{{!}}}"
           }
           output += "\n|-|Episode 2=\n"
-          output+='<div style="font-size:150%; text-align:center">Episode 2</div>\n'
-          output+='<div style="text-align:center">' + "'''Note: [[" + char + "]] will earn 2x Episode EXP from these quests (3x if set as leader)'''</div>\n{{#tag:tabber|\n"
+          output += '<div style="font-size:150%; text-align:center">Episode 2</div>\n'
+          output += '<div style="text-align:center">' + "'''Note: [[" + char + "]] will earn 2x Episode EXP from these quests (3x if set as leader)'''</div>\n{{#tag:tabber|\n"
         }
         else if (set == 2) {
-        output+='\n}}\n{{{!}} class="article-table" style="width:100%; border: solid pink 2px"\n! style="width:15%; text-align:center" {{!}}Section Clear\n'
-        output+='{{!}} style="width:85%; text-align:center" {{!}}{{Inum|Magia Stone|5}}\n{{!}}}\n|-|Episode 3=\n'
-        output+='<div style="font-size:150%; text-align:center">Episode 3</div>\n'
-        output+='<div style="text-align:center">' + "'''Note: [[" + char + "]] will earn 2x Episode EXP from these quests (3x if set as leader)'''</div>\n{{#tag:tabber|\n"
+        output += '\n}}\n{{{!}} class="article-table" style="width:100%; border: solid pink 2px"\n! style="width:15%; text-align:center" {{!}}Section Clear\n'
+        output += '{{!}} style="width:85%; text-align:center" {{!}}{{Inum|Magia Stone|5}}\n{{!}}}\n|-|Episode 3=\n'
+        output += '<div style="font-size:150%; text-align:center">Episode 3</div>\n'
+        output += '<div style="text-align:center">' + "'''Note: [[" + char + "]] will earn 2x Episode EXP from these quests (3x if set as leader)'''</div>\n{{#tag:tabber|\n"
         }
         else if (set == 3) {
-          output+='\n}}\n{{{!}} class="article-table" style="width:100%; border: solid pink 2px"\n! style="width:15%; text-align:center" {{!}}Section Clear\n'
-          output+='{{!}} style="width:85%; text-align:center" {{!}}{{MemoPic|}}\n{{!}}}\n'
+          output += '\n}}\n{{{!}} class="article-table" style="width:100%; border: solid pink 2px"\n! style="width:15%; text-align:center" {{!}}Section Clear\n'
+          output += '{{!}} style="width:85%; text-align:center" {{!}}{{MemoPic|}}\n{{!}}}\n'
           if (quests[char][i+1]) {
             if (char.includes(" ")) {
               if (char.includes('&'))
@@ -244,14 +259,14 @@ function tabberCombinePersonal(downloadIndividually, char) {
             else {
               givenName = char
             }
-          output +='|-|\nDoppel=\n<div style="font-size:150%; text-align:center">' + givenName + "'s " + (givenName.includes('&') ? 'Trial' : 'Doppel') + '</div>\n{{#tag:tabber|\n'
+          output += '|-|\nDoppel=\n<div style="font-size:150%; text-align:center">' + givenName + "'s " + (givenName.includes('&') ? 'Trial' : 'Doppel') + '</div>\n{{#tag:tabber|\n'
           }
         }
         else if (set == 4) {
         output += '}}\n{{{!}} class="article-table" style="width:100%; border: solid pink 2px"\n! style="width:15%; text-align:center"{{!}}Section Clear\n'
         output += '{{!}}style="text-align:center" {{!}}' + (givenName.includes('&') ? '[[' + char +'#Magia_2|]]' : 'Doppel of  {{ItemPic|Doppel Icon|50px|' + char + '#Doppel}}') + '\n{{!}}}\n'
         }
-        set += 1
+        set++
         quest = 0
       }
       else {

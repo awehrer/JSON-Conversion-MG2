@@ -41,7 +41,7 @@ function translateItemCode(itemCode, itemJson)
 
 function translateAlign(align)
 {
-	var attrMap = {"LIGHT": "Light", "DARK": "Dark", "WATER": "Aqua", "FIRE": "Flame", "TIMBER": "Forest", "VOID": "Void"};
+	var attrMap = {"LIGHT": "Light", "DARK": "Dark", "WATER": "Aqua", "FIRE": "Flame", "TIMBER": "Forest", "VOID": "Void", "ALL": "All"};
 	return (attrMap[align] != undefined ? attrMap[align] : align);
 }
 
@@ -142,6 +142,14 @@ function getMemoriaById(id, jsonObj)
 			return jsonObj.memoriaList[i];
 	}
 	
+	if (jsonObj.fieldArtList != undefined)
+	{
+		for (var i = 0; i < jsonObj.fieldArtList.length; i++)
+		{
+			if (jsonObj.fieldArtList[i].artId1 == id)
+			return jsonObj.fieldArtList[i];
+		}
+	}
 	return null;
 }
 
@@ -392,7 +400,7 @@ function interpretMemoria(memoria, jsonObj, effectJson, hpThreshold=null)
 		}
 	}
 	
-	if (memoria.type == "ABILITY")
+	if (memoria.type == "ABILITY" || memoria.type == undefined)
 	{
 		// can ignore target (unless Attack/Defense Up Upon Death type buff)
 		// put turns at end of each where applicable
@@ -536,6 +544,24 @@ function interpretMemoria(memoria, jsonObj, effectJson, hpThreshold=null)
 	return memoriaDesc;
 }
 
+function getFieldEffects(fieldEffectsList)
+{
+	var enemyFieldEffects = []
+	var playerFieldEffects = []
+	for (index = 0; index < fieldEffectsList.length; index++)
+	{
+		if (fieldEffectsList[index].side == "ENEMY")
+		{
+			enemyFieldEffects.push([fieldEffectsList[index].artId1, fieldEffectsList[index].alignment, fieldEffectsList[index].wave])
+		}
+		else
+		{
+			playerFieldEffects.push([fieldEffectsList[index].artId1, fieldEffectsList[index].alignment, fieldEffectsList[index].wave])
+		}
+	}
+	return [enemyFieldEffects, playerFieldEffects]
+}
+
 function getStartupSkills(memoriaList, jsonObj)
 {
 	var startupSkills = []
@@ -549,7 +575,7 @@ function getStartupSkills(memoriaList, jsonObj)
 		seen[[memoriaList[index]]] = true
 		if (getMemoriaById(memoriaList[index], jsonObj).type == "STARTUP")
 		{
-			startupSkills.push(memoriaList[index] + " 100 0")
+			startupSkills.push(memoriaList[index])
 		}
 	}
 	return startupSkills
@@ -813,6 +839,86 @@ function convertJSONString(jsonString, fileName="", downloadIndividually=null)
 				questbody += "\n}}";
 				
 				/* Example:
+				{{FieldEffectsBox|Waves=1
+				|Num1E=2|1E={{FieldEffects|1E=Damage Up Versus Enemies Affected With Status Ailments [80%]|1A=All|2E=Status Ailment Resistance Down [50%]|2A=All}}
+				|Num1P=3|1P={{FieldEffects|1E=Damage Up Versus Enemies Affected With Status Ailments [50%]|1A=All|2E=Status Ailment Resistance Down [300%]|2A=All|3E=MP Gain Down [200%]|3A=Flame|3A2=Aqua|3A3=Forest|3A4=Dark}}}}
+				*/
+
+				var fieldEffects = ""
+				if (jsonObj.fieldArtList != undefined)
+				{
+					var [enemyFieldEffects, playerFieldEffects] = [...getFieldEffects(jsonObj.fieldArtList)]
+					var enemyFieldEffectWaves = {1: [], 2: [], 3: [], 4: [], 5: [], 6: [], 7: [], 8: [], 9: []}
+					var playerFieldEffectWaves = {1: [], 2: [], 3: [], 4: [], 5: [], 6: [], 7: [], 8: [], 9: []}
+					for (var i = 0; i < enemyFieldEffects.length; i++)
+					{
+						enemyFieldEffectWaves[enemyFieldEffects[i][2]].push(enemyFieldEffects[i])
+					}
+					for (var i = 0; i < playerFieldEffects.length; i++)
+					{
+						playerFieldEffectWaves[playerFieldEffects[i][2]].push(playerFieldEffects[i])
+					}
+
+					var fieldEffects = "{{FieldEffectsBox|Waves=" + Object.keys(jsonObj.waveList).length;
+					for (var waveIndex = 1; waveIndex <= Object.keys(jsonObj.waveList).length; waveIndex++)
+						{
+						if (enemyFieldEffectWaves[waveIndex].length > 0)
+							{
+							var prevEffect = ""
+							var prevNum = 0
+							var consecutiveIdentical = 2
+							fieldEffects += "\n|" + waveIndex + "E={{FieldEffects";
+							for (var i = 0; i < enemyFieldEffectWaves[waveIndex].length; i++)
+								{
+									memoria = getMemoriaById(enemyFieldEffectWaves[waveIndex][i][0], jsonObj);
+									memoriaDesc = interpretMemoria(memoria, jsonObj, effectJson);
+									if (prevEffect == memoriaDesc)
+									{
+										fieldEffects += "|" + prevNum + "A" + consecutiveIdentical + "=" + translateAlign(enemyFieldEffectWaves[waveIndex][i][1]);
+										consecutiveIdentical++
+									}
+									else
+									{
+										consecutiveIdentical = 2
+										prevNum++
+										fieldEffects += "|" + String(i + 1) + "E=";
+										fieldEffects += memoriaDesc + "|" + String(i + 1) + "A=" + translateAlign(enemyFieldEffectWaves[waveIndex][i][1]);
+									}
+								}
+							fieldEffects += "}}|Num" + waveIndex + "E=" + prevNum
+							}
+							
+							if (playerFieldEffectWaves[waveIndex].length > 0)
+								{
+								var prevEffect = ""
+								var prevNum = 0
+								var consecutiveIdentical = 2
+								fieldEffects += "\n|" + waveIndex + "P={{FieldEffects";
+								for (var i = 0; i < playerFieldEffectWaves[waveIndex].length; i++)
+									{
+										memoria = getMemoriaById(playerFieldEffectWaves[waveIndex][i][0], jsonObj);
+										memoriaDesc = interpretMemoria(memoria, jsonObj, effectJson);
+										if (prevEffect == memoriaDesc)
+										{
+											fieldEffects += "|" + prevNum + "A" + consecutiveIdentical + "=" + translateAlign(playerFieldEffectWaves[waveIndex][i][1]);
+											consecutiveIdentical++
+										}
+										else
+										{
+											consecutiveIdentical = 2
+											prevNum++
+											prevEffect = memoriaDesc
+											fieldEffects += "|" + String(i + 1) + "E=";
+											fieldEffects += memoriaDesc + "|" + String(i + 1) + "A=" + translateAlign(playerFieldEffectWaves[waveIndex][i][1]);
+										}
+									}
+								fieldEffects += "}}|Num" + waveIndex + "P=" + prevNum
+								}
+							}
+					fieldEffects += "\n}}"
+				}
+
+				/* Example:
 				{{EnemySkills
 				|{{Skills|Rumor of the Memory Curator|P1=Ignore Damage Cut [100%]|A1=Attack Down [35%] & Darkness (One / 1 Turn)|A1f=Every 2 turns}}
 				}}
@@ -1006,16 +1112,16 @@ function convertJSONString(jsonString, fileName="", downloadIndividually=null)
 					{
 						if (downloadIndividually)
 						{
-							downloadFinalText((questheader + "\n" + questbody + (enemySkills != "{{EnemySkills\n}}" ? "\n" + enemySkills : "")  + (missions != "" ? "\n" + missions : "") + "\n" + drops), fileName);
+							downloadFinalText((questheader + "\n" + questbody + (fieldEffects != "" ? "\n" + fieldEffects : "") + (enemySkills != "{{EnemySkills\n}}" ? "\n" + enemySkills : "")  + (missions != "" ? "\n" + missions : "") + "\n" + drops), fileName);
 						}
 						else
 						{
-							recordQuest((questheader + "\n" + questbody + (enemySkills != "{{EnemySkills\n}}" ? "\n" + enemySkills : "")  + (missions != "" ? "\n" + missions : "") + "\n" + drops), fileName, downloadIndividually)
+							recordQuest((questheader + "\n" + questbody + (fieldEffects != "" ? "\n" + fieldEffects : "") + (enemySkills != "{{EnemySkills\n}}" ? "\n" + enemySkills : "")  + (missions != "" ? "\n" + missions : "") + "\n" + drops), fileName, downloadIndividually)
 						}
 					}
 					else
 					{
-						document.getElementById("resultText").value = questheader + "\n" + questbody + (enemySkills != "{{EnemySkills\n}}" ? "\n" + enemySkills : "")  + (missions != "" ? "\n" + missions : "") + "\n" + drops;
+						document.getElementById("resultText").value = questheader + "\n" + questbody + (fieldEffects != "" ? "\n" + fieldEffects : "") + (enemySkills != "{{EnemySkills\n}}" ? "\n" + enemySkills : "")  + (missions != "" ? "\n" + missions : "") + "\n" + drops;
 					}
 				}
 				else
@@ -1023,17 +1129,17 @@ function convertJSONString(jsonString, fileName="", downloadIndividually=null)
 					{
 						if (downloadIndividually)
 						{
-							downloadFinalText((questbody + (enemySkills != "{{EnemySkills\n}}" ? "\n" + enemySkills : "")), fileName);
+							downloadFinalText((questbody + (fieldEffects != "" ? "\n" + fieldEffects : "") + (enemySkills != "{{EnemySkills\n}}" ? "\n" + enemySkills : "")), fileName);
 						}
 						else
 						{
-							recordQuest((questbody + (enemySkills != "{{EnemySkills\n}}" ? "\n" + enemySkills : "")), fileName, downloadIndividually);
+							recordQuest((questbody + (fieldEffects != "" ? "\n" + fieldEffects : "") + (enemySkills != "{{EnemySkills\n}}" ? "\n" + enemySkills : "")), fileName, downloadIndividually);
 						}
 						
 					}
 					else
 					{
-						document.getElementById("resultText").value = questbody + (enemySkills != "{{EnemySkills\n}}" ? "\n" + enemySkills : "");
+						document.getElementById("resultText").value = questbody + (fieldEffects != "" ? "\n" + fieldEffects : "") + (enemySkills != "{{EnemySkills\n}}" ? "\n" + enemySkills : "");
 					}
 			}
         }

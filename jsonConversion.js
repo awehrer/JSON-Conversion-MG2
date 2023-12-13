@@ -460,11 +460,9 @@ function interpretMemoria(memoria, jsonObj, effectJson, hpThreshold=null)
 					if (effects[effectIndex].effect.endsWith("[100%]"))
 						effects[effectIndex].effect = effects[effectIndex].effect.split("100%]")[0];
 					else if (effects[effectIndex].effect.endsWith("]"))
-						effects[effectIndex].effect = effects[effectIndex].effect.split("]")[0] + " / ";
-					else
-						effects[effectIndex].effect = effects[effectIndex].effect + " [";
+						effects[effectIndex].effect = effects[effectIndex].effect.split("]")[0];
 
-					effects[effectIndex].effect += effects[effectIndex].times + (effects[effectIndex].times > 1 ? " Times" : " Time") + "]";
+					effects[effectIndex].effect += ' [' + effects[effectIndex].times + (effects[effectIndex].times > 1 ? " Times" : " Time") + "]";
 				}
 				
 				memoriaDesc += effects[effectIndex].effect;
@@ -492,9 +490,9 @@ function interpretMemoria(memoria, jsonObj, effectJson, hpThreshold=null)
 					if (effects[effectIndex].effect.endsWith("[100%]"))
 						effects[effectIndex].effect = effects[effectIndex].effect.split("100%]")[0];
 					else
-						effects[effectIndex].effect = effects[effectIndex].effect.split("]")[0] + " / ";
+						effects[effectIndex].effect = effects[effectIndex].effect.split("]")[0];
 
-					effects[effectIndex].effect += effects[effectIndex].times + (effects[effectIndex].times > 1 ? " Times" : " Time") + "]";
+					effects[effectIndex].effect += ' [' + effects[effectIndex].times + (effects[effectIndex].times > 1 ? " Times" : " Time") + "]";
 				}
 
 				if (memoria.type == "STARTUP")
@@ -747,11 +745,11 @@ function convertJSONString(jsonString, fileName="", downloadIndividually=null)
 				*/
 				var questbody = "{{Questbody";
 				
-				var showDiscs = document.getElementById("discs").value
+				var showDiscs = document.getElementById("discs").value;
 				if (showDiscs)
 				{
-					questbody += "|discs=Y"
-					var discNames = {MPUP: "Accele", CHARGE: "Charge", RANGE_H: "Blasth", RANGE_V: "Blastv", RANGE_B: "Blastb", RANGE_S: "Blasts"}
+					questbody += "|discs=Y";
+					var discNames = {MPUP: "Accele", CHARGE: "Charge", RANGE_H: "Blasth", RANGE_V: "Blastv", RANGE_B: "Blastb", RANGE_S: "Blasts"};
 				}
 
 				var enemies;
@@ -843,20 +841,19 @@ function convertJSONString(jsonString, fileName="", downloadIndividually=null)
 				|Num1E=2|1E={{FieldEffects|1E=Damage Up Versus Enemies Affected With Status Ailments [80%]|1A=All|2E=Status Ailment Resistance Down [50%]|2A=All}}
 				|Num1P=3|1P={{FieldEffects|1E=Damage Up Versus Enemies Affected With Status Ailments [50%]|1A=All|2E=Status Ailment Resistance Down [300%]|2A=All|3E=MP Gain Down [200%]|3A=Flame|3A2=Aqua|3A3=Forest|3A4=Dark}}}}
 				*/
-
-				var fieldEffects = ""
+				var fieldEffects = "";
 				if (jsonObj.fieldArtList != undefined)
 				{
-					var [enemyFieldEffects, playerFieldEffects] = [...getFieldEffects(jsonObj.fieldArtList)]
-					var enemyFieldEffectWaves = {1: [], 2: [], 3: [], 4: [], 5: [], 6: [], 7: [], 8: [], 9: []}
-					var playerFieldEffectWaves = {1: [], 2: [], 3: [], 4: [], 5: [], 6: [], 7: [], 8: [], 9: []}
+					var [enemyFieldEffects, playerFieldEffects] = [...getFieldEffects(jsonObj.fieldArtList)];
+					var enemyFieldEffectWaves = {1: [], 2: [], 3: [], 4: [], 5: [], 6: [], 7: [], 8: [], 9: []};
+					var playerFieldEffectWaves = {1: [], 2: [], 3: [], 4: [], 5: [], 6: [], 7: [], 8: [], 9: []};
 					for (var i = 0; i < enemyFieldEffects.length; i++)
 					{
-						enemyFieldEffectWaves[enemyFieldEffects[i][2]].push(enemyFieldEffects[i])
+						enemyFieldEffectWaves[enemyFieldEffects[i][2]].push(enemyFieldEffects[i]);
 					}
 					for (var i = 0; i < playerFieldEffects.length; i++)
 					{
-						playerFieldEffectWaves[playerFieldEffects[i][2]].push(playerFieldEffects[i])
+						playerFieldEffectWaves[playerFieldEffects[i][2]].push(playerFieldEffects[i]);
 					}
 
 					var fieldEffects = "{{FieldEffectsBox|Waves=" + Object.keys(jsonObj.waveList).length;
@@ -864,9 +861,9 @@ function convertJSONString(jsonString, fileName="", downloadIndividually=null)
 						{
 						if (enemyFieldEffectWaves[waveIndex].length > 0)
 							{
-							var prevEffect = ""
-							var prevNum = 0
-							var consecutiveIdentical = 2
+							var prevEffect = "";
+							var prevNum = 0;
+							var consecutiveIdentical = 2;
 							fieldEffects += "\n|" + waveIndex + "E={{FieldEffects";
 							for (var i = 0; i < enemyFieldEffectWaves[waveIndex].length; i++)
 								{
@@ -875,24 +872,24 @@ function convertJSONString(jsonString, fileName="", downloadIndividually=null)
 									if (prevEffect == memoriaDesc)
 									{
 										fieldEffects += "|" + prevNum + "A" + consecutiveIdentical + "=" + translateAlign(enemyFieldEffectWaves[waveIndex][i][1]);
-										consecutiveIdentical++
+										consecutiveIdentical++;
 									}
 									else
 									{
-										consecutiveIdentical = 2
-										prevNum++
+										consecutiveIdentical = 2;
+										prevNum++;
 										fieldEffects += "|" + String(i + 1) + "E=";
 										fieldEffects += memoriaDesc + "|" + String(i + 1) + "A=" + translateAlign(enemyFieldEffectWaves[waveIndex][i][1]);
 									}
 								}
-							fieldEffects += "}}|Num" + waveIndex + "E=" + prevNum
+							fieldEffects += "}}|Num" + waveIndex + "E=" + prevNum;
 							}
 							
 							if (playerFieldEffectWaves[waveIndex].length > 0)
 								{
-								var prevEffect = ""
-								var prevNum = 0
-								var consecutiveIdentical = 2
+								var prevEffect = "";
+								var prevNum = 0;
+								var consecutiveIdentical = 2;
 								fieldEffects += "\n|" + waveIndex + "P={{FieldEffects";
 								for (var i = 0; i < playerFieldEffectWaves[waveIndex].length; i++)
 									{
@@ -901,21 +898,21 @@ function convertJSONString(jsonString, fileName="", downloadIndividually=null)
 										if (prevEffect == memoriaDesc)
 										{
 											fieldEffects += "|" + prevNum + "A" + consecutiveIdentical + "=" + translateAlign(playerFieldEffectWaves[waveIndex][i][1]);
-											consecutiveIdentical++
+											consecutiveIdentical++;
 										}
 										else
 										{
-											consecutiveIdentical = 2
-											prevNum++
-											prevEffect = memoriaDesc
+											consecutiveIdentical = 2;
+											prevNum++;
+											prevEffect = memoriaDesc;
 											fieldEffects += "|" + String(i + 1) + "E=";
 											fieldEffects += memoriaDesc + "|" + String(i + 1) + "A=" + translateAlign(playerFieldEffectWaves[waveIndex][i][1]);
 										}
 									}
-								fieldEffects += "}}|Num" + waveIndex + "P=" + prevNum
+								fieldEffects += "}}|Num" + waveIndex + "P=" + prevNum;
 								}
 							}
-					fieldEffects += "\n}}"
+					fieldEffects += "\n}}";
 				}
 
 				/* Example:
@@ -923,7 +920,6 @@ function convertJSONString(jsonString, fileName="", downloadIndividually=null)
 				|{{Skills|Rumor of the Memory Curator|P1=Ignore Damage Cut [100%]|A1=Attack Down [35%] & Darkness (One / 1 Turn)|A1f=Every 2 turns}}
 				}}
 				*/
-				
 				var enemySkills = "{{EnemySkills";
 				enemies = [];
 				
@@ -1145,7 +1141,7 @@ function convertJSONString(jsonString, fileName="", downloadIndividually=null)
         }
     }
 
-    <!--https://magireco.fandom.com/api.php?action=expandtemplates&format=json&text=%7B%7BTemplate%3ADrops%7CStanding%20Ear%20Wrapper%7D%7D-->
+    //<!--https://magireco.fandom.com/api.php?action=expandtemplates&format=json&text=%7B%7BTemplate%3ADrops%7CStanding%20Ear%20Wrapper%7D%7D-->
     /*var apiEndpoint = "https://magireco.fandom.com/api.php";
     var params = "action=parse&format=json&text=" + document.getElementById("resultText").value;
 

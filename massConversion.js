@@ -206,7 +206,7 @@ function tabberCombinePersonal(downloadIndividually, char) {
     {
       quest++
       var questText = quests[char][i]
-      if (questText == quests[char][i+1]) {
+      if (quest == 1 & questText == quests[char][i+1]) {
         i++
         quest++
         output += 'Battles 1-2=\n<div style="display:none">'
@@ -233,7 +233,7 @@ function tabberCombinePersonal(downloadIndividually, char) {
       if (quest==3) {
         if (set == 1) {
           output += '\n}}\n{{{!}} class="article-table" style="width:100%; border: solid pink 2px"\n! style="width:15%; text-align:center"{{!}}Section Clear\n'
-          if (char.includes("ver.") || char.includes("&"))
+          if (char.includes("ver.") || char.includes("&") || char.includes("-chan") || char.includes("-senpai"))
           {
             output += '{{!}} style="width:85%; text-align:center" {{!}}{{Inum|Magia Stone|5}}\n{{!}}}'
           }
@@ -253,7 +253,14 @@ function tabberCombinePersonal(downloadIndividually, char) {
         }
         else if (set == 3) {
           output += '\n}}\n{{{!}} class="article-table" style="width:100%; border: solid pink 2px"\n! style="width:15%; text-align:center" {{!}}Section Clear\n'
+          if (char.includes("-chan") || char.includes("-senpai"))
+          {
+            output += '{{!}} style="width:85%; text-align:center" {{!}}{{Inum|Magia Stone|5}}\n{{!}}}'
+          }
+          else
+          {
           output += '{{!}} style="width:85%; text-align:center" {{!}}{{MemoPic|}}\n{{!}}}\n'
+          }
           if (quests[char][i+1]) {
             if (char.includes(" ")) {
               if (char.includes('&'))

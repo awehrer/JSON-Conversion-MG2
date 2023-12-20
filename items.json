@@ -131,6 +131,7 @@
   "EVENT_DAILYTOWER_1194_KEY": "Remnants of Summer",
   "EVENT_DAILYTOWER_1196_KEY": "Record of Magical Girls",
   "EVENT_DAILYTOWER_1200_KEY": "Shopping Street Raffle Ticket",
+  "EVENT_DAILYTOWER_1205_KEY": "Mistaken Present",
   "EVENT_DAILYTOWER_1197_EXCHANGE_1": "Dearest Ancient Wish",
   "EVENT_DAILYTOWER_1179_EXCHANGE_1": "Some Day's Time Capsule",
   "EVENT_SINGLERAID_1175_EXCHANGE_1": "King Pumpkin Candy",
@@ -174,5 +175,7 @@
   "ITEM_EVENT_DAILYTOWER_1199_EXCHANGE_1": "Feeling of Welcoming",
   "ITEM_EVENT_DAILYTOWER_1200_EXCHANGE_1": "Shopping Receipt",
   "ITEM_EVENT_DAILYTOWER_1201_EXCHANGE_1": "Sweets & Cafe Lyco Reco Discount Ticket",
-  "ITEM_EVENT_DAILYTOWER_1203_EXCHANGE_1": "Lantern Coin"
+  "ITEM_EVENT_DAILYTOWER_1203_EXCHANGE_1": "Lantern Coin",
+  "EVENT_DAILYTOWER_1205_EXCHANGE_1": "Unforgettable Memory",
+  "ITEM_EVENT_DAILYTOWER_1205_EXCHANGE_1": "Unforgettable Memory"
 }

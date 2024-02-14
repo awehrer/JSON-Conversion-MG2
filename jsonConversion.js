@@ -187,7 +187,7 @@ function getArtById(id, jsonObj)
 	return null;
 }
 
-function interpretArt(art, jsonObj, effectJson)
+function interpretArt(art, jsonObj, effectJson, level=1)
 {
 	var effect = null;
 	var effectName = null;
@@ -195,6 +195,11 @@ function interpretArt(art, jsonObj, effectJson)
 	var target = null;
 	var damageEffect = false;
 	
+	if (art.sub == "AVOID" || art.sub == "PURSUE" || art.sub == "DEFENSE_IGNORED" || art.sub == "COUNTER" || art.sub == "PROVOKE" || art.sub == "CRITICAL" || art.sub == "GUTS" || art.sub == "SKILL_QUICK" || art.sub == "IMITATE_ATTRIBUTE")
+		art.rate += ((level - 1) * art.growPoint);
+	else
+		art.effect += ((level - 1) * art.growPoint);
+
 	switch (art.code)
 	{
 		case "ATTACK":
@@ -244,6 +249,8 @@ function interpretArt(art, jsonObj, effectJson)
 				effectName += effectJson[art.sub] + " [" + (art.effect) + "]";
 			else if (art.sub == "REFLECT_DEBUFF")
 				effectName += effectJson[art.sub] + " [" + (art.effect) + " Debuffs]";
+			else if (art.sub == "MP_PLUS_BLAST")
+				effectName += effectJson[art.sub] + " [" + (art.effect) + " MP]";
 			else
 				effectName += effectJson[art.sub] + " [" + (art.rate != 1000 ? "" + (art.rate / 10) + "% chance / " : "") + (art.effect / 10) + "%]";
 			break;
@@ -625,23 +632,23 @@ function formatThresholds(thresholds)
 	return thresholdsFormatted;
 }
 
-function interpretMagia(magia, jsonObj, effectJson)
+function interpretMagia(magia, jsonObj, effectJson, Doppel=false)
 {
 	var effects = [];
 	var artDesc;
 	var magiaDesc = "";
 	var artJsonObj;
 	
-	if (magia.level > 1)
+	if (magia.level > 1 && !Doppel)
 		magiaDesc += "[WARNING: Magia level > 1]"; // assuming all enemies are magia level 1 unless this is triggered
 	
 	for (var artIndex = 0; artIndex < magia.artList.length; artIndex++)
 	{
-		artJsonObj = getArtById(magia.artList[artIndex], jsonObj)
+		artJsonObj = getArtById(magia.artList[artIndex], jsonObj);
 		
 		if (artJsonObj.sub != "DUMMY")
 		{
-			artDesc = interpretArt(artJsonObj, jsonObj, effectJson);
+			artDesc = interpretArt(artJsonObj, jsonObj, effectJson, magia.level);
 			if (artDesc.effect.startsWith("Anti-Debuff") || artDesc.effect.startsWith("Negate Status Ailments") || artDesc.effect.startsWith("Skill Quicken"))
 			{
 				var found = false;
@@ -946,8 +953,8 @@ function convertJSONString(jsonString, fileName="", downloadIndividually=null)
 				var memoriaDesc;
 				var magia;
 				var magiaDesc;
-				//var doppel;
-				//var doppelDesc;
+				var doppel;
+				var doppelDesc;
 				var numPassives;
 				var numSkills;
 				var hpThreshold;
@@ -995,10 +1002,9 @@ function convertJSONString(jsonString, fileName="", downloadIndividually=null)
 					// Not sure if used for enemies
 					if (enemies[i].doppelId != undefined)
 					{
-						//doppel = getDoppelById(enemies[i].doppelId, jsonObj);
-						//doppelDesc = interpretDoppel(doppel, jsonObj, effectJson);
-						//enemySkills += "|Doppel=" + doppelDesc;
-						enemySkills += "|Doppel=" + enemies[i].doppelId;
+						doppel = getDoppelById(enemies[i].doppelId, jsonObj);
+						doppelDesc = interpretMagia(doppel, jsonObj, effectJson, true);
+						enemySkills += "|Doppel=" + doppelDesc;
 					}
 					
 					enemySkills += "}}";

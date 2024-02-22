@@ -370,8 +370,12 @@ function interpretArt(art, jsonObj, effectJson, level=1)
 	{
 		target = undefined;
 	}
-	
-	return {"effect": effectName, "turn": turn, "target": target, "times": 1};
+	if (art.sub == "DAMAGE_UP_BAD_NUM")
+		var frailty = " / " + (art.effect / 10) + "% Per Ailment";
+	else
+		var frailty = "";
+
+	return {"effect": effectName, "turn": turn, "target": target, "times": 1, "frailty": frailty};
 }
 
 function interpretMemoria(memoria, jsonObj, effectJson, hpThreshold=null)
@@ -509,7 +513,7 @@ function interpretMemoria(memoria, jsonObj, effectJson, hpThreshold=null)
 				}
 				else
 				{
-					memoriaDesc += effects[effectIndex].effect + " (" + effects[effectIndex].target + (effects[effectIndex].turn > 0 ? " / " + effects[effectIndex].turn + (effects[effectIndex].turn == 1 ? " Turn" : " Turns") : "") + ")";
+					memoriaDesc += effects[effectIndex].effect + " (" + effects[effectIndex].target + (effects[effectIndex].turn > 0 ? " / " + effects[effectIndex].turn + (effects[effectIndex].turn == 1 ? " Turn" : " Turns") : "") + effects[effectIndex].frailty + ")";
 				}
 				
 				if (effectIndex < effects.length - 1)
@@ -688,7 +692,7 @@ function interpretMagia(magia, jsonObj, effectJson, Doppel=false)
 		
 		if (effects[effectIndex].target != undefined)
 		{
-			magiaDesc += effects[effectIndex].effect + " (" + effects[effectIndex].target + (effects[effectIndex].turn > 0 ? " / " + effects[effectIndex].turn + (effects[effectIndex].turn == 1 ? " Turn" : " Turns") : "") + ")";
+			magiaDesc += effects[effectIndex].effect + " (" + effects[effectIndex].target + (effects[effectIndex].turn > 0 ? " / " + effects[effectIndex].turn + (effects[effectIndex].turn == 1 ? " Turn" : " Turns") : "") + effects[effectIndex].frailty + ")";
 		}
 		else
 		{

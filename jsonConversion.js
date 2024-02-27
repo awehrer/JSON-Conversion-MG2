@@ -250,7 +250,7 @@ function interpretArt(art, jsonObj, effectJson, level=1)
 			else if (art.sub == "REFLECT_DEBUFF")
 				effectName += effectJson[art.sub] + " [" + (art.effect) + " Debuffs]";
 			else if (art.sub == "MP_PLUS_BLAST")
-				effectName += effectJson[art.sub] + " [" + (art.effect) + " MP]";
+				effectName += effectJson[art.sub] + " [" + (art.effect / 10) + " MP]";
 			else
 				effectName += effectJson[art.sub] + " [" + (art.rate != 1000 ? "" + (art.rate / 10) + "% chance / " : "") + (art.effect / 10) + "%]";
 			break;
